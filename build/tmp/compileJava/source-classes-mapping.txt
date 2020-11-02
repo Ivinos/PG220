@@ -1,0 +1,20 @@
+repere/formes/Triangle.java
+ repere.formes.Triangle
+repere/HorsRepereException.java
+ repere.HorsRepereException
+repere/formes/Cercle.java
+ repere.formes.Cercle
+repere/Axe.java
+ repere.Axe
+repere/Repere.java
+ repere.Repere
+repere/formes/Point.java
+ repere.formes.Point
+repere/Couleur.java
+ repere.Couleur
+repere/ElementRepere.java
+ repere.ElementRepere
+repere/ElementAvecCouleur.java
+ repere.ElementAvecCouleur
+repere/formes/Segment.java
+ repere.formes.Segment

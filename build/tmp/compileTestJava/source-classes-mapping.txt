@@ -1,0 +1,16 @@
+repere/TestPoint.java
+ repere.TestPoint
+repere/TestCouleur.java
+ repere.TestCouleur
+repere/TestAxe.java
+ repere.TestAxe
+repere/AllTests.java
+ repere.AllTests
+repere/TestRepere.java
+ repere.TestRepere
+repere/TestTriangle.java
+ repere.TestTriangle
+repere/TestCercle.java
+ repere.TestCercle
+repere/TestSegment.java
+ repere.TestSegment

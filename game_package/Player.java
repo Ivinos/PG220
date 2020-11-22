@@ -1,3 +1,5 @@
+package game_package;
+
 public class Player{
 
   private String name; // name of the player

@@ -1,9 +1,9 @@
-package affichage;
+package game_package;
 
-import Grille;
+import Grid;
 import Menu;
 
-public class Jeu extends Menu{
+public class Game extends Menu{
 
     public static void main(String[] args) {
       display_menu();

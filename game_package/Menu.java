@@ -9,6 +9,7 @@ cette fois passer par l’intermédiaire de la machine virtuelle Java, avec la
 commande suivante java Main.
 
 */
+package game_package;
 
 import java.io.Console;
 

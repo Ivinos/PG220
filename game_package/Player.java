@@ -3,9 +3,9 @@ package game_package;
 public class Player{
 
   private String name; // name of the player
-  private String type; // type of the player (human/IA)
+  private int type; // type of the player (human/IA)
 
-  public Player(String name, String type){
+  public Player(String name, int type){
     this.name = name;
     this.type = type;
   }
@@ -14,7 +14,7 @@ public class Player{
     return name;
   }
 
-  public String getType(){
+  public int getType(){
     return type;
   }
 
@@ -22,7 +22,7 @@ public class Player{
     this.name = name;
   }
 
-  public void setType(String type){
+  public void setType(int type){
     this.type = type;
   }
 

@@ -10,14 +10,20 @@ commande suivante java Main.
 
 */
 import interface_package.Display;
+import game_package.Grid;
 
 public class Menu{ //extends Player{
 
     // interface_package.Display display = new interface_package.Display(); // Pour essayer de raccourcir le nom..
 
 
-    public static void main(String[] args) {
-        interface_package.Display.display_menu();
+    public static void main(String[] args){
+      int width = 6;
+      int height = 7;
+      int[] aaa;
+      aaa = interface_package.Display.display_menu();
+      Grid grid = new Grid(width, height);
+      interface_package.Display.display_grid(grid.values);
     }
 
 }

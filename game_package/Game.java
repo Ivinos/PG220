@@ -3,6 +3,7 @@ package game_package;
 import java.io.Console;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Collection;
 
 public class Game{
 
@@ -76,11 +77,87 @@ public class Game{
           break;
         }
       }
+        // System.out.println("Error : column is full. Please choose another column");
 
-      // System.out.println("Error : column is full. Please choose another column");
-
-      // return grid;
+        // return grid;
     }
+
+    // Vérifie si le dernier coup permet la victoire ou non
+    int victory_check(Grid grid, int last_i, int last_j){ // i -> width, j -> height
+        int[width] vertical;
+        int[height] horizontal;
+        int len_diag = 1;
+        int len_anti_diag = 1;
+        List<int> diagonal = new ArrayList<int>();
+        List<int> anti_diagonal = new ArrayList<int>();
+
+        diagonal.add(grid.values[last_i][last_j]);
+        anti_diagonal.add(grid.values[last_i][last_j]);
+
+        // On remplit diagonale
+        int tmp_i = last_i; int tmp_j = last_j;
+        while((tmp_i != 0) ||(tmp_j != height+1)){
+            tmp_i--; tmp_j++;
+            diagonal.add(grid.values[tmp_i][tmp_j]);
+            len_diag++;
+        }
+        int tmp_i = last_i; tmp_j ) last_j;
+        while((tmp_i != width+1) ||(tmp_j != 0)){
+            tmp_i++; tmp_j--;
+            diagonal.add(0, grid.values[tmp_i][tmp_j]);
+            len_diag++;
+        }
+
+        // On remplit l'anti diagonale
+        int tmp_i = last_i; int tmp_j = last_j;
+        while((tmp_i != width+1) ||(tmp_j != height+1)){
+            tmp_i++; tmp_j++;
+            diagonal.add(grid.values[tmp_i][tmp_j]);
+            len_anti_diag++;
+        }
+        int tmp_i = last_i; tmp_j ) last_j;
+        while((tmp_i != 0) ||(tmp_j != 0)){
+            tmp_i--; tmp_j--;
+            diagonal.add(0, grid.values[tmp_i][tmp_j]);
+            len_anti_diag++;
+        }
+
+        // On remplit vertical et horizontal
+        for(int i = 0; i<width; i++){
+            vertical[i] = grid.values[i][last_j];
+        }
+        for(int i = 0; i<height; i++){
+            horizontal[i] = grid.values[last_i][i];
+        }
+
+        if(array_check(vertical, width)){
+            return 1; // Victoire
+        } else if(array_check(horizontal, height)){
+            return 1; // Victoire
+        } else if(array_check(diagonal, len_diag)){
+            return 1; // Victoire
+        } else if(array_check(anti_diagonal, len_anti_diag)){
+            return 1; // Victoire
+        }
+        return 0; // Pas encore de victoire
+    }
+
+    int array_check(int[] array, int length){
+        int count = 0;
+        int max = length - 4;
+
+        for(int i = 0, i<=max, i++){
+            for(int j = 0, j<4, j++){
+                count += array[i+j];
+            }
+            if ((count == -4) || (count == 4)){
+                return 1; // Victoire
+            }
+        }
+        return 0; // Pas encore de victoire
+    }
+
+
 
 
     // Méthodes

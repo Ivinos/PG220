@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Ia extends Player{
 
-  public Ia(String name, int type){
-    super(name, type);
+  public Ia(String name){
+    super(name);
   }
 
   public static int getRandomNumber(int min, int max) throws IllegalArgumentException {

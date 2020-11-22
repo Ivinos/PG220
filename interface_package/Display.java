@@ -4,7 +4,7 @@ import java.io.Console;
 
 public class Display{
 
-    public static int[] display_menu(){
+    public static String[] display_menu(){
         Console console = System.console();
         String s = new String("Bienvenue au puissance 4 !\n");
         String s1 = new String("Joueur 1?");
@@ -35,7 +35,7 @@ public class Display{
 
         // b = s.startsWith("Hello"); // Test si la chaîne commence par une chaîne bien particulière
         // System.out.println(b);
-        int[] res = {buf1[1], 1, buf2[1], 2};
+        String[] res = {buf1[1], "1", buf2[1], "2"};
         return res;
     }
 

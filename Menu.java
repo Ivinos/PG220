@@ -11,6 +11,7 @@ commande suivante java Main.
 */
 import interface_package.Display;
 import game_package.Grid;
+import game_package.Game;
 
 public class Menu{ //extends Player{
 
@@ -20,10 +21,13 @@ public class Menu{ //extends Player{
     public static void main(String[] args){
       int width = 6;
       int height = 7;
-      int[] aaa;
-      aaa = interface_package.Display.display_menu();
-      Grid grid = new Grid(width, height);
-      interface_package.Display.display_grid(grid.values);
+      String[] input_players;
+      input_players = interface_package.Display.display_menu();
+
+      Game game = new Game(input_players, width, height);
+
+      game.play();
+
     }
 
 }

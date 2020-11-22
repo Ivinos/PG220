@@ -12,33 +12,59 @@ commande suivante java Main.
 
 import java.io.Console;
 
-public class Menu {
+public class Menu{ //extends Player{
 
-    public static void set_menu(){
+
+    public static String[] check_buffer(String buf){
+      Console console = System.console();
+      String[] res;
+      String parameter = " ";
+      res = buf.split(parameter);
+
+      while (res.length != 2 || true == res[1].contentEquals(" ")){
+        System.out.print("Error : please enter <type> <pseudo> : ");
+        res = console.readLine().split(parameter);
+      }
+
+      return res;
+    }
+
+
+    public static void display_menu(){
         Console console = System.console();
+        String s = new String("Bienvenue au puissance 4 !\n");
+        String s1 = new String("Joueur 1?");
+        String s2 = new String("Joueur 2?");
 
-        String s;
-        String input1 = "";
-        String input2 = "";
+        String[] buf1;
+        String[] buf2;
+        String name1 = "";
+        String name2 = "";
+        String type1 = "";
+        String type2 = "";
 
-        s = new String("Bienvenue au puissance 4 !\n");
 
         System.out.println(s);
 
-        System.out.println("Joueur 1?");
-        input1 = console.readLine();
+        System.out.println(s1);
+        buf1 = check_buffer(console.readLine());
+        type1 = buf1[0];
+        name1 = buf1[1];
 
-        System.out.println("Joueur 2?");
-        input2 = console.readLine();
 
-        System.out.println("Joueur 1 est "+input1+" et Joueur 2 est "+input2);
+        System.out.println(s2);
+        buf2 = check_buffer(console.readLine());
+        type2 = buf2[0];
+        name2 = buf2[1];
+
+        System.out.println("Joueur 1 est <"+name1+"> (type : '"+type1+"') et Joueur 2 est <"+name2+ "> (type : '"+type2+"')");
 
         // b = s.startsWith("Hello"); // Test si la chaîne commence par une chaîne bien particulière
         // System.out.println(b);
     }
 
     public static void main(String[] args) {
-        set_menu();
+        display_menu();
     }
 
 }

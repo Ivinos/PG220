@@ -95,7 +95,7 @@ public class Game{
     // Méthodes
     public void play(){
         int i = 1; // player 1 starts playing
-        int position;
+        int position = 0;
         int win1 = 0, win2 = 0;
         String buffer;
         Console console = System.console();
@@ -108,11 +108,11 @@ public class Game{
              if (i == 1){
                buffer = console.readLine();
 
-               // if (buffer.equals("sortir")){
-               //   System.out.println("You quit the game");
-               //   System.exit(0);
-               // }
-               // else{
+               if (buffer.equals("sortir")){
+                 System.out.println("You quit the game");
+                 System.exit(0);
+               }
+               else{
                  position = Integer.parseInt(buffer);
                  while (position < 1 || position > 7){
                    System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
@@ -120,7 +120,7 @@ public class Game{
                    position = Integer.parseInt(console.readLine());  // rajouter des conditions de test
                    System.out.println("");
                  }
-               // }
+               }
              }
              else
                position = getRandomNumber(1,7);

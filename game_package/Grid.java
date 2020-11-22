@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Grid {
 
+    // Constructeur
     public static void set_grid(int[][] grid, int width, int height){
 
         // Grid initialization

@@ -13,7 +13,7 @@ import interface_package.Display;
 
 public class Menu{ //extends Player{
 
-    // interface_package.Display display = new interface_package.Display();
+    // interface_package.Display display = new interface_package.Display(); // Pour essayer de raccourcir le nom..
 
 
     public static void main(String[] args) {

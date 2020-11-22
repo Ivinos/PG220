@@ -3,7 +3,7 @@ package game_package;
 import java.io.Console;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Collection;
+import java.util.ArrayList;
 
 public class Game{
 
@@ -92,42 +92,51 @@ public class Game{
     }
 
     // Vérifie si le dernier coup permet la victoire ou non
-    int victory_check(Grid grid, int last_i, int last_j){ // i -> width, j -> height
-        int[width] vertical;
-        int[height] horizontal;
+    int victory_check(Grid grid, int last_j){ // i -> width, j -> height
+        int width = grid.width;
+        int height = grid.height;
+        int last_i = 0; // Recherche de la coordonné i du dernier coup
+        while(grid.values[last_i][last_j] == 0){
+            last_i++;
+        }
+
+        int vertical[] = new int[width];
+        int horizontal[] = new int[height];
         int len_diag = 1;
         int len_anti_diag = 1;
-        List<int> diagonal = new ArrayList<int>();
-        List<int> anti_diagonal = new ArrayList<int>();
+        ArrayList<Integer> diagonal_t = new ArrayList<Integer>();
+        ArrayList<Integer> anti_diagonal_t = new ArrayList<Integer>();
 
-        diagonal.add(grid.values[last_i][last_j]);
-        anti_diagonal.add(grid.values[last_i][last_j]);
+        diagonal_t.add(grid.values[last_i][last_j]);
+        anti_diagonal_t.add(grid.values[last_i][last_j]);
 
         // On remplit diagonale
         int tmp_i = last_i; int tmp_j = last_j;
-        while((tmp_i != 0) ||(tmp_j != height+1)){
+        diagonal_t.add(grid.values[tmp_i][tmp_j]); // On ajoute la position jouée
+        while((tmp_i-- < 0) || (tmp_j++ > height-1)){ // Je regarde si la case suivante est possible
+            diagonal_t.add(grid.values[tmp_i][tmp_j]);
             tmp_i--; tmp_j++;
-            diagonal.add(grid.values[tmp_i][tmp_j]);
             len_diag++;
         }
-        int tmp_i = last_i; tmp_j ) last_j;
-        while((tmp_i != width+1) ||(tmp_j != 0)){
+        tmp_i = last_i; tmp_j = last_j; // On les réinitialise
+        while((tmp_i++ > width-1) ||(tmp_j-- < 0)){
+            diagonal_t.add(0, grid.values[tmp_i][tmp_j]);
             tmp_i++; tmp_j--;
-            diagonal.add(0, grid.values[tmp_i][tmp_j]);
             len_diag++;
         }
 
         // On remplit l'anti diagonale
-        int tmp_i = last_i; int tmp_j = last_j;
-        while((tmp_i != width+1) ||(tmp_j != height+1)){
+        tmp_i = last_i; tmp_j = last_j; // On les réinitialise
+        diagonal_t.add(grid.values[tmp_i][tmp_j]); // On ajoute la position jouée
+        while((tmp_i++ > width-1) ||(tmp_j++ > height-1)){
+            diagonal_t.add(grid.values[tmp_i][tmp_j]);
             tmp_i++; tmp_j++;
-            diagonal.add(grid.values[tmp_i][tmp_j]);
             len_anti_diag++;
         }
-        int tmp_i = last_i; tmp_j ) last_j;
-        while((tmp_i != 0) ||(tmp_j != 0)){
+        tmp_i = last_i; tmp_j = last_j; // On les réinitialise
+        while((tmp_i-- < 0) ||(tmp_j-- < 0)){
+            diagonal_t.add(0, grid.values[tmp_i][tmp_j]);
             tmp_i--; tmp_j--;
-            diagonal.add(0, grid.values[tmp_i][tmp_j]);
             len_anti_diag++;
         }
 
@@ -139,13 +148,26 @@ public class Game{
             horizontal[i] = grid.values[last_i][i];
         }
 
-        if(array_check(vertical, width)){
+        // On remet diag et anti_diag sous forme de vraie liste
+        int diagonal[] = new int[len_diag];
+        int anti_diagonal[] = new int[len_anti_diag];
+        for (int i = 0; i<len_diag; i++){
+            diagonal[i] = diagonal_t.get(i);
+        }
+        for (int i = 0; i<len_anti_diag; i++){
+            anti_diagonal[i] = anti_diagonal_t.get(i);
+        }
+
+        // Vérifier ici les listes qu'on donnent à checker
+
+        // On vérifie chaque liste
+        if(array_check(vertical, width) == 1){
             return 1; // Victoire
-        } else if(array_check(horizontal, height)){
+        } else if(array_check(horizontal, height) == 1){
             return 1; // Victoire
-        } else if(array_check(diagonal, len_diag)){
+        } else if(array_check(diagonal, len_diag) == 1){
             return 1; // Victoire
-        } else if(array_check(anti_diagonal, len_anti_diag)){
+        } else if(array_check(anti_diagonal, len_anti_diag) == 1){
             return 1; // Victoire
         }
         return 0; // Pas encore de victoire
@@ -155,8 +177,8 @@ public class Game{
         int count = 0;
         int max = length - 4;
 
-        for(int i = 0, i<=max, i++){
-            for(int j = 0, j<4, j++){
+        for(int i = 0; i<=max; i++){
+            for(int j = 0; j<4; j++){
                 count += array[i+j];
             }
             if ((count == -4) || (count == 4)){
@@ -165,7 +187,7 @@ public class Game{
         }
         return 0; // Pas encore de victoire
     }
-    
+
 
     // Méthodes
     public void play(){
@@ -203,8 +225,21 @@ public class Game{
              System.out.println("");
              getGrid().values = update_grid(getGrid().values, position, i);
              interface_package.Display.display_grid(getGrid().values);
+             if(victory_check(grid, position-1) == 1){ // -1 Car index en java commence à 0
+                 if(i == 1){
+                     win1 = 1;
+                 } else {
+                     win2 = 1;
+                 }
+             }
              i++;
-           }
+        }
+        if(win1 == 1){
+            System.out.println("Player 1 won");
+        } else {
+            System.out.println("Player 2 won");
+        }
+
     }
 
   public static void main(String[] args) {

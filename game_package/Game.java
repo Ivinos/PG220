@@ -61,25 +61,34 @@ public class Game{
     }
 
     // Update the grid after a turn
-    public static void update_grid(int[][] grid, int position, int player){
+    public static int[][] update_grid(int[][] grid, int position, int player){
+      int valid = 0;
+      Console console = System.console();
+
       player = which_player(player);            // define which is player's turn (player 1 or player 2 ?)
 
-      for(int k = 0; k<6; k++){
-        if (grid[5-k][position-1] == 0){        // if cell [position][k] is empty
-          if (player == 1)
-            grid[5-k][position-1] = -1;
-          else
-            grid[5-k][position-1] = 1;
-          int abs = 5-k+1;
-          int ord = position-1+1;
-          // System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
-          // return grid;
-          break;
-        }
-      }
-        // System.out.println("Error : column is full. Please choose another column");
+      while (valid == 0){
 
-        // return grid;
+          for(int k = 0; k<6; k++){
+              if (grid[5-k][position-1] == 0){ // if cell [position][k] is empty
+                  if (player == 1)
+                      grid[5-k][position-1] = -1;
+                  else
+                      grid[5-k][position-1] = 1;
+
+                  int abs = 5-k+1;
+                  int ord = position-1+1;
+                  valid = 1;
+                  System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
+                  return grid;
+              }
+          }
+
+          System.out.println("Error : column is full. Please choose another column");
+          position = Integer.parseInt(console.readLine());
+          System.out.println("");
+      }
+      return grid;
     }
 
     // Vérifie si le dernier coup permet la victoire ou non
@@ -156,14 +165,12 @@ public class Game{
         }
         return 0; // Pas encore de victoire
     }
-
-
-
+    
 
     // Méthodes
     public void play(){
         int i = 1; // player 1 starts playing
-        int position;
+        int position = 0;
         int win1 = 0, win2 = 0;
         String buffer;
         Console console = System.console();
@@ -176,11 +183,11 @@ public class Game{
              if (i == 1){
                buffer = console.readLine();
 
-               // if (buffer.equals("sortir")){
-               //   System.out.println("You quit the game");
-               //   System.exit(0);
-               // }
-               // else{
+               if (buffer.equals("sortir")){
+                 System.out.println("You quit the game");
+                 System.exit(0);
+               }
+               else{
                  position = Integer.parseInt(buffer);
                  while (position < 1 || position > 7){
                    System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
@@ -188,13 +195,13 @@ public class Game{
                    position = Integer.parseInt(console.readLine());  // rajouter des conditions de test
                    System.out.println("");
                  }
-               // }
+               }
              }
              else
                position = getRandomNumber(1,7);
 
              System.out.println("");
-             update_grid(getGrid().values, position, i);
+             getGrid().values = update_grid(getGrid().values, position, i);
              interface_package.Display.display_grid(getGrid().values);
              i++;
            }

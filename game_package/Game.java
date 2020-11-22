@@ -4,6 +4,8 @@ import java.io.Console;
 import java.util.Random;
 import java.util.Scanner;
 
+import interface_package.*;
+
 public class Game{
 
     // Attributs
@@ -94,46 +96,41 @@ public class Game{
 
     // Méthodes
     public void play(){
-        int i = 1; // player 1 starts playing
-        int position = 0;
-        int win1 = 0, win2 = 0;
-        String buffer;
-        Console console = System.console();
+      int i = 1; // player 1 starts playing
+      int position = 0;
+      int win1 = 0, win2 = 0;
+      String buffer;
+      Console console = System.console();
 
         interface_package.Display.display_grid(getGrid().values);
 
-        while(win1 != 1 || win2 != 1){
-             i = which_player(i);
+      while(win1 != 1 || win2 != 1){
+         i = which_player(i);
 
-             if (i == 1){
-               buffer = console.readLine();
+         if (i == 1){
+           buffer = console.readLine();
 
-               if (buffer.equals("sortir")){
-                 System.out.println("You quit the game");
-                 System.exit(0);
-               }
-               else{
-                 position = Integer.parseInt(buffer);
-                 while (position < 1 || position > 7){
-                   System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
-                   // position = position.next();
-                   position = Integer.parseInt(console.readLine());  // rajouter des conditions de test
-                   System.out.println("");
-                 }
-               }
-             }
-             else
-               position = getRandomNumber(1,7);
-
-             System.out.println("");
-             getGrid().values = update_grid(getGrid().values, position, i);
-             interface_package.Display.display_grid(getGrid().values);
-             i++;
+           if (buffer.equals("sortir")){
+             System.out.println("You quit the game");
+             System.exit(0);
            }
+           else{
+             position = Integer.parseInt(buffer);
+             while (position < 1 || position > 7){
+               System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
+               // position = position.next();
+               position = Integer.parseInt(console.readLine());  // rajouter des conditions de test
+               System.out.println("");
+             }
+           }
+         }
+         else
+           position = getRandomNumber(1,7);
+
+         System.out.println("");
+         getGrid().values = update_grid(getGrid().values, position, i);
+         interface_package.Display.display_grid(getGrid().values);
+         i++;
+       }
     }
-
-  public static void main(String[] args) {
-
-  }
-
 }

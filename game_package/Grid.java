@@ -29,61 +29,61 @@ public class Grid {
   }
 
 
-  public static int which_player(int i){
-    int res = i%2;
-    if (res == 0)
-      return 2;
-    else
-      return 1;
-  }
+  // public static int which_player(int i){
+  //   int res = i%2;
+  //   if (res == 0)
+  //     return 2;
+  //   else
+  //     return 1;
+  // }
 
 
 
 
-  public static int[][] player_turn(int[][] grid, int position, int player){
-    player = which_player(player);            // define which is player's turn (player 1 or player 2 ?)
+  // public static int[][] player_turn(int[][] grid, int position, int player){
+  //   player = which_player(player);            // define which is player's turn (player 1 or player 2 ?)
+  //
+  //   for(int k = 0; k<6; k++){
+  //     if (grid[5-k][position-1] == 0){        // if cell [position][k] is empty
+  //       if (player == 1)
+  //         grid[5-k][position-1] = -1;
+  //       else
+  //         grid[5-k][position-1] = 1;
+  //       int abs = 5-k+1;
+  //       int ord = position-1+1;
+  //       System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
+  //       return grid;
+  //     }
+  //   }
+  //   System.out.println("Error : column is full. Please choose another column");
+  //   return grid;
+  // }
 
-    for(int k = 0; k<6; k++){
-      if (grid[5-k][position-1] == 0){        // if cell [position][k] is empty
-        if (player == 1)
-          grid[5-k][position-1] = -1;
-        else
-          grid[5-k][position-1] = 1;
-        int abs = 5-k+1;
-        int ord = position-1+1;
-        System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
-        return grid;
-      }
-    }
-    System.out.println("Error : column is full. Please choose another column");
-    return grid;
-  }
 
-
-  public static void update_grid(int[][] grid, int position, int player){
-    Console console = System.console();
-    String line_numero = "1 2 3 4 5 6 7";
-
-    // player turn
-    grid = player_turn(grid, position, player);
-
-    // grid display
-    System.out.println(line_numero);
-    for (int i = 0; i<6; i++){
-      for (int j = 0; j<7; j++){
-        if (grid[i][j] == 0)
-          System.out.print(". ");
-        else if (grid[i][j] == -1)     // player 1
-          System.out.print("X ");
-        else if (grid[i][j] == 1)     // player 2
-          System.out.print("O ");
-        else                          // error
-          System.out.print("E ");
-      }
-      System.out.println("");
-    }
-    System.out.println("");
-  }
+  // public static void update_grid(int[][] grid, int position, int player){
+  //   Console console = System.console();
+  //   String line_numero = "1 2 3 4 5 6 7";
+  //
+  //   // player turn
+  //   grid = player_turn(grid, position, player);
+  //
+  //   // grid display
+  //   System.out.println(line_numero);
+  //   for (int i = 0; i<6; i++){
+  //     for (int j = 0; j<7; j++){
+  //       if (grid[i][j] == 0)
+  //         System.out.print(". ");
+  //       else if (grid[i][j] == -1)     // player 1
+  //         System.out.print("X ");
+  //       else if (grid[i][j] == 1)     // player 2
+  //         System.out.print("O ");
+  //       else                          // error
+  //         System.out.print("E ");
+  //     }
+  //     System.out.println("");
+  //   }
+  //   System.out.println("");
+  // }
 
   // public static void main(String[] args) {
   //     Console console = System.console();

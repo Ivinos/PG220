@@ -22,13 +22,15 @@ public class Display{
 
         System.out.println(s1);
         buf1 = CheckInput.check_buffer(console.readLine());
-        type1 = buf1[0];
+        type1 = CheckInput.check_type(buf1[0]);
+        // type1 = buf1[0];
         name1 = buf1[1];
 
 
         System.out.println(s2);
         buf2 = CheckInput.check_buffer(console.readLine());
-        type2 = buf2[0];
+        type2 = CheckInput.check_type(buf2[0]);
+        // type2 = buf2[0];
         name2 = buf2[1];
 
         System.out.println("Joueur 1 est <"+name1+"> (type : '"+type1+"') et Joueur 2 est <"+name2+ "> (type : '"+type2+"')");

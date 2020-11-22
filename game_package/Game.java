@@ -60,26 +60,35 @@ public class Game{
     }
 
     // Update the grid after a turn
-    public static void update_grid(int[][] grid, int position, int player){
+    public static int[][] update_grid(int[][] grid, int position, int player){
+      int valid = 0;
+      Console console = System.console();
+
       player = which_player(player);            // define which is player's turn (player 1 or player 2 ?)
 
-      for(int k = 0; k<6; k++){
-        if (grid[5-k][position-1] == 0){        // if cell [position][k] is empty
-          if (player == 1)
-            grid[5-k][position-1] = -1;
-          else
-            grid[5-k][position-1] = 1;
-          int abs = 5-k+1;
-          int ord = position-1+1;
-          // System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
-          // return grid;
-          break;
+      while (valid == 0){
+
+        for(int k = 0; k<6; k++){
+          if (grid[5-k][position-1] == 0){        // if cell [position][k] is empty
+
+            if (player == 1)
+              grid[5-k][position-1] = -1;
+            else
+              grid[5-k][position-1] = 1;
+
+            int abs = 5-k+1;
+            int ord = position-1+1;
+            valid = 1;
+            System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
+            return grid;
+          }
         }
+
+        System.out.println("Error : column is full. Please choose another column");
+        position = Integer.parseInt(console.readLine());
+        System.out.println("");
       }
-
-      // System.out.println("Error : column is full. Please choose another column");
-
-      // return grid;
+      return grid;
     }
 
 
@@ -117,7 +126,7 @@ public class Game{
                position = getRandomNumber(1,7);
 
              System.out.println("");
-             update_grid(getGrid().values, position, i);
+             getGrid().values = update_grid(getGrid().values, position, i);
              interface_package.Display.display_grid(getGrid().values);
              i++;
            }

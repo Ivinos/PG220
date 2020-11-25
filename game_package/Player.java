@@ -2,7 +2,7 @@ package game_package;
 
 abstract class Player {
 
-  private String name; // name of the player
+  public String name; // name of the player
 
   public Player(String name) {
     this.name = name;
@@ -16,4 +16,5 @@ abstract class Player {
     this.name = name;
   }
 
+  public abstract int choice();
 }

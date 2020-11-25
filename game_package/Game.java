@@ -4,8 +4,8 @@ import java.io.Console;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 import java.io.FileWriter;
-
 
 import interface_package.*;
 
@@ -18,14 +18,14 @@ public class Game{
 
     // Constructeur
     public Game(String[] input_players, int width, int height){
-      if (input_players[0].equals("human")){
+      if (input_players[0].equals("humain")){
         this.player1 = new Human(input_players[1]);
       }
       else{
         this.player1 = new Ia(input_players[1]);
       }
 
-      if (input_players[2].equals("human")){
+      if (input_players[2].equals("humain")){
         this.player2 = new Human(input_players[3]);
       }
       else{
@@ -67,7 +67,35 @@ public class Game{
       return nb.nextInt((max-min)+1)+min;
     }
 
-    // Write in log.txt the move of the player
+
+    public void history_game(){
+      String filename = "log.txt";
+
+      try{
+        File file_to_create = new File(filename);
+
+        file_to_create.delete();
+
+        if (file_to_create.createNewFile())
+          System.out.println("\nFile "+filename+" created\n");
+
+        else{
+          System.out.println("\nFile "+filename+" already exists");
+          System.exit(0);
+        }
+
+        FileWriter file_to_write = new FileWriter(filename);
+        file_to_write.write("Joueur 1 est "+player1.getName());
+        file_to_write.write("\nJoueur 2 est "+player2.getName());
+        file_to_write.write("\nManche commence");
+        file_to_write.close();
+      }
+      catch (Exception e){
+        System.err.println(e);
+      }
+    }
+
+    //Write in log.txt the move of the player
     public static void write_in_history_game(int player, int position){
       try{
         String filename = "log.txt";
@@ -82,7 +110,7 @@ public class Game{
     }
 
     // Update the grid after a turn
-    public static int[][] update_grid(int[][] grid, int position, int player){
+    public int[][] update_grid(int[][] grid, int position, int player){
       int valid = 0;
       Console console = System.console();
 
@@ -108,9 +136,9 @@ public class Game{
 
           System.out.println("Error : column is full. Please choose another column");
           if (player == 1)
-            position = Integer.parseInt(console.readLine());
+            position = getPlayer1().choice(); //Integer.parseInt(console.readLine());
           else
-            position = getRandomNumber(1,7);
+            position = getPlayer2().choice(); //getRandomNumber(1,7);
           System.out.println("");
       }
       return grid;
@@ -254,32 +282,16 @@ public class Game{
       String buffer;
       Console console = System.console();
 
-        interface_package.Display.display_grid(getGrid().values);
+      interface_package.Display.display_grid(getGrid().values);
 
       while(win1 != 1 || win2 != 1){
          i = which_player(i);
 
-         if (i == 1){
-           buffer = console.readLine();
+         if (i == 1) // si le joueur 1 doit jouer
+           position = getPlayer1().choice();
 
-           if (buffer.equals("sortir")){
-             System.out.println("You quit the game");
-             System.exit(0);
-           }
-           else{
-             // buffer = check_buffer(buffer);
-
-             position = Integer.parseInt(buffer);
-             while (position < 1 || position > 7){
-               System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
-               // position = position.next();
-               position = Integer.parseInt(console.readLine());  // rajouter des conditions de test
-               System.out.println("");
-             }
-           }
-         }
-         else
-           position = getRandomNumber(1,7);
+         else // si le joueur 2 doit joueur
+           position = getPlayer2().choice();
 
          System.out.println("");
          getGrid().values = update_grid(getGrid().values, position, i);

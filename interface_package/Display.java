@@ -33,13 +33,13 @@ public class Display{
         type2 = CheckInput.check_type(buf2[0]);
         name2 = buf2[1];
 
-        // System.out.println("Joueur 1 est <"+name1+"> (type : '"+type1+"') et Joueur 2 est <"+name2+ "> (type : '"+type2+"')");
+        System.out.println("Joueur 1 est <"+name1+"> (type : '"+type1+"') et Joueur 2 est <"+name2+ "> (type : '"+type2+"')");
 
         // b = s.startsWith("Hello"); // Test si la chaîne commence par une chaîne bien particulière
         // System.out.println(b);
 
-        String[] res = {buf1[1], "1", buf2[1], "2"};
-        // String[] res = {buf1[0], buf1[1], buf2[0], buf2[1]};
+        // String[] res = {buf1[1], "1", buf2[1], "2"};
+        String[] res = {buf1[0], buf1[1], buf2[0], buf2[1]};
 
         return res;
     }

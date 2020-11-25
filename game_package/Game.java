@@ -4,6 +4,8 @@ import java.io.Console;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+
 
 import interface_package.*;
 
@@ -16,19 +18,21 @@ public class Game{
 
     // Constructeur
     public Game(String[] input_players, int width, int height){
-        if (input_players[1] == "1"){
-            this.player1 = new Human(input_players[0]);
-        } else {
-            this.player1 = new Ia(input_players[0]);
-        }
+      if (input_players[0].equals("human")){
+        this.player1 = new Human(input_players[1]);
+      }
+      else{
+        this.player1 = new Ia(input_players[1]);
+      }
 
-        if (input_players[3] == "1"){
-          this.player1 = new Human(input_players[2]);
-        } else {
-          this.player1 = new Ia(input_players[2]);
-        }
+      if (input_players[2].equals("human")){
+        this.player2 = new Human(input_players[3]);
+      }
+      else{
+        this.player2 = new Ia(input_players[3]);
+      }
 
-        this.grid = new Grid(width, height);
+      this.grid = new Grid(width, height);
     }
 
     // Getteurs
@@ -44,7 +48,8 @@ public class Game{
         return player2;
     }
 
-    // Return which player plays
+
+    // Return which player is playing
     public static int which_player(int i){
       int res = i%2;
       if (res == 0)
@@ -60,6 +65,20 @@ public class Game{
 
       Random nb = new Random();
       return nb.nextInt((max-min)+1)+min;
+    }
+
+    // Write in log.txt the move of the player
+    public static void write_in_history_game(int player, int position){
+      try{
+        String filename = "log.txt";
+        FileWriter file_to_write = new FileWriter(filename, true);
+        file_to_write.write("\nJoueur "+player+" joue "+position);
+        file_to_write.close();
+      }
+      catch (Exception e){
+        System.err.println(e);
+      }
+
     }
 
     // Update the grid after a turn
@@ -82,12 +101,16 @@ public class Game{
                   int ord = position-1+1;
                   valid = 1;
                   System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
+                  write_in_history_game(player, ord);
                   return grid;
               }
           }
 
           System.out.println("Error : column is full. Please choose another column");
-          position = Integer.parseInt(console.readLine());
+          if (player == 1)
+            position = Integer.parseInt(console.readLine());
+          else
+            position = getRandomNumber(1,7);
           System.out.println("");
       }
       return grid;
@@ -191,6 +214,38 @@ public class Game{
     }
 
 
+    public static String check_buffer(String buf){
+      Console console = System.console();
+      String[] parameter = {"0","1","2","3","4","5","6","7","8","9"};
+      String[] res;
+
+      // System.out.println(parameter+" de taille "+parameter.length());
+      for (String i :parameter){
+        // System.out.println(i);
+        res = buf.split(i);
+        if (res[0].length() != buf.length()){ // buffer contient autre chose que des digit
+            System.out.println(res[0]);
+            System.out.println(res[1]);
+
+        }
+      }
+
+      // System.out.println("buf est '"+buf+"' de taille "+buf.length());
+      // System.out.println("test est '"+res[0]+"' de taille "+res[0].length());
+
+
+      // while (res[0].length() != buf.length()){
+      //     System.out.print("Error : please enter a digit for position : ");
+      //     buf = console.readLine();
+      //     res = buf.split(parameter);
+      //     System.out.println("buf est '"+buf+"' de taille "+buf.length());
+      //     System.out.println("test est '"+res[0]+"' de taille "+res.length());
+      // }
+
+      return buf;
+    }
+
+
     // Méthodes
     public void play(){
       int i = 1; // player 1 starts playing
@@ -212,6 +267,8 @@ public class Game{
              System.exit(0);
            }
            else{
+             // buffer = check_buffer(buffer);
+
              position = Integer.parseInt(buffer);
              while (position < 1 || position > 7){
                System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
@@ -228,20 +285,21 @@ public class Game{
          getGrid().values = update_grid(getGrid().values, position, i);
          interface_package.Display.display_grid(getGrid().values);
 
-         if(victory_check(grid, position-1) == 1){ // -1 Car index en java commence à 0
-             if(i == 1){
-                 win1 = 1;
-             } else {
-                 win2 = 1;
-             }
-         }
+         // if(victory_check(grid, position-1) == 1){ // -1 Car index en java commence à 0
+         //     if(i == 1){
+         //         win1 = 1;
+         //     } else {
+         //         win2 = 1;
+         //     }
+         // }
          i++;
         }
-        if(win1 == 1){
-            System.out.println("Player 1 won");
-        } else {
-            System.out.println("Player 2 won");
-        }
+
+        // if(win1 == 1){
+        //     System.out.println("Player 1 won");
+        // } else {
+        //     System.out.println("Player 2 won");
+        // }
 
     }
 }

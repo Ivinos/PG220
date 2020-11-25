@@ -28,6 +28,13 @@ public class Grid {
     return grid;
   }
 
+public int getWidth(){
+  return this.width;
+}
+
+public int getHeight(){
+  return this.height;
+}
 
   // public static int which_player(int i){
   //   int res = i%2;

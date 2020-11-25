@@ -1,6 +1,8 @@
 package interface_package;
 
+
 import java.io.Console;
+import game_package.*;
 
 public class Display{
 
@@ -21,23 +23,24 @@ public class Display{
         System.out.println(s);
 
         System.out.println(s1);
-        buf1 = CheckInput.check_buffer(console.readLine());
+        buf1 = CheckInput.check_players(console.readLine());
         type1 = CheckInput.check_type(buf1[0]);
-        // type1 = buf1[0];
         name1 = buf1[1];
 
 
         System.out.println(s2);
-        buf2 = CheckInput.check_buffer(console.readLine());
+        buf2 = CheckInput.check_players(console.readLine());
         type2 = CheckInput.check_type(buf2[0]);
-        // type2 = buf2[0];
         name2 = buf2[1];
 
-        System.out.println("Joueur 1 est <"+name1+"> (type : '"+type1+"') et Joueur 2 est <"+name2+ "> (type : '"+type2+"')");
+        // System.out.println("Joueur 1 est <"+name1+"> (type : '"+type1+"') et Joueur 2 est <"+name2+ "> (type : '"+type2+"')");
 
         // b = s.startsWith("Hello"); // Test si la chaîne commence par une chaîne bien particulière
         // System.out.println(b);
+
         String[] res = {buf1[1], "1", buf2[1], "2"};
+        // String[] res = {buf1[0], buf1[1], buf2[0], buf2[1]};
+
         return res;
     }
 
@@ -45,8 +48,8 @@ public class Display{
       String line_numero = "1 2 3 4 5 6 7";
       System.out.println(line_numero);
 
-      for (int i = 0; i<6; i++){
-        for (int j = 0; j<7; j++){
+      for (int i = 0; i<6; i++){ //Grid.getWidth()
+        for (int j = 0; j<7; j++){ //Grid.getHeight()
           if (grid[i][j] == 0)
             System.out.print(". ");
           else if (grid[i][j] == -1)     // player 1

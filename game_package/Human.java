@@ -1,7 +1,7 @@
 package game_package;
 
 import java.io.Console;
-
+import interface_package.*;
 
 public class Human extends Player{
 
@@ -22,15 +22,19 @@ public class Human extends Player{
       System.exit(0);
     }
     else{
-      // buffer = check_buffer(buffer);
+      System.out.println(">"+buffer);
+      buffer = interface_package.CheckInput.extractNumber(buffer);
+      System.out.println(">>>"+buffer);
 
-      position = Integer.parseInt(buffer);
-      while (position < 1 || position > 7){
-        System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
-        // position = position.next();
-        position = Integer.parseInt(console.readLine());  // rajouter des conditions de test
-        System.out.println("");
-      }
+      // position = Integer.parseInt(buffer);
+      position = 4;
+      
+      // while (position < 1 || position > 7){
+      //   System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
+      //   // position = position.next();
+      //   position = Integer.parseInt(console.readLine());  // rajouter des conditions de test
+      //   System.out.println("");
+      // }
     }
   return position;
   }

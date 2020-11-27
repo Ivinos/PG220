@@ -6,7 +6,7 @@ import game_package.*;
 
 public class Display{
 
-    public static String[] display_menu(){
+    public static String[] displayMenu(){
         Console console = System.console();
         String s = new String("Bienvenue au puissance 4 !\n");
         String s1 = new String("Joueur 1?");
@@ -23,14 +23,14 @@ public class Display{
         System.out.println(s);
 
         System.out.println(s1);
-        buf1 = CheckInput.check_players(console.readLine());
-        type1 = CheckInput.check_type(buf1[0]);
+        buf1 = CheckInput.checkPlayers(console.readLine());
+        type1 = CheckInput.checkType(buf1[0]);
         name1 = buf1[1];
 
 
         System.out.println(s2);
-        buf2 = CheckInput.check_players(console.readLine());
-        type2 = CheckInput.check_type(buf2[0]);
+        buf2 = CheckInput.checkPlayers(console.readLine());
+        type2 = CheckInput.checkType(buf2[0]);
         name2 = buf2[1];
 
         System.out.println("Joueur 1 est <"+name1+"> (type : '"+type1+"') et Joueur 2 est <"+name2+ "> (type : '"+type2+"')");
@@ -44,7 +44,7 @@ public class Display{
         return res;
     }
 
-    public static void display_grid(int[][] grid){
+    public static void displayGrid(int[][] grid){
       String line_numero = "1 2 3 4 5 6 7";
       System.out.println(line_numero);
 

@@ -15,10 +15,10 @@ public class Grid {
   public Grid(int width, int height){
     this.width = width;
     this.height = height;
-    this.values = initialize_grid(width, height);
+    this.values = initializeGrid(width, height);
   }
 
-  public static int[][] initialize_grid(int width, int height){
+  public static int[][] initializeGrid(int width, int height){
     int grid[][]  = new int[width][height]; // matrix 6x7
       for (int i = 0; i<width; i++){
         for (int j = 0; j<height; j++){
@@ -103,7 +103,7 @@ public int getHeight(){
   //     int height = 7;
   //     // int grid[][]  = new int[width][height]; // matrix 6x7
   //
-  //     int grid[][] = initialize_grid(height, width);
+  //     int grid[][] = initializeGrid(height, width);
   //     display_grid(grid);
   //
   //     while(win1 != 1 || win2 != 1){

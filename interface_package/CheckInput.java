@@ -4,7 +4,7 @@ import java.io.Console;
 
 public class CheckInput{
 
-    public static String[] check_players(String buf){
+    public static String[] checkPlayers(String buf){
       Console console = System.console();
       String[] res;
       String parameter = " ";
@@ -18,7 +18,7 @@ public class CheckInput{
       return res;
     }
 
-    public static String check_type(String buf){
+    public static String checkType(String buf){
       Console console = System.console();
       int valid = 0;
 

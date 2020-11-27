@@ -50,7 +50,7 @@ public class Game{
 
 
     // Return which player is playing
-    public static int which_player(int i){
+    public static int whichPlayer(int i){
       int res = i%2;
       if (res == 0)
         return 2;
@@ -58,17 +58,10 @@ public class Game{
         return 1;
     }
 
-    // Return a random number
-    public static int getRandomNumber(int min, int max) throws IllegalArgumentException {
-      if (min > max)
-        throw new IllegalArgumentException("Max must be greater than min");
-
-      Random nb = new Random();
-      return nb.nextInt((max-min)+1)+min;
-    }
+    
 
 
-    public void history_game(){
+    public void historyGame(){
       String filename = "log.txt";
 
       try{
@@ -96,7 +89,7 @@ public class Game{
     }
 
     //Write in log.txt the move of the player
-    public static void write_in_history_game(int player, int position){
+    public static void writeInHistoryGame(int player, int position){
       try{
         String filename = "log.txt";
         FileWriter file_to_write = new FileWriter(filename, true);
@@ -110,11 +103,11 @@ public class Game{
     }
 
     // Update the grid after a turn
-    public int[][] update_grid(int[][] grid, int position, int player){
+    public int[][] updateGrid(int[][] grid, int position, int player){
       int valid = 0;
       Console console = System.console();
 
-      player = which_player(player);            // define which is player's turn (player 1 or player 2 ?)
+      player = whichPlayer(player);            // define which is player's turn (player 1 or player 2 ?)
 
       while (valid == 0){
 
@@ -129,7 +122,7 @@ public class Game{
                   int ord = position-1+1;
                   valid = 1;
                   System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
-                  write_in_history_game(player, ord);
+                  writeInHistoryGame(player, ord);
                   return grid;
               }
           }
@@ -145,7 +138,7 @@ public class Game{
     }
 
     // Vérifie si le dernier coup permet la victoire ou non
-    int victory_check(Grid grid, int last_j){ // i -> width, j -> height
+    int victoryCheck(Grid grid, int last_j){ // i -> width, j -> height
         int width = grid.width;
         int height = grid.height;
         int last_i = 0; // Recherche de la coordonné i du dernier coup
@@ -214,19 +207,19 @@ public class Game{
         // Vérifier ici les listes qu'on donnent à checker
 
         // On vérifie chaque liste
-        if(array_check(vertical, width) == 1){
+        if(arrayCheck(vertical, width) == 1){
             return 1; // Victoire
-        } else if(array_check(horizontal, height) == 1){
+        } else if(arrayCheck(horizontal, height) == 1){
             return 1; // Victoire
-        } else if(array_check(diagonal, len_diag) == 1){
+        } else if(arrayCheck(diagonal, len_diag) == 1){
             return 1; // Victoire
-        } else if(array_check(anti_diagonal, len_anti_diag) == 1){
+        } else if(arrayCheck(anti_diagonal, len_anti_diag) == 1){
             return 1; // Victoire
         }
         return 0; // Pas encore de victoire
     }
 
-    int array_check(int[] array, int length){
+    int arrayCheck(int[] array, int length){
         int count = 0;
         int max = length - 4;
 
@@ -242,7 +235,7 @@ public class Game{
     }
 
 
-    public static String check_buffer(String buf){
+    public static String checkBuffer(String buf){
       Console console = System.console();
       String[] parameter = {"0","1","2","3","4","5","6","7","8","9"};
       String[] res;
@@ -282,10 +275,10 @@ public class Game{
       String buffer;
       Console console = System.console();
 
-      interface_package.Display.display_grid(getGrid().values);
+      interface_package.Display.displayGrid(getGrid().values);
 
       while(win1 != 1 || win2 != 1){
-         i = which_player(i);
+         i = whichPlayer(i);
 
          if (i == 1) // si le joueur 1 doit jouer
            position = getPlayer1().choice();
@@ -294,10 +287,10 @@ public class Game{
            position = getPlayer2().choice();
 
          System.out.println("");
-         getGrid().values = update_grid(getGrid().values, position, i);
-         interface_package.Display.display_grid(getGrid().values);
+         getGrid().values = updateGrid(getGrid().values, position, i);
+         interface_package.Display.displayGrid(getGrid().values);
 
-         // if(victory_check(grid, position-1) == 1){ // -1 Car index en java commence à 0
+         // if(victoryCheck(grid, position-1) == 1){ // -1 Car index en java commence à 0
          //     if(i == 1){
          //         win1 = 1;
          //     } else {

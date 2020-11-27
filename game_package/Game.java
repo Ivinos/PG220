@@ -153,36 +153,30 @@ public class Game{
         ArrayList<Integer> diagonal_t = new ArrayList<Integer>();
         ArrayList<Integer> anti_diagonal_t = new ArrayList<Integer>();
 
-        diagonal_t.add(grid.values[last_i][last_j]);
-        anti_diagonal_t.add(grid.values[last_i][last_j]);
+        diagonal_t.add(grid.values[last_i][last_j]); // On ajoute la position jouée
+        anti_diagonal_t.add(grid.values[last_i][last_j]); // idem
 
         // On remplit diagonale
         int tmp_i = last_i; int tmp_j = last_j;
-        diagonal_t.add(grid.values[tmp_i][tmp_j]); // On ajoute la position jouée
-        while((tmp_i-- < 0) || (tmp_j++ > height-1)){ // Je regarde si la case suivante est possible
+        while((tmp_i-- > 0) && (tmp_j++ < height-1)){ // Je regarde si la case suivante est possible
             diagonal_t.add(grid.values[tmp_i][tmp_j]);
-            tmp_i--; tmp_j++;
             len_diag++;
         }
         tmp_i = last_i; tmp_j = last_j; // On les réinitialise
-        while((tmp_i++ > width-1) ||(tmp_j-- < 0)){
+        while((tmp_i++ < width-1) && (tmp_j-- > 0)){
             diagonal_t.add(0, grid.values[tmp_i][tmp_j]);
-            tmp_i++; tmp_j--;
             len_diag++;
         }
 
         // On remplit l'anti diagonale
         tmp_i = last_i; tmp_j = last_j; // On les réinitialise
-        diagonal_t.add(grid.values[tmp_i][tmp_j]); // On ajoute la position jouée
-        while((tmp_i++ > width-1) ||(tmp_j++ > height-1)){
-            diagonal_t.add(grid.values[tmp_i][tmp_j]);
-            tmp_i++; tmp_j++;
+        while((tmp_i++ < width-1) && (tmp_j++ < height-1)){
+            anti_diagonal_t.add(grid.values[tmp_i][tmp_j]);
             len_anti_diag++;
         }
         tmp_i = last_i; tmp_j = last_j; // On les réinitialise
-        while((tmp_i-- < 0) ||(tmp_j-- < 0)){
-            diagonal_t.add(0, grid.values[tmp_i][tmp_j]);
-            tmp_i--; tmp_j--;
+        while((tmp_i-- > 0) && (tmp_j-- > 0)){
+            anti_diagonal_t.add(0, grid.values[tmp_i][tmp_j]);
             len_anti_diag++;
         }
 
@@ -205,6 +199,10 @@ public class Game{
         }
 
         // Vérifier ici les listes qu'on donnent à checker
+//        printArray(vertical, width);
+//        printArray(horizontal, height);
+//        printArray(diagonal, len_diag);
+//        printArray(anti_diagonal, len_anti_diag);
 
         // On vérifie chaque liste
         if(arrayCheck(vertical, width) == 1){
@@ -219,6 +217,13 @@ public class Game{
         return 0; // Pas encore de victoire
     }
 
+    void printArray(int[] array, int length){
+        for (int i=0; i<length; i++){
+            System.out.print(array[i]);
+        }
+        System.out.print("\n");
+    }
+
     int arrayCheck(int[] array, int length){
         int count = 0;
         int max = length - 4;
@@ -226,10 +231,12 @@ public class Game{
         for(int i = 0; i<=max; i++){
             for(int j = 0; j<4; j++){
                 count += array[i+j];
+//                System.out.println("i : " + i + " j : " + j + " count : " + count);
             }
             if ((count == -4) || (count == 4)){
                 return 1; // Victoire
             }
+            count = 0; // On réinitialise count
         }
         return 0; // Pas encore de victoire
     }
@@ -277,7 +284,7 @@ public class Game{
 
       interface_package.Display.displayGrid(getGrid().values);
 
-      while(win1 != 1 || win2 != 1){
+      while(win1 == 0 && win2 == 0){
          i = whichPlayer(i);
 
          if (i == 1) // si le joueur 1 doit jouer
@@ -290,21 +297,23 @@ public class Game{
          getGrid().values = updateGrid(getGrid().values, position, i);
          interface_package.Display.displayGrid(getGrid().values);
 
-         // if(victoryCheck(grid, position-1) == 1){ // -1 Car index en java commence à 0
-         //     if(i == 1){
-         //         win1 = 1;
-         //     } else {
-         //         win2 = 1;
-         //     }
-         // }
+          if(victoryCheck(grid, position-1) == 1){ // -1 Car index en java commence à 0
+              if(i == 1){
+                  win1 = 1;
+                  win2 = -1;
+              } else {
+                  win2 = 1;
+                  win1 = -1;
+              }
+          }
          i++;
         }
 
-        // if(win1 == 1){
-        //     System.out.println("Player 1 won");
-        // } else {
-        //     System.out.println("Player 2 won");
-        // }
+         if(win1 == 1){
+             System.out.println("Player 1 won");
+         } else {
+             System.out.println("Player 2 won");
+         }
 
     }
 }

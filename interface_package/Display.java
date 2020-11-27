@@ -39,7 +39,8 @@ public class Display{
         // System.out.println(b);
 
         // String[] res = {buf1[1], "1", buf2[1], "2"};
-        String[] res = {type1, name1, type2, name2};
+//        String[] res = {buf1[0], buf1[1], buf2[0], buf2[1]}; // type1 player1 type2 player2
+        String[] res = {type1, name1, type2, name2}; // type1 player1 type2 player2
 
         return res;
     }

@@ -112,21 +112,21 @@ public class Game{
       }
     }
 
-    //Write in log.txt the victory of the player
-    public static void writeVictory(String win){
-      try{
-        String filename = "log.txt";
-        FileWriter file_to_write = new FileWriter(filename, true);
-        if (win.equals("win1"))
-          file_to_write.write("\nJoueur 1 gagne");
-        else
-          file_to_write.write("\nJoueur 2 gagne");
-        file_to_write.close();
-      }
-      catch (Exception e){
-        System.err.println(e);
-      }
-    }
+    // //Write in log.txt the victory of the player
+    // public static void writeVictory(String win){
+    //   try{
+    //     String filename = "log.txt";
+    //     FileWriter file_to_write = new FileWriter(filename, true);
+    //     if (win.equals("win1"))
+    //       file_to_write.write("\nJoueur 1 gagne");
+    //     else
+    //       file_to_write.write("\nJoueur 2 gagne");
+    //     file_to_write.close();
+    //   }
+    //   catch (Exception e){
+    //     System.err.println(e);
+    //   }
+    // }
 
     //Write in log.txt the string
     public static void writeBuffer(String buffer){
@@ -146,37 +146,53 @@ public class Game{
 
     // Update the grid after a turn
     public int[][] updateGrid(int[][] grid, int position, int player){
-      int valid = 0;
+      int valid_move = 0;
       Console console = System.console();
 
       player = whichPlayer(player);            // define which is player's turn (player 1 or player 2 ?)
 
-      while (valid == 0){
+      while (valid_move == 0){
+        for(int k = 0; k<6; k++){
+            if (grid[5-k][position-1] == 0){ // if cell [position][k] is empty
+                if (player == 1)
+                    grid[5-k][position-1] = -1;
+                else
+                    grid[5-k][position-1] = 1;
 
-          for(int k = 0; k<6; k++){
-              if (grid[5-k][position-1] == 0){ // if cell [position][k] is empty
-                  if (player == 1)
-                      grid[5-k][position-1] = -1;
-                  else
-                      grid[5-k][position-1] = 1;
+                int abs = 5-k+1;
+                int ord = position-1+1;
+                valid_move = 1;
+                System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
+                writeMove(player, ord);
+                return grid;
+            }
+        }
 
-                  int abs = 5-k+1;
-                  int ord = position-1+1;
-                  valid = 1;
-                  System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
-                  writeMove(player, ord);
-                  return grid;
-              }
-          }
-
+        if (player == 1){
           System.out.println("Error : column is full. Please choose another column");
-          if (player == 1)
-            position = getPlayer1().choice(); //Integer.parseInt(console.readLine());
-          else
-            position = getPlayer2().choice(); //getRandomNumber(1,7);
-          System.out.println("");
+          position = getPlayer1().choice(); //Integer.parseInt(console.readLine());
+        }
+        else
+          position = getPlayer2().choice(); //getRandomNumber(1,7);
+        System.out.println("");
       }
       return grid;
+    }
+
+
+    // Vérifie s'il y a égalité
+    int equalityCheck(Grid grid){
+      int width = grid.width;
+      int height = grid.height;
+      int cpt = 0;
+      for (int i = 0; i<height; i++){
+        if (grid.values[0][i] != 0)
+          cpt++;
+      }
+      if (cpt == 7)
+        return 1;
+
+      return 0;
     }
 
     // Vérifie si le dernier coup permet la victoire ou non
@@ -296,22 +312,8 @@ public class Game{
         if (res[0].length() != buf.length()){ // buffer contient autre chose que des digit
             System.out.println(res[0]);
             System.out.println(res[1]);
-
         }
       }
-
-      // System.out.println("buf est '"+buf+"' de taille "+buf.length());
-      // System.out.println("test est '"+res[0]+"' de taille "+res[0].length());
-
-
-      // while (res[0].length() != buf.length()){
-      //     System.out.print("Error : please enter a digit for position : ");
-      //     buf = console.readLine();
-      //     res = buf.split(parameter);
-      //     System.out.println("buf est '"+buf+"' de taille "+buf.length());
-      //     System.out.println("test est '"+res[0]+"' de taille "+res.length());
-      // }
-
       return buf;
     }
 
@@ -320,50 +322,45 @@ public class Game{
     public void play(){
       int i = 1; // player 1 starts playing
       int position = 0;
-      int win1 = 0, win2 = 0;
+      int win1 = 0, win2 = 0, equality = 0;
       String buffer;
       Console console = System.console();
 
       interface_package.Display.displayGrid(getGrid().values);
 
-      while(win1 == 0 && win2 == 0){
-         i = whichPlayer(i);
+      while(win1 == 0 && win2 == 0 && equality == 0){
+        i = whichPlayer(i);
 
-         if (i == 1) // si le joueur 1 doit jouer
-           position = getPlayer1().choice();
+        if (i == 1) // si le joueur 1 doit jouer
+         position = getPlayer1().choice();
 
-         else // si le joueur 2 doit jouer
-           position = getPlayer2().choice();
+        else // si le joueur 2 doit jouer
+         position = getPlayer2().choice();
 
-         System.out.println("");
-         getGrid().values = updateGrid(getGrid().values, position, i);
-         interface_package.Display.displayGrid(getGrid().values);
+        System.out.println("");
+        getGrid().values = updateGrid(getGrid().values, position, i);
+        interface_package.Display.displayGrid(getGrid().values);
 
-          if(victoryCheck(grid, position-1) == 1){ // -1 Car index en java commence à 0
-            if(i == 1){
-              win1 = 1;
-              win2 = -1;
-            }
-            else {
-              win2 = 1;
-              win1 = -1;
-            }
+        if(victoryCheck(grid, position-1) == 1){ // -1 Car index en java commence à 0
+          if(i == 1){
+            writeBuffer("Joueur 1 gagne");
+            setScore(0);
+            win1 = 1;
           }
-         i++;
+          else{
+            writeBuffer("Joueur 2 gagne");
+            setScore(1);
+            win2 = 1;
+          }
         }
 
-         if(win1 == 1){
-           System.out.println("Player 1 won");
-           // writeVictory("win1");
-           writeBuffer("Joueur 1 gagne");
-           setScore(0);
-         }
-         else {
-           System.out.println("Player 2 won");
-           // writeVictory("win2");
-           writeBuffer("Joueur 2 gagne");
-           setScore(1);
-         }
+        else if(equalityCheck(grid) == 1){
+          equality = 1;
+          writeBuffer("Egalite");
+        }
+
+       i++;
+      }
     }
 
 

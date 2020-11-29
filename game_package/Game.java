@@ -15,9 +15,10 @@ public class Game{
     public Player player1;
     public Player player2;
     public Grid grid;
+    public int[] score;
 
     // Constructeur
-    public Game(String[] input_players, int width, int height){
+    public Game(String[] input_players, int width, int height, int[] score){
       if (input_players[0].equals("humain")){
         this.player1 = new Human(input_players[1]);
       }
@@ -33,6 +34,8 @@ public class Game{
       }
 
       this.grid = new Grid(width, height);
+
+      this.score = score;
     }
 
     // Getteurs
@@ -48,6 +51,15 @@ public class Game{
         return player2;
     }
 
+    public int getScore(int i){
+        return score[i];
+    }
+
+    public void setScore(int i){
+        score[i] += 1;
+    }
+
+
 
     // Return which player is playing
     public static int whichPlayer(int i){
@@ -58,10 +70,10 @@ public class Game{
         return 1;
     }
 
-    
 
 
-    public void historyGame(){
+
+    public void writePlayers(){
       String filename = "log.txt";
 
       try{
@@ -80,7 +92,6 @@ public class Game{
         FileWriter file_to_write = new FileWriter(filename);
         file_to_write.write("Joueur 1 est "+player1.getName());
         file_to_write.write("\nJoueur 2 est "+player2.getName());
-        file_to_write.write("\nManche commence");
         file_to_write.close();
       }
       catch (Exception e){
@@ -89,7 +100,7 @@ public class Game{
     }
 
     //Write in log.txt the move of the player
-    public static void writeInHistoryGame(int player, int position){
+    public static void writeMove(int player, int position){
       try{
         String filename = "log.txt";
         FileWriter file_to_write = new FileWriter(filename, true);
@@ -99,8 +110,39 @@ public class Game{
       catch (Exception e){
         System.err.println(e);
       }
-
     }
+
+    //Write in log.txt the victory of the player
+    public static void writeVictory(String win){
+      try{
+        String filename = "log.txt";
+        FileWriter file_to_write = new FileWriter(filename, true);
+        if (win.equals("win1"))
+          file_to_write.write("\nJoueur 1 gagne");
+        else
+          file_to_write.write("\nJoueur 2 gagne");
+        file_to_write.close();
+      }
+      catch (Exception e){
+        System.err.println(e);
+      }
+    }
+
+    //Write in log.txt the string
+    public static void writeBuffer(String buffer){
+      try{
+        String filename = "log.txt";
+        FileWriter file_to_write = new FileWriter(filename, true);
+
+        file_to_write.write("\n"+buffer);
+        file_to_write.close();
+      }
+
+      catch (Exception e){
+        System.err.println(e);
+      }
+    }
+
 
     // Update the grid after a turn
     public int[][] updateGrid(int[][] grid, int position, int player){
@@ -122,7 +164,7 @@ public class Game{
                   int ord = position-1+1;
                   valid = 1;
                   System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
-                  writeInHistoryGame(player, ord);
+                  writeMove(player, ord);
                   return grid;
               }
           }
@@ -290,7 +332,7 @@ public class Game{
          if (i == 1) // si le joueur 1 doit jouer
            position = getPlayer1().choice();
 
-         else // si le joueur 2 doit joueur
+         else // si le joueur 2 doit jouer
            position = getPlayer2().choice();
 
          System.out.println("");
@@ -298,22 +340,31 @@ public class Game{
          interface_package.Display.displayGrid(getGrid().values);
 
           if(victoryCheck(grid, position-1) == 1){ // -1 Car index en java commence à 0
-              if(i == 1){
-                  win1 = 1;
-                  win2 = -1;
-              } else {
-                  win2 = 1;
-                  win1 = -1;
-              }
+            if(i == 1){
+              win1 = 1;
+              win2 = -1;
+            }
+            else {
+              win2 = 1;
+              win1 = -1;
+            }
           }
          i++;
         }
 
          if(win1 == 1){
-             System.out.println("Player 1 won");
-         } else {
-             System.out.println("Player 2 won");
+           System.out.println("Player 1 won");
+           // writeVictory("win1");
+           writeBuffer("Joueur 1 gagne");
+           setScore(0);
          }
-
+         else {
+           System.out.println("Player 2 won");
+           // writeVictory("win2");
+           writeBuffer("Joueur 2 gagne");
+           setScore(1);
+         }
     }
+
+
 }

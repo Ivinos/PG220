@@ -14,7 +14,7 @@ commande suivante java Main.
 import interface_package.*;
 import game_package.*;
 
-public class Menu{ //extends Player{
+public class Menu{
 
     // interface_package.Display display = new interface_package.Display(); // Pour essayer de raccourcir le nom..
 
@@ -23,17 +23,23 @@ public class Menu{ //extends Player{
       int width = 6;
       int height = 7;
       String[] input_players;
+      int[] score = {0,0};
+
       input_players = interface_package.Display.displayMenu();
 
-      Game game = new Game(input_players, width, height);
+      Game game = new Game(input_players, width, height, score);
 
-      // System.out.println("Player 1 est "+game.player1.getName());
-      // System.out.println("Player 2 est "+game.player2.getName());
+      game.writePlayers();
 
-      game.historyGame();
+      while(game.getScore(0) != 3 && game.getScore(1) != 3){
+        // System.out.println(">>>>Score "+game.getScore(0)+" - "+game.getScore(1));
+        game.writeBuffer("Manche commence");
+        game.play();
+        game.writeBuffer("Score "+game.getScore(0)+" - "+game.getScore(1));
+        game_package.Grid.resetGrid(game.getGrid().getValues());
+      }
 
-      game.play();
-
+      System.out.println("Partie finie");
     }
 
 }

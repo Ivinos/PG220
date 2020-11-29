@@ -23,12 +23,12 @@ public class Human extends Player{
     }
     else{
       System.out.println(">"+buffer);
-      buffer = interface_package.CheckInput.extractNumber(buffer);
+      // buffer = interface_package.CheckInput.extractNumber(buffer);
       System.out.println(">>>"+buffer);
 
-      // position = Integer.parseInt(buffer);
-      position = 4;
-      
+      position = Integer.parseInt(buffer);
+      // position = 4;
+
       // while (position < 1 || position > 7){
       //   System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
       //   // position = position.next();

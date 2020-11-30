@@ -8,11 +8,13 @@ public class CheckInput{
       Console console = System.console();
       String[] res;
       String parameter = " ";
-      res = buf.split(parameter);
 
-      while (res.length != 2 || true == res[1].contentEquals(" ")){
-          System.out.print("Error : please enter <type> <pseudo> : ");
-          res = console.readLine().split(parameter);
+      res = buf.split(parameter);
+      // System.out.print("OK : res.length() = "+res.length);
+
+      while (res.length == 1){
+        System.out.print("Error : please enter <type> <pseudo> : ");
+        res = console.readLine().split(parameter);
       }
 
       return res;

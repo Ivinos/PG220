@@ -81,13 +81,13 @@ public class Game{
 
         file_to_create.delete();
 
-        if (file_to_create.createNewFile())
-          System.out.println("\nFile "+filename+" created\n");
-
-        else{
-          System.out.println("\nFile "+filename+" already exists");
-          System.exit(0);
-        }
+        // if (file_to_create.createNewFile())
+        //   System.out.println("\nFile "+filename+" created\n");
+        //
+        // else{
+        //   System.out.println("\nFile "+filename+" already exists");
+        //   System.exit(0);
+        // }
 
         FileWriter file_to_write = new FileWriter(filename);
         file_to_write.write("Joueur 1 est "+player1.getName());

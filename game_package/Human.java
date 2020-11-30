@@ -29,12 +29,11 @@ public class Human extends Player{
       position = Integer.parseInt(buffer);
       // position = 4;
 
-      // while (position < 1 || position > 7){
-      //   System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
-      //   // position = position.next();
-      //   position = Integer.parseInt(console.readLine());  // rajouter des conditions de test
-      //   System.out.println("");
-      // }
+      while (position < 1 || position > 7){
+        System.out.print("Wrong position. Please choose a number from 1 to 7 : ");
+        position = Integer.parseInt(console.readLine());  // rajouter des conditions de test
+        System.out.println("");
+      }
     }
   return position;
   }

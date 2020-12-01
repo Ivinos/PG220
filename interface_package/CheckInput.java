@@ -60,31 +60,31 @@ public class CheckInput{
     //   return buf;
     // }
 
-    public static String extractNumber(String str) {
+//     public static String checkBuffer(String str) {
 
-    if(str == null || str.isEmpty())
-      return "Erreur : saisie incorrecte";
+//     if(str == null || str.isEmpty())
+//       return "Erreur : saisie incorrecte";
 
-    StringBuilder sb = new StringBuilder();
-    boolean found = false;
+//     StringBuilder sb = new StringBuilder();
+//     boolean found = false;
 
-    for(char c : str.toCharArray()){
-        if(Character.isDigit(c)){ // si c'est un numero
-            sb.append(c);
-            found = true;
-        }
-        else if(found){
-            // If we already found a digit before and this char is not a digit, stop looping
-            break;
-        }
-    }
+//     for(char c : str.toCharArray()){
+//         if(Character.isDigit(c)){ // si c'est un numero
+//             sb.append(c);
+//             found = true;
+//         }
+//         else if(found){
+//             // If we already found a digit before and this char is not a digit, stop looping
+//             break;
+//         }
+//     }
 
-    if (sb.length() != str.length()){
-      return "Erreur : saisie incorrecte";
-    }
+//     if (sb.length() != str.length()){
+//       return "Erreur : saisie incorrecte";
+//     }
 
-    return sb.toString();
-}
+//     return sb.toString();
+// }
 
 
 }

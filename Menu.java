@@ -25,7 +25,7 @@ public class Menu{
       String[] input_players;
       int[] score = {0,0};
 
-      input_players = interface_package.Display.displayMenu();
+      input_players = Display.displayMenu();
 
       Game game = new Game(input_players, width, height, score);
 

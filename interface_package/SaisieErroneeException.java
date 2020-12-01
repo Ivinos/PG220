@@ -1,12 +1,14 @@
-public class SaisieErroneeException extends Exception {
+package interface_package;
 
-  public SaisieErroneeException() {
-    super();
-  }
+public class SaisieErroneeException{
 
-  public SaisieErroneeException(String s) {
-    super(s);
-  }
+  // public SaisieErroneeException() {
+  //   super();
+  // }
+
+  // public SaisieErroneeException(String s) {
+  //   super(s);
+  // }
 }
 
 // public class TestSaisieErroneeException {

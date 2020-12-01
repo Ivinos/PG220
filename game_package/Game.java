@@ -1,13 +1,9 @@
 package game_package;
 
-import java.io.Console;
-import java.util.Random;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 
-import interface_package.*;
 
 public class Game{
 
@@ -147,7 +143,6 @@ public class Game{
     // Update the grid after a turn
     public int[][] updateGrid(int[][] grid, int position, int player){
       int valid_move = 0;
-      Console console = System.console();
 
       player = whichPlayer(player);            // define which is player's turn (player 1 or player 2 ?)
 
@@ -159,17 +154,18 @@ public class Game{
                 else
                     grid[5-k][position-1] = 1;
 
-                int abs = 5-k+1;
+                // int abs = 5-k+1;
                 int ord = position-1+1;
                 valid_move = 1;
-                System.out.println("Player "+player+" joue en position ("+abs+","+ord+")\n");
+                System.out.println("Player "+player+" joue en position "+ord+"\n");
                 writeMove(player, ord);
                 return grid;
             }
         }
+        writeBuffer("Erreur colonne pleine "+position);
+        System.out.println("Error : column is full. Please choose another column");
 
         if (player == 1){
-          System.out.println("Error : column is full. Please choose another column");
           position = getPlayer1().choice(); //Integer.parseInt(console.readLine());
         }
         else
@@ -182,7 +178,7 @@ public class Game{
 
     // Vérifie s'il y a égalité
     int equalityCheck(Grid grid){
-      int width = grid.width;
+      // int width = grid.width;
       int height = grid.height;
       int cpt = 0;
       for (int i = 0; i<height; i++){
@@ -301,7 +297,6 @@ public class Game{
 
 
     public static String checkBuffer(String buf){
-      Console console = System.console();
       String[] parameter = {"0","1","2","3","4","5","6","7","8","9"};
       String[] res;
 
@@ -323,9 +318,7 @@ public class Game{
       int i = 1; // player 1 starts playing
       int position = 0;
       int win1 = 0, win2 = 0, equality = 0;
-      String buffer;
-      Console console = System.console();
-
+      
       interface_package.Display.displayGrid(getGrid().values);
 
       while(win1 == 0 && win2 == 0 && equality == 0){
@@ -336,6 +329,9 @@ public class Game{
 
         else // si le joueur 2 doit jouer
          position = getPlayer2().choice();
+
+        if (position == -1) // le joueur a taper la commande "sortir"
+          System.exit(0);
 
         System.out.println("");
         getGrid().values = updateGrid(getGrid().values, position, i);

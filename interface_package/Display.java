@@ -2,7 +2,6 @@ package interface_package;
 
 
 import java.io.Console;
-import game_package.*;
 
 public class Display{
 

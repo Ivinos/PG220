@@ -16,17 +16,17 @@ public class Game{
     // Constructeur
     public Game(String[] inputPlayers, int width, int height, int[] score){
       if (inputPlayers[0].equals("humain")){
-        this.player1 = new Human(inputPlayers[1]);
+        this.player1 = new Human(inputPlayers[1],1);
       }
       else{
-        this.player1 = new Ia(inputPlayers[1]);
+        this.player1 = new Ia(inputPlayers[1],1);
       }
 
       if (inputPlayers[2].equals("humain")){
-        this.player2 = new Human(inputPlayers[3]);
+        this.player2 = new Human(inputPlayers[3],2);
       }
       else{
-        this.player2 = new Ia(inputPlayers[3]);
+        this.player2 = new Ia(inputPlayers[3],2);
       }
 
       this.grid = new Grid(width, height);
@@ -163,7 +163,7 @@ public class Game{
             }
         }
         writeBuffer("Erreur colonne pleine "+position);
-        System.out.println("Error : column is full. Please choose another column");
+        System.out.println("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et 7 : ");
 
         if (player == 1){
           position = getPlayer1().choice(); //Integer.parseInt(console.readLine());

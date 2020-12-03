@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class Ia extends Player{
 
-  public Ia(String name){
-    super(name);
+  public Ia(String name, int numeroPlayer){
+    super(name,numeroPlayer);
   }
 
 

@@ -2,9 +2,9 @@ package game_package;
 
 import java.util.Random;
 
-public class Monkey extends Player{
+public class Pro extends Player{
 
-  public Monkey(String name){
+  public Pro(String name){
     super(name);
   }
 
@@ -42,7 +42,39 @@ public class Monkey extends Player{
 
     return -1;
   }
-
+  public static int goodMove(int [][]grid){
+    int width=5;
+    int height=5;
+    for (int i=0;i<width;i++) {
+      for (int j=0;j<height;j++) {
+        //Check vers le haut
+          if (j>2) {if (grid[i][j]==grid[i][j-1]){
+              return i;}}
+        //Check vers le bas
+          if (j<height-2) {if ((grid[i][j]==grid[i][j+1])&&(grid[i][j]==grid[i][j+2])) {
+              return i;}}
+        //Check vers la gauche
+          if (i>2) {if (grid[i][j]==grid[i-1][j]){
+              return i-2;}}
+        //Check vers la droite
+          if (i>width-2) {if (grid[i][j]==grid[i+1][j]) {
+              return i+2;}}
+        //Check vers le haut-gauche
+          if ((j>2)&&(i>2)) {if (grid[i][j]==grid[i-1][j-1]){
+              return i-2;}}
+        //Check vers le haut-droite
+          if ((j>2)&&(i<width-2)) {if (grid[i][j]==grid[i+1][j-1]) {
+              return i+2;}}
+        //Check vers le bas-droite
+          if ((j<height-2)&&(i<width-2)) {if (grid[i][j]==grid[i+1][j+1]){
+              return i+2;}}
+        //Check vers le bas-gauche
+          if ((j<height-2)&&(i>2)) {if (grid[i][j]==grid[i-1][j+1]){
+              return i-2;}}
+      }
+    }
+    return 1;
+  }
   // Return a random number
   public static int getRandomNumber(int min, int max) throws IllegalArgumentException {
     if (min > max)
@@ -56,9 +88,14 @@ public class Monkey extends Player{
   public int choice(int [][] grid){
     int position;
     position=possibleWin(grid);
-    if (position==-1){
-      position = getRandomNumber(1,7);
+    if (position!=-1){
+      return position;
     }
+    position = goodMove(grid);
+    if (position!=-1){
+      return position;
+    }
+    position = getRandomNumber(1,7);
     return position;
   }
 

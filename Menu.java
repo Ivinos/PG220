@@ -11,23 +11,23 @@ commande suivante java Main.
 */
 
 
-import interface_package.*;
-import game_package.*;
+import interfacePackage.*;
+import gamePackage.*;
 
 public class Menu{
 
-    // interface_package.Display display = new interface_package.Display(); // Pour essayer de raccourcir le nom..
+    // interfacePackage.Display display = new interfacePackage.Display(); // Pour essayer de raccourcir le nom..
 
 
     public static void main(String[] args){
       int width = 6;
       int height = 7;
-      String[] input_players;
+      String[] inputPlayers;
       int[] score = {0,0};
 
-      input_players = Display.displayMenu();
+      inputPlayers = Display.displayMenu();
 
-      Game game = new Game(input_players, width, height, score);
+      Game game = new Game(inputPlayers, width, height, score);
 
       game.writePlayers();
 
@@ -36,7 +36,7 @@ public class Menu{
         game.writeBuffer("Manche commence");
         game.play();
         game.writeBuffer("Score "+game.getScore(0)+" - "+game.getScore(1));
-        game_package.Grid.resetGrid(game.getGrid().getValues());
+        gamePackage.Grid.resetGrid(game.getGrid().getValues());
       }
 
       System.out.println("Partie finie");

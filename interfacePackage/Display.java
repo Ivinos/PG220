@@ -1,6 +1,5 @@
 package interfacePackage;
 
-
 import java.io.Console;
 
 public class Display{
@@ -12,15 +11,17 @@ public class Display{
         String[] buf1, buf2;
         String name1 = "", name2 = "";
         String type1 = "", type2 = "";
+        int cntPlayer = 1;
 
         System.out.println(s1);
-        buf1 = CheckInput.checkPlayers(console.readLine());
-        type1 = CheckInput.checkType(buf1[0]);
+        buf1 = CheckInput.checkPlayers(console.readLine(),cntPlayer);
+        type1 = CheckInput.checkType(buf1[0],cntPlayer);
         name1 = buf1[1];
+        cntPlayer++;
 
         System.out.println(s2);
-        buf2 = CheckInput.checkPlayers(console.readLine());
-        type2 = CheckInput.checkType(buf2[0]);
+        buf2 = CheckInput.checkPlayers(console.readLine(),cntPlayer);
+        type2 = CheckInput.checkType(buf2[0],cntPlayer);
         name2 = buf2[1];
 
         // System.out.println("Joueur 1 est <"+name1+"> (type : '"+type1+"') et Joueur 2 est <"+name2+ "> (type : '"+type2+"')");

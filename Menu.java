@@ -13,11 +13,10 @@ commande suivante java Main.
 
 import interfacePackage.*;
 import gamePackage.*;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Menu{
-
-    // interfacePackage.Display display = new interfacePackage.Display(); // Pour essayer de raccourcir le nom..
-
 
     public static void main(String[] args){
       int width = 6;
@@ -30,12 +29,14 @@ public class Menu{
       Game game = new Game(inputPlayers, width, height, score);
 
       game.writePlayers();
+      // writeBuffer("Joueur 1 est "+player1.getName());
+      // writeBuffer("Joueur 2 est "+player2.getName());
 
       while(game.getScore(0) != 3 && game.getScore(1) != 3){
         // System.out.println(">>>>Score "+game.getScore(0)+" - "+game.getScore(1));
-        game.writeBuffer("Manche commence");
+        interfacePackage.WriteInLog.writeBuffer("Manche commence");
         game.play();
-        game.writeBuffer("Score "+game.getScore(0)+" - "+game.getScore(1));
+        interfacePackage.WriteInLog.writeBuffer("Score "+game.getScore(0)+" - "+game.getScore(1));
         gamePackage.Grid.resetGrid(game.getGrid().getValues());
       }
 

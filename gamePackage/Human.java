@@ -12,11 +12,11 @@ public class Human extends Player{
   public String checkBuffer(String str) {
 
     if(str == null || str.isEmpty()){
-      Game.writeBuffer("Erreur saisie Joueur "+0);
+      WriteInLog.writeBuffer("Erreur saisie Joueur "+str);
       return "Erreur saisie Joueur";
     }
     else if (str.equals("sortir")){
-      Game.writeBuffer(str);
+      WriteInLog.writeBuffer(str);
       return str;
     }
 
@@ -36,10 +36,10 @@ public class Human extends Player{
       String buf = sb.toString();
       if (Integer.parseInt(buf) > 0 && Integer.parseInt(buf) < 8)
         return str;
-      Game.writeBuffer("Erreur colonne non valide "+str);
+      WriteInLog.writeBuffer("Erreur colonne non valide "+str);
       return "Erreur : position invalide";
     }
-    Game.writeBuffer("Erreur saisie Joueur "+0);
+    WriteInLog.writeBuffer("Erreur saisie Joueur "+str);
     return "Erreur saisie Joueur";
   }
 
@@ -55,14 +55,14 @@ public class Human extends Player{
 
     while(!buf.equals(buffer)){
       if (buf.equals("sortir")){
-        System.out.println(">>>>>");
+        System.out.println(">>>>>     TCHAO     <<<<<");
         return -1;
       }
       else if(buf.equals("Erreur : position invalide")){
-        System.out.println(">Position invalide. Choisis un nombre entre 1 et 7 : ");
+        System.out.print("Erreur : position invalide. Choisis un nombre entre 1 et 7 : ");
       }
       else if(buf.equals("Erreur saisie Joueur")){
-        System.out.println(">Saisie invalide. Choisis un nombre entre 1 et 7 : ");
+        System.out.print("Erreur : saisie invalide. Choisis un nombre entre 1 et 7 : ");
       }
 
       else

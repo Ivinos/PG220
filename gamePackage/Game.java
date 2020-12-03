@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 
-
 public class Game{
 
     // Attributs
@@ -96,17 +95,17 @@ public class Game{
     }
 
     //Write in log.txt the move of the player
-    public static void writeMove(int player, int position){
-      try{
-        String filename = "log.txt";
-        FileWriter fileToWrite = new FileWriter(filename, true);
-        fileToWrite.write("\nJoueur "+player+" joue "+position);
-        fileToWrite.close();
-      }
-      catch (Exception e){
-        System.err.println(e);
-      }
-    }
+    // public static void writeMove(int player, int position){
+    //   try{
+    //     String filename = "log.txt";
+    //     FileWriter fileToWrite = new FileWriter(filename, true);
+    //     fileToWrite.write("\nJoueur "+player+" joue "+position);
+    //     fileToWrite.close();
+    //   }
+    //   catch (Exception e){
+    //     System.err.println(e);
+    //   }
+    // }
 
     // //Write in log.txt the victory of the player
     // public static void writeVictory(String win){
@@ -124,20 +123,7 @@ public class Game{
     //   }
     // }
 
-    //Write in log.txt the string
-    public static void writeBuffer(String buffer){
-      try{
-        String filename = "log.txt";
-        FileWriter fileToWrite = new FileWriter(filename, true);
 
-        fileToWrite.write("\n"+buffer);
-        fileToWrite.close();
-      }
-
-      catch (Exception e){
-        System.err.println(e);
-      }
-    }
 
 
     // Update the grid after a turn
@@ -157,14 +143,15 @@ public class Game{
                 // int abs = 5-k+1;
                 int ord = position-1+1;
                 validMove = 1;
-                System.out.println("Player "+player+" joue en position "+ord+"\n");
-                writeMove(player, ord);
+                System.out.println("Joueur "+player+" joue en position "+ord+"\n");
+                // writeMove(player, ord);
+                WriteInLog.writeBuffer("Joueur "+player+" joue "+ord);
                 getGrid().values = grid;
                 return position;
             }
         }
-        writeBuffer("Erreur colonne pleine "+position);
-        System.out.println("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et 7 : ");
+        WriteInLog.writeBuffer("Erreur colonne pleine "+position);
+        System.out.print("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et 7 : ");
 
         if (player == 1){
           position = getPlayer1().choice(); //Integer.parseInt(console.readLine());
@@ -298,21 +285,21 @@ public class Game{
     }
 
 
-    public static String checkBuffer(String buf){
-      String[] parameter = {"0","1","2","3","4","5","6","7","8","9"};
-      String[] res;
-
-      // System.out.println(parameter+" de taille "+parameter.length());
-      for (String i :parameter){
-        // System.out.println(i);
-        res = buf.split(i);
-        if (res[0].length() != buf.length()){ // buffer contient autre chose que des digit
-            System.out.println(res[0]);
-            System.out.println(res[1]);
-        }
-      }
-      return buf;
-    }
+    // public static String checkBuffer(String buf){
+    //   String[] parameter = {"0","1","2","3","4","5","6","7","8","9"};
+    //   String[] res;
+    //
+    //   // System.out.println(parameter+" de taille "+parameter.length());
+    //   for (String i :parameter){
+    //     // System.out.println(i);
+    //     res = buf.split(i);
+    //     if (res[0].length() != buf.length()){ // buffer contient autre chose que des digit
+    //         System.out.println(res[0]);
+    //         System.out.println(res[1]);
+    //     }
+    //   }
+    //   return buf;
+    // }
 
 
     // Méthodes
@@ -343,12 +330,12 @@ public class Game{
 
         if(victoryCheck(grid, position-1) == 1){ // -1 Car index en java commence à 0
           if(i == 1){
-            writeBuffer("Joueur 1 gagne");
+            WriteInLog.writeBuffer("Joueur 1 gagne");
             setScore(0);
             win1 = 1;
           }
           else{
-            writeBuffer("Joueur 2 gagne");
+            WriteInLog.writeBuffer("Joueur 2 gagne");
             setScore(1);
             win2 = 1;
           }
@@ -356,7 +343,7 @@ public class Game{
 
         else if(equalityCheck(grid) == 1){
           equality = 1;
-          writeBuffer("Egalite");
+          WriteInLog.writeBuffer("Egalite");
         }
 
        i++;

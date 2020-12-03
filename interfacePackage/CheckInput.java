@@ -4,23 +4,23 @@ import java.io.Console;
 
 public class CheckInput{
 
-    public static String[] checkPlayers(String buf){
+    public static String[] checkPlayers(String buf, int numeroPlayer){
       Console console = System.console();
       String[] res;
       String parameter = " ";
 
       res = buf.split(parameter);
-      // System.out.print("OK : res.length() = "+res.length);
 
       while (res.length == 1){
-        System.out.print("Error : please enter <type> <pseudo> : ");
+        WriteInLog.writeBuffer("Erreur saisie Joueur "+numeroPlayer);
+        System.out.print("Erreur : déclaration du joueur incorrecte. Choisis un <type> <pseudo> : ");
         res = console.readLine().split(parameter);
       }
 
       return res;
     }
 
-    public static String checkType(String buf){
+    public static String checkType(String buf, int numeroPlayer){
       Console console = System.console();
       int valid = 0;
 
@@ -30,7 +30,8 @@ public class CheckInput{
           return buf;
         }
         else{
-           System.out.print("Error : please enter a valid type (human or ia) : ");
+           WriteInLog.writeBuffer("Erreur saisie Joueur "+numeroPlayer);
+           System.out.print("Erreur : type invalide. Choisis un type valide (humain ou ia) : ");
            buf = console.readLine();
            System.out.println(buf);
         }

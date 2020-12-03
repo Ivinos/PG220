@@ -330,8 +330,11 @@ public class Game{
         else // si le joueur 2 doit jouer
          position = getPlayer2().choice();
 
-        if (position == -1) // le joueur a taper la commande "sortir"
-          System.exit(0);
+        if (position == -1){ // le joueur a tapé la commande "sortir"
+          System.out.println("SORTIR");
+          break;  
+          // System.exit(0);
+        }
 
         System.out.println("");
         getGrid().values = updateGrid(getGrid().values, position, i);

@@ -11,10 +11,14 @@ public class Human extends Player{
 
   public String checkBuffer(String str) {
 
-    if(str == null || str.isEmpty())
-      return "1 Erreur : saisie incorrecte";
-    else if (str.equals("sortir"))
+    if(str == null || str.isEmpty()){
+      Game.writeBuffer("Erreur saisie Joueur .");
+      return "Erreur saisie Joueur .";
+    }
+    else if (str.equals("sortir")){
+      Game.writeBuffer(str);
       return str;
+    }
 
     StringBuilder sb = new StringBuilder();
 
@@ -32,10 +36,11 @@ public class Human extends Player{
       String buf = sb.toString();
       if (Integer.parseInt(buf) > 0 && Integer.parseInt(buf) < 8)
         return str;
-      return "invalid position";
+      Game.writeBuffer("Erreur colonne non valide "+str);
+      return "Erreur : position invalide";
     }
-
-    return "2 Erreur : saisie incorrecte";
+    Game.writeBuffer("Erreur saisie Joueur .");
+    return "Erreur saisie Joueur .";
   }
 
   public int choice(){
@@ -47,21 +52,29 @@ public class Human extends Player{
     buffer = console.readLine();
     buf = checkBuffer(buffer);
 
+
     while(!buf.equals(buffer)){
       if (buf.equals("sortir")){
-        Game.writeBuffer("Commande 'sortir'");
-        System.out.println("You quit the game");
+        System.out.println(">>>>>");
         return -1;
       }
-      else if(buf.equals("invalid position")){
-        Game.writeBuffer("Erreur saisie colonne .");
-        System.out.println(">Wrong position. Please choose a number from 1 to 7 ");
+      else if(buf.equals("Erreur : position invalide")){
+        System.out.println("Position invalide. Choisis un nombre entre 1 et 7 :  ");
       }
+      else if(buf.equals("Erreur saisie Joueur .")){
+        System.out.println(">Saisie invalide. Choisis un nombre entre 1 et 7 :  ");
+      }
+      
       else
-        System.out.println(buf);
+        System.out.println("WHAT "+buf);
 
       buffer = console.readLine();
       buf = checkBuffer(buffer);
+    }
+
+    if (buf.equals("sortir")){
+      System.out.println(">>>>>");
+      return -1;
     }
 
     position = Integer.parseInt(buf);

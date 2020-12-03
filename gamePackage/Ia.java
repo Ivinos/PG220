@@ -21,7 +21,7 @@ public class Ia extends Player{
 
   public int choice(){
     int position;
-    position = getRandomNumber(1,7);
+    position = getRandomNumber(1,7); // PROBLEME ICI ON DEVRAIT AVOIR DES VARIABLES
 
     return position;
   }

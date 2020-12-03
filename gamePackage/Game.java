@@ -141,7 +141,7 @@ public class Game{
 
 
     // Update the grid after a turn
-    public int[][] updateGrid(int[][] grid, int position, int player){
+    public int updateGrid(int[][] grid, int position, int player){
       int validMove = 0;
 
       player = whichPlayer(player);            // define which is player's turn (player 1 or player 2 ?)
@@ -159,7 +159,8 @@ public class Game{
                 validMove = 1;
                 System.out.println("Player "+player+" joue en position "+ord+"\n");
                 writeMove(player, ord);
-                return grid;
+                getGrid().values = grid;
+                return position;
             }
         }
         writeBuffer("Erreur colonne pleine "+position);
@@ -172,7 +173,8 @@ public class Game{
           position = getPlayer2().choice(); //getRandomNumber(1,7);
         System.out.println("");
       }
-      return grid;
+      getGrid().values = grid;
+      return position;
     }
 
 
@@ -336,7 +338,7 @@ public class Game{
         }
 
         System.out.println("");
-        getGrid().values = updateGrid(getGrid().values, position, i);
+        position = updateGrid(getGrid().values, position, i);
         interfacePackage.Display.displayGrid(getGrid().values);
 
         if(victoryCheck(grid, position-1) == 1){ // -1 Car index en java commence à 0

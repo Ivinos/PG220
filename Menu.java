@@ -11,33 +11,42 @@ commande suivante java Main.
 */
 
 
-import interfacePackage.*;
+// import interfacePackage.*;
 import gamePackage.*;
-import java.io.File;
-import java.io.FileWriter;
+// import java.io.File;
+// import java.io.FileWriter;
 
 public class Menu{
 
     public static void main(String[] args){
+      int numberPlayers = 2;
       int width = 6;
       int height = 7;
+      int rounds = 3;
+
       String[] inputPlayers;
       int[] score = {0,0};
+      
+      int[] parameters;
 
-      inputPlayers = Display.displayMenu();
+      parameters = interfacePackage.Display.parametersMenu(numberPlayers, width, height, rounds);
+      numberPlayers = parameters[0];
+      width = parameters[1];
+      height = parameters[2];
+      rounds = parameters[3];
 
-      Game game = new Game(inputPlayers, width, height, score);
+      // inputPlayers = Display.displayMenu();
+      inputPlayers = gamePackage.Game.selectPlayers();
 
-      game.writePlayers();
-      // writeBuffer("Joueur 1 est "+player1.getName());
-      // writeBuffer("Joueur 2 est "+player2.getName());
+      Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds);
 
-      while(game.getScore(0) != 3 && game.getScore(1) != 3){
-        // System.out.println(">>>>Score "+game.getScore(0)+" - "+game.getScore(1));
-        interfacePackage.WriteInLog.writeBuffer("Manche commence");
+      // game.writePlayers();
+
+      while(game.getScore(0) != rounds && game.getScore(1) != rounds){
+        gamePackage.WriteInLog.writeBuffer("Manche commence");
         game.play();
-        interfacePackage.WriteInLog.writeBuffer("Score "+game.getScore(0)+" - "+game.getScore(1));
-        gamePackage.Grid.resetGrid(game.getGrid().getValues());
+        gamePackage.WriteInLog.writeBuffer("Score "+game.getScore(0)+" - "+game.getScore(1));
+        gamePackage.Grid.resetGrid(game.getGrid());
       }
 
       System.out.println("Partie finie");

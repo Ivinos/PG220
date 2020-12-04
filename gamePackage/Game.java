@@ -1,8 +1,7 @@
 package gamePackage;
 
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.Console;
 
 public class Game{
 
@@ -11,9 +10,11 @@ public class Game{
     public Player player2;
     public Grid grid;
     public int[] score;
+    public int rounds;
+    public int numberPlayers;
 
     // Constructeur
-    public Game(String[] inputPlayers, int width, int height, int[] score){
+    public Game(String[] inputPlayers, int numberPlayers, int width, int height, int[] score, int rounds){
       if (inputPlayers[0].equals("humain")){
         this.player1 = new Human(inputPlayers[1],1);
       }
@@ -31,6 +32,8 @@ public class Game{
       this.grid = new Grid(width, height);
 
       this.score = score;
+      this.rounds = rounds;
+      this.numberPlayers = numberPlayers;
     }
 
     // Getteurs
@@ -54,7 +57,52 @@ public class Game{
         score[i] += 1;
     }
 
+    public int getRounds(int i){
+      return rounds;
+    }
 
+    public void setRounds(int i){
+        rounds = i;
+    }
+
+    public int getNumberPlayers(int i){
+      return numberPlayers;
+    }
+
+    public void setNumberPlayers(int i){
+      numberPlayers = i;
+    }
+
+
+
+    public static String[] selectPlayers(){
+      Console console = System.console();
+      String s1 = new String("Joueur 1?");
+      String s2 = new String("Joueur 2?");
+      String[] buf1, buf2;
+      String name1 = "", name2 = "";
+      String type1 = "", type2 = "";
+      int cntPlayer = 1;
+
+      WriteInLog.createLog();
+
+      System.out.println(s1);
+      buf1 = CheckInput.checkPlayers(console.readLine(),cntPlayer);
+      type1 = CheckInput.checkType(buf1[0],cntPlayer);
+      name1 = buf1[1];
+      WriteInLog.writeBuffer("Joueur "+cntPlayer+" est "+name1);
+
+      cntPlayer++;
+
+      System.out.println(s2);
+      buf2 = CheckInput.checkPlayers(console.readLine(),cntPlayer);
+      type2 = CheckInput.checkType(buf2[0],cntPlayer);
+      name2 = buf2[1];
+      WriteInLog.writeBuffer("Joueur "+cntPlayer+" est "+name2);
+
+      String[] res = {type1, name1, type2, name2}; // type1 player1 type2 player2
+      return res;
+    }
 
     // Return which player is playing
     public static int whichPlayer(int i){
@@ -65,88 +113,26 @@ public class Game{
         return 1;
     }
 
-
-
-
-    public void writePlayers(){
-      String filename = "log.txt";
-
-      try{
-        File fileToCreate = new File(filename);
-
-        fileToCreate.delete();
-
-        // if (fileToCreate.createNewFile())
-        //   System.out.println("\nFile "+filename+" created\n");
-        //
-        // else{
-        //   System.out.println("\nFile "+filename+" already exists");
-        //   System.exit(0);
-        // }
-
-        FileWriter fileToWrite = new FileWriter(filename);
-        fileToWrite.write("Joueur 1 est "+player1.getName());
-        fileToWrite.write("\nJoueur 2 est "+player2.getName());
-        fileToWrite.close();
-      }
-      catch (Exception e){
-        System.err.println(e);
-      }
-    }
-
-    //Write in log.txt the move of the player
-    // public static void writeMove(int player, int position){
-    //   try{
-    //     String filename = "log.txt";
-    //     FileWriter fileToWrite = new FileWriter(filename, true);
-    //     fileToWrite.write("\nJoueur "+player+" joue "+position);
-    //     fileToWrite.close();
-    //   }
-    //   catch (Exception e){
-    //     System.err.println(e);
-    //   }
-    // }
-
-    // //Write in log.txt the victory of the player
-    // public static void writeVictory(String win){
-    //   try{
-    //     String filename = "log.txt";
-    //     FileWriter fileToWrite = new FileWriter(filename, true);
-    //     if (win.equals("win1"))
-    //       fileToWrite.write("\nJoueur 1 gagne");
-    //     else
-    //       fileToWrite.write("\nJoueur 2 gagne");
-    //     fileToWrite.close();
-    //   }
-    //   catch (Exception e){
-    //     System.err.println(e);
-    //   }
-    // }
-
-
-
-
     // Update the grid after a turn
-    public int updateGrid(int[][] grid, int position, int player){
+    public int updateGrid(Grid grid, int position, int player){
       int validMove = 0;
 
-      player = whichPlayer(player);            // define which is player's turn (player 1 or player 2 ?)
+      player = whichPlayer(player);      // define which is player's turn (player 1 or player 2 ?)
 
       while (validMove == 0){
         for(int k = 0; k<6; k++){
-            if (grid[5-k][position-1] == 0){ // if cell [position][k] is empty
+            if (grid.values[5-k][position-1] == 0){ // if cell [position][k] is empty
                 if (player == 1)
-                    grid[5-k][position-1] = -1;
+                    grid.values[5-k][position-1] = -1;
                 else
-                    grid[5-k][position-1] = 1;
+                    grid.values[5-k][position-1] = 1;
 
                 // int abs = 5-k+1;
                 int ord = position-1+1;
                 validMove = 1;
-                System.out.println("Joueur "+player+" joue en position "+ord+"\n");
-                // writeMove(player, ord);
+                System.out.println("Joueur "+player+" joue en position "+ord);
                 WriteInLog.writeBuffer("Joueur "+player+" joue "+ord);
-                getGrid().values = grid;
+                getGrid().values = grid.values;
                 return position;
             }
         }
@@ -159,15 +145,18 @@ public class Game{
         else
           position = getPlayer2().choice(); //getRandomNumber(1,7);
         System.out.println("");
+      
+      if (position == -1)
+        return position;
       }
-      getGrid().values = grid;
+
+      getGrid().values = grid.values;
       return position;
     }
 
 
     // Vérifie s'il y a égalité
     int equalityCheck(Grid grid){
-      // int width = grid.width;
       int height = grid.height;
       int cpt = 0;
       for (int i = 0; i<height; i++){
@@ -308,7 +297,7 @@ public class Game{
       int position = 0;
       int win1 = 0, win2 = 0, equality = 0;
 
-      interfacePackage.Display.displayGrid(getGrid().values);
+      interfacePackage.Display.displayGrid(getGrid());
 
       while(win1 == 0 && win2 == 0 && equality == 0){
         i = whichPlayer(i);
@@ -320,13 +309,19 @@ public class Game{
          position = getPlayer2().choice();
 
         if (position == -1){ // le joueur a tapé la commande "sortir"
+        // break;
+        System.exit(0);
+        }
+        
+        System.out.println("");
+        position = updateGrid(getGrid(), position, i);
+
+        if (position == -1){ // le joueur a tapé la commande "sortir"
           // break;
           System.exit(0);
         }
 
-        System.out.println("");
-        position = updateGrid(getGrid().values, position, i);
-        interfacePackage.Display.displayGrid(getGrid().values);
+        interfacePackage.Display.displayGrid(getGrid());
 
         if(victoryCheck(grid, position-1) == 1){ // -1 Car index en java commence à 0
           if(i == 1){

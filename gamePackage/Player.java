@@ -18,13 +18,13 @@ abstract class Player {
     return numeroPlayer;
   }
 
-  public void setName() {
-    this.name = name;
-  }
+  // public void setName() {
+  //   this.name = name;
+  // }
 
-  public void setNumeroPlayer() {
-    this.numeroPlayer = numeroPlayer;
-  }
+  // public void setNumeroPlayer() {
+  //   this.numeroPlayer = numeroPlayer;
+  // }
 
   public abstract int choice();
 }

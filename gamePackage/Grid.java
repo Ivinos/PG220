@@ -36,12 +36,12 @@ public class Grid {
     return this.values;
   }
 
-  public static void resetGrid(int[][] grid){
-    int width = 6;
-    int height = 7;
+  public static void resetGrid(Grid grid){
+    int width = grid.width;
+    int height = grid.height;
     for (int i = 0; i<width; i++){
       for (int j = 0; j<height; j++){
-        grid[i][j] = 0;
+        grid.values[i][j] = 0;
       }
     }
   }

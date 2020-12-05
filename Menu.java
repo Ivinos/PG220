@@ -20,8 +20,8 @@ public class Menu{
 
     public static void main(String[] args){
       int numberPlayers = 2;
-      int width = 6;
-      int height = 7;
+      int width = 7;
+      int height = 6;
       int rounds = 3;
 
       String[] inputPlayers;

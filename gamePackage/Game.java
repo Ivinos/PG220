@@ -116,22 +116,24 @@ public class Game{
     // Update the grid after a turn
     public int updateGrid(Grid grid, int position, int player){
       int validMove = 0;
+      // int width = grid.width;
+      int height = grid.height;
 
-      player = whichPlayer(player);      // define which is player's turn (player 1 or player 2 ?)
+      int numeroPlayer = whichPlayer(player);      // define which is player's turn (player 1 or player 2 ?)
 
       while (validMove == 0){
-        for(int k = 0; k<6; k++){
-            if (grid.values[5-k][position-1] == 0){ // if cell [position][k] is empty
+        for(int k = 0; k<height-1; k++){
+            if (grid.values[height-1-k][position-1] == 0){ // if cell is empty
                 if (player == 1)
-                    grid.values[5-k][position-1] = -1;
+                    grid.values[height-1-k][position-1] = -1;
                 else
-                    grid.values[5-k][position-1] = 1;
+                    grid.values[height-1-k][position-1] = 1;
 
                 // int abs = 5-k+1;
                 int ord = position-1+1;
                 validMove = 1;
-                System.out.println("Joueur "+player+" joue en position "+ord);
-                WriteInLog.writeBuffer("Joueur "+player+" joue "+ord);
+                System.out.println("Joueur "+numeroPlayer+" joue en position "+ord);
+                WriteInLog.writeBuffer("Joueur "+numeroPlayer+" joue "+ord);
                 getGrid().values = grid.values;
                 return position;
             }
@@ -139,7 +141,7 @@ public class Game{
         WriteInLog.writeBuffer("Erreur colonne pleine "+position);
         System.out.print("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et 7 : ");
 
-        if (player == 1){
+        if (numeroPlayer == 1){
           position = getPlayer1().choice(); //Integer.parseInt(console.readLine());
         }
         else
@@ -157,9 +159,9 @@ public class Game{
 
     // Vérifie s'il y a égalité
     int equalityCheck(Grid grid){
-      int height = grid.height;
+      int width = grid.width;
       int cpt = 0;
-      for (int i = 0; i<height; i++){
+      for (int i = 0; i<width; i++){
         if (grid.values[0][i] != 0)
           cpt++;
       }
@@ -178,8 +180,8 @@ public class Game{
             lastLine++;
         }
 
-        int vertical[] = new int[width];
-        int horizontal[] = new int[height];
+        int vertical[] = new int[height];
+        int horizontal[] = new int[width];
         int lenDiag = 1;
         int lenAntiDiag = 1;
         ArrayList<Integer> diagonalTmp = new ArrayList<Integer>();
@@ -190,19 +192,19 @@ public class Game{
 
         // On remplit diagonale
         int tmpLine = lastLine; int tmpColumn = lastColumn;
-        while((tmpLine-- > 0) && (tmpColumn++ < height-1)){ // Je regarde si la case suivante est possible
+        while((tmpLine-- > 0) && (tmpColumn++ < width-1)){ // Je regarde si la case suivante est possible
             diagonalTmp.add(grid.values[tmpLine][tmpColumn]);
             lenDiag++;
         }
         tmpLine = lastLine; tmpColumn = lastColumn; // On les réinitialise
-        while((tmpLine++ < width-1) && (tmpColumn-- > 0)){
+        while((tmpLine++ < height-1) && (tmpColumn-- > 0)){
             diagonalTmp.add(0, grid.values[tmpLine][tmpColumn]);
             lenDiag++;
         }
 
         // On remplit l'anti diagonale
         tmpLine = lastLine; tmpColumn = lastColumn; // On les réinitialise
-        while((tmpLine++ < width-1) && (tmpColumn++ < height-1)){
+        while((tmpLine++ < height-1) && (tmpColumn++ < width-1)){
             antidiagonalTmp.add(grid.values[tmpLine][tmpColumn]);
             lenAntiDiag++;
         }
@@ -213,10 +215,10 @@ public class Game{
         }
 
         // On remplit vertical et horizontal
-        for(int i = 0; i<width; i++){
+        for(int i = 0; i<height; i++){
             vertical[i] = grid.values[i][lastColumn];
         }
-        for(int i = 0; i<height; i++){
+        for(int i = 0; i<width; i++){
             horizontal[i] = grid.values[lastLine][i];
         }
 
@@ -237,9 +239,9 @@ public class Game{
 //        printArray(antiDiagonal, lenAntiDiag);
 
         // On vérifie chaque liste
-        if(arrayCheck(vertical, width) == 1){
+        if(arrayCheck(vertical, height) == 1){
             return 1; // Victoire
-        } else if(arrayCheck(horizontal, height) == 1){
+        } else if(arrayCheck(horizontal, width) == 1){
             return 1; // Victoire
         } else if(arrayCheck(diagonal, lenDiag) == 1){
             return 1; // Victoire

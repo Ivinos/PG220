@@ -15,9 +15,9 @@ public class Grid {
   }
 
   public static int[][] initializeGrid(int width, int height){
-    int grid[][]  = new int[width][height]; // matrix 6x7
-    for (int i = 0; i<width; i++){
-      for (int j = 0; j<height; j++){
+    int grid[][]  = new int[height][width]; // matrix 6x7
+    for (int i = 0; i<height; i++){
+      for (int j = 0; j<width; j++){
         grid[i][j] = 0;
       }
     }
@@ -39,8 +39,8 @@ public class Grid {
   public static void resetGrid(Grid grid){
     int width = grid.width;
     int height = grid.height;
-    for (int i = 0; i<width; i++){
-      for (int j = 0; j<height; j++){
+    for (int i = 0; i<height; i++){
+      for (int j = 0; j<width; j++){
         grid.values[i][j] = 0;
       }
     }

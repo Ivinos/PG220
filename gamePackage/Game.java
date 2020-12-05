@@ -122,7 +122,7 @@ public class Game{
       int numeroPlayer = whichPlayer(player);      // define which is player's turn (player 1 or player 2 ?)
 
       while (validMove == 0){
-        for(int k = 0; k<height-1; k++){
+        for(int k = 0; k<height; k++){
             if (grid.values[height-1-k][position-1] == 0){ // if cell is empty
                 if (player == 1)
                     grid.values[height-1-k][position-1] = -1;
@@ -142,10 +142,10 @@ public class Game{
         System.out.print("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et 7 : ");
 
         if (numeroPlayer == 1){
-          position = getPlayer1().choice(); //Integer.parseInt(console.readLine());
+          position = getPlayer1().choice(grid); //Integer.parseInt(console.readLine());
         }
         else
-          position = getPlayer2().choice(); //getRandomNumber(1,7);
+          position = getPlayer2().choice(grid); //getRandomNumber(1,7);
         System.out.println("");
       
       if (position == -1)
@@ -165,7 +165,7 @@ public class Game{
         if (grid.values[0][i] != 0)
           cpt++;
       }
-      if (cpt == 7)
+      if (cpt == width)
         return 1;
 
       return 0;
@@ -262,35 +262,19 @@ public class Game{
         int count = 0;
         int max = length - 4;
 
-        for(int i = 0; i<=max; i++){
-            for(int j = 0; j<4; j++){
-                count += array[i+j];
-//                System.out.println("i : " + i + " j : " + j + " count : " + count);
-            }
+        for(int i = 0; i <= max; i++){
+          for(int j = 0; j<4; j++){
+            count += array[i+j];
+            // System.out.println("i : " + i + " j : " + j + " count : " + count);
+          
             if ((count == -4) || (count == 4)){
-                return 1; // Victoire
+              return 1; // Victoire
             }
-            count = 0; // On réinitialise count
+          }
+          count = 0; // On réinitialise count
         }
         return 0; // Pas encore de victoire
     }
-
-
-    // public static String checkBuffer(String buf){
-    //   String[] parameter = {"0","1","2","3","4","5","6","7","8","9"};
-    //   String[] res;
-    //
-    //   // System.out.println(parameter+" de taille "+parameter.length());
-    //   for (String i :parameter){
-    //     // System.out.println(i);
-    //     res = buf.split(i);
-    //     if (res[0].length() != buf.length()){ // buffer contient autre chose que des digit
-    //         System.out.println(res[0]);
-    //         System.out.println(res[1]);
-    //     }
-    //   }
-    //   return buf;
-    // }
 
 
     // Méthodes
@@ -305,10 +289,10 @@ public class Game{
         i = whichPlayer(i);
 
         if (i == 1) // si le joueur 1 doit jouer
-         position = getPlayer1().choice();
+         position = getPlayer1().choice(grid);
 
         else // si le joueur 2 doit jouer
-         position = getPlayer2().choice();
+         position = getPlayer2().choice(grid);
 
         if (position == -1){ // le joueur a tapé la commande "sortir"
         // break;

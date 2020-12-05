@@ -19,9 +19,11 @@ public class Ia extends Player{
   }
 
 
-  public int choice(){
+  public int choice(Grid grid){
     int position;
-    position = getRandomNumber(1,7); // PROBLEME ICI ON DEVRAIT AVOIR DES VARIABLES
+    int min = 1;
+    int max = grid.width;
+    position = getRandomNumber(min,max); 
 
     return position;
   }

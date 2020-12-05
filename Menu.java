@@ -11,10 +11,7 @@ commande suivante java Main.
 */
 
 
-// import interfacePackage.*;
 import gamePackage.*;
-// import java.io.File;
-// import java.io.FileWriter;
 
 public class Menu{
 

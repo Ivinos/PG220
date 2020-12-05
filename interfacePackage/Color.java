@@ -22,9 +22,12 @@ public class Color{
   // public static final String  CYAN_BACKGROUND = "\u001B[46m";
   // public static final String  WHITE_BACKGROUND = "\u001B[47m";
 
-  public String getColor(String COLOR) {
+  public static String getColor(String COLOR) {
+    System.out.println("J'ai du "+COLOR); 
     return COLOR;
   }
+
+  // System.out.println(Color.getColor(Color.GREEN)); pour Display
 
 
   public static String setColor(String buffer, String COLOR) {

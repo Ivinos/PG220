@@ -26,5 +26,5 @@ abstract class Player {
   //   this.numeroPlayer = numeroPlayer;
   // }
 
-  public abstract int choice();
+  public abstract int choice(Grid grid);
 }

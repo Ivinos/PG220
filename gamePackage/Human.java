@@ -9,7 +9,7 @@ public class Human extends Player{
   }
 
 
-  public String checkBuffer(String str) {
+  public String checkBuffer(String str, int width) {
 
     if(str == null || str.isEmpty()){
       WriteInLog.writeBuffer("Erreur saisie colonne "+str);
@@ -34,7 +34,7 @@ public class Human extends Player{
 
     if (sb.length() == str.length()){
       String buf = sb.toString();
-      if (Integer.parseInt(buf) > 0 && Integer.parseInt(buf) < 8)
+      if (Integer.parseInt(buf) > 0 && Integer.parseInt(buf) < width+1)
         return str;
       WriteInLog.writeBuffer("Erreur colonne non valide "+str);
       return "Erreur : position invalide";
@@ -43,14 +43,15 @@ public class Human extends Player{
     return "Erreur saisie colonne";
   }
 
-  public int choice(){
+  public int choice(Grid grid){
     String buffer;
     String buf;
     Console console = System.console();
     int position = 0;
+    int width = grid.width;
 
     buffer = console.readLine();
-    buf = checkBuffer(buffer);
+    buf = checkBuffer(buffer,width);
 
 
     while(!buf.equals(buffer)){
@@ -59,17 +60,17 @@ public class Human extends Player{
         return -1;
       }
       else if(buf.equals("Erreur : position invalide")){
-        System.out.print("Erreur : position invalide. Choisis un nombre entre 1 et 7 : ");
+        System.out.print("Erreur : position invalide. Choisis un nombre entre 1 et "+width+" : ");
       }
       else if(buf.equals("Erreur saisie colonne")){
-        System.out.print("Erreur : saisie invalide. Choisis un nombre entre 1 et 7 : ");
+        System.out.print("Erreur : saisie invalide. Choisis un nombre entre 1 et "+width+" : ");
       }
 
       else
         System.out.println("> "+buf);
 
       buffer = console.readLine();
-      buf = checkBuffer(buffer);
+      buf = checkBuffer(buffer,width);
     }
 
     if (buf.equals("sortir")){

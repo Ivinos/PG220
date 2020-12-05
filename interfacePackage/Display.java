@@ -163,7 +163,6 @@ public class Display{
         buf = console.readLine();
       }
     }
-    // System.out.println("Le nombre de manches à gagner pour remporter la partie a été modifié avec succès");
     return numberPlayers;
   }
 
@@ -180,8 +179,8 @@ public class Display{
       if (checkIfInteger(buf) == 1){
         width = Integer.parseInt(buf);
         
-        if (width < 7){
-          System.out.print("Erreur : largeur de la grille incorrecte (>= 7 requise). Largeur de la grille : ");
+        if (width <= 3){
+          System.out.print("Erreur : largeur de la grille incorrecte (>= 4 requise). Largeur de la grille : ");
           buf = console.readLine();
         }
         else
@@ -208,8 +207,8 @@ public class Display{
       if (checkIfInteger(buf) == 1){
         height = Integer.parseInt(buf);
         
-        if (height < 6){
-          System.out.print("Erreur : hauteur de la grille incorrecte (>= 6 requise). Hauteur de la grille : ");
+        if (height <= 1){
+          System.out.print("Erreur : hauteur de la grille incorrecte (>= 2 requise). Hauteur de la grille : ");
           buf = console.readLine();
         }
         else
@@ -233,7 +232,7 @@ public class Display{
       width = changeWidth();
       height = changeHeight(); 
 
-      if ((width*height)%2 == 0){
+      if ((width*height)%2 == 0 && (width*height) >= 8){
         validAnswer = 1;
       }
       else{
@@ -274,13 +273,8 @@ public class Display{
         buf = console.readLine();
       }
     }
-    // System.out.println("Le nombre de manches à gagner pour remporter la partie a été modifié avec succès");
     return rounds;
   }
-
-
-
-
 
 
   public static int[] parametersMenu(int numberPlayers, int width, int height, int rounds){

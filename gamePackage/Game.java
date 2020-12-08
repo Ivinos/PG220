@@ -8,6 +8,7 @@ public class Game{
     // Attributs
     public Player player1;
     public Player player2;
+    // public Player players[];
     public Grid grid;
     public int[] score;
     public int rounds;
@@ -15,31 +16,49 @@ public class Game{
 
     // Constructeur
     public Game(String[] inputPlayers, int numberPlayers, int width, int height, int[] score, int rounds){
-      if (inputPlayers[0].equals("humain")){
-        this.player1 = new Human(inputPlayers[1],1);
-      }
-      else{
-        this.player1 = new Ia(inputPlayers[1],1);
-      }
+      int name;
+      int type;
 
-      if (inputPlayers[2].equals("humain")){
-        this.player2 = new Human(inputPlayers[3],2);
-      }
-      else{
-        this.player2 = new Ia(inputPlayers[3],2);
-      }
+      for (int i = 0; i<numberPlayers-1; i++){
+        type = 2*i;
+        name = 2*i + 1;
+        
+        // if (inputPlayers[type].equals("humain")){
+        //   this.players[i] = new Human(inputPlayers[name],i+1);
+        // }
+        // else{
+        //   this.players[i] = new Ia(inputPlayers[name],i+1);
+        // }
 
+        if (inputPlayers[type].equals("humain")){
+          this.player1 = new Human(inputPlayers[name],i);
+        }
+        else{
+          this.player1 = new Ia(inputPlayers[name],i);
+        }
+  
+        if (inputPlayers[type+2].equals("humain")){
+          this.player2 = new Human(inputPlayers[name+2],i+2);
+        }
+        else{
+          this.player2 = new Ia(inputPlayers[name+2],i+2);
+        }
+
+      }
       this.grid = new Grid(width, height);
-
       this.score = score;
       this.rounds = rounds;
       this.numberPlayers = numberPlayers;
     }
 
-    // Getteurs
+    // Getteurs + setters
     public Grid getGrid(){
         return grid;
     }
+
+    // public Player getPlayer(int who){
+    //   return players[who-1];
+    // }
 
     public Player getPlayer1(){
         return player1;
@@ -74,34 +93,33 @@ public class Game{
     }
 
 
-
-    public static String[] selectPlayers(){
+    // Create file log.txt + check pseudo/type of players
+    public static String[] selectPlayers(int numberPlayers){
       Console console = System.console();
-      String s1 = new String("Joueur 1?");
-      String s2 = new String("Joueur 2?");
-      String[] buf1, buf2;
-      String name1 = "", name2 = "";
-      String type1 = "", type2 = "";
-      int cntPlayer = 1;
+      String s = new String("Joueur ");
+      String res[] = new String[2*numberPlayers];
+      int cntPlayer;
 
       WriteInLog.createLog();
 
-      System.out.println(s1);
-      buf1 = CheckInput.checkPlayers(console.readLine(),cntPlayer);
-      type1 = CheckInput.checkType(buf1[0],cntPlayer);
-      name1 = buf1[1];
-      WriteInLog.writeBuffer("Joueur "+cntPlayer+" est "+name1);
+      for (int i = 0; i<numberPlayers; i++){
+        String buf[] = new String[2];
+        String name = new String();
+        String type = new String();
 
-      cntPlayer++;
+        cntPlayer = i+1;
+        System.out.println(s+cntPlayer+"?"); // Joueur i?
 
-      System.out.println(s2);
-      buf2 = CheckInput.checkPlayers(console.readLine(),cntPlayer);
-      type2 = CheckInput.checkType(buf2[0],cntPlayer);
-      name2 = buf2[1];
-      WriteInLog.writeBuffer("Joueur "+cntPlayer+" est "+name2);
+        buf = CheckInput.checkPlayers(console.readLine(),cntPlayer);
+        type = CheckInput.checkType(buf[0],cntPlayer);
+        name = buf[1];
 
-      String[] res = {type1, name1, type2, name2}; // type1 player1 type2 player2
-      return res;
+        WriteInLog.writeBuffer("Joueur "+cntPlayer+" est "+name);
+        res[i] = type;
+        res[i+1] = name;
+        }
+
+      return res; // type1 name1 type2 name2 ..
     }
 
     // Return which player is playing
@@ -113,13 +131,13 @@ public class Game{
         return 1;
     }
 
-    // Update the grid after a turn
+    // Update the grid after a move
     public int updateGrid(Grid grid, int position, int player){
       int validMove = 0;
-      // int width = grid.width;
+      int width = grid.width;
       int height = grid.height;
 
-      int numeroPlayer = whichPlayer(player);      // define which is player's turn (player 1 or player 2 ?)
+      int numeroPlayer = whichPlayer(player);
 
       while (validMove == 0){
         for(int k = 0; k<height; k++){
@@ -129,23 +147,25 @@ public class Game{
                 else
                     grid.values[height-1-k][position-1] = 1;
 
-                // int abs = 5-k+1;
                 int ord = position-1+1;
                 validMove = 1;
-                System.out.println("Joueur "+numeroPlayer+" joue en position "+ord);
+                // System.out.println("Joueur "+numeroPlayer+" joue en position "+ord);
                 WriteInLog.writeBuffer("Joueur "+numeroPlayer+" joue "+ord);
                 getGrid().values = grid.values;
                 return position;
             }
         }
         WriteInLog.writeBuffer("Erreur colonne pleine "+position);
-        System.out.print("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et 7 : ");
+        System.out.print("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et "+width+" : ");
+
+        // position = getPlayer(numeroPlayer).choice(grid);
 
         if (numeroPlayer == 1){
-          position = getPlayer1().choice(grid); //Integer.parseInt(console.readLine());
+          position = getPlayer1().choice(grid);
         }
         else
-          position = getPlayer2().choice(grid); //getRandomNumber(1,7);
+          position = getPlayer2().choice(grid);
+
         System.out.println("");
       
       if (position == -1)
@@ -157,10 +177,11 @@ public class Game{
     }
 
 
-    // Vérifie s'il y a égalité
+    // Check if there is equality
     int equalityCheck(Grid grid){
       int width = grid.width;
       int cpt = 0;
+
       for (int i = 0; i<width; i++){
         if (grid.values[0][i] != 0)
           cpt++;
@@ -171,11 +192,12 @@ public class Game{
       return 0;
     }
 
-    // Vérifie si le dernier coup permet la victoire ou non
-    int victoryCheck(Grid grid, int lastColumn){ // i -> width, j -> height
+    // Check if the last move make a win
+    int victoryCheck(Grid grid, int lastColumn){
         int width = grid.width;
         int height = grid.height;
         int lastLine = 0; // Recherche de la coordonné i du dernier coup
+        
         while(grid.values[lastLine][lastColumn] == 0){
             lastLine++;
         }
@@ -187,34 +209,34 @@ public class Game{
         ArrayList<Integer> diagonalTmp = new ArrayList<Integer>();
         ArrayList<Integer> antidiagonalTmp = new ArrayList<Integer>();
 
-        diagonalTmp.add(grid.values[lastLine][lastColumn]); // On ajoute la position jouée
+        diagonalTmp.add(grid.values[lastLine][lastColumn]); // the move has been added
         antidiagonalTmp.add(grid.values[lastLine][lastColumn]); // idem
 
-        // On remplit diagonale
+        // Filling diagonal
         int tmpLine = lastLine; int tmpColumn = lastColumn;
-        while((tmpLine-- > 0) && (tmpColumn++ < width-1)){ // Je regarde si la case suivante est possible
+        while((tmpLine-- > 0) && (tmpColumn++ < width-1)){ // check if the next cell is possible
             diagonalTmp.add(grid.values[tmpLine][tmpColumn]);
             lenDiag++;
         }
-        tmpLine = lastLine; tmpColumn = lastColumn; // On les réinitialise
+        tmpLine = lastLine; tmpColumn = lastColumn; // reinitialization
         while((tmpLine++ < height-1) && (tmpColumn-- > 0)){
             diagonalTmp.add(0, grid.values[tmpLine][tmpColumn]);
             lenDiag++;
         }
 
-        // On remplit l'anti diagonale
-        tmpLine = lastLine; tmpColumn = lastColumn; // On les réinitialise
+        // Filling antidiagonal
+        tmpLine = lastLine; tmpColumn = lastColumn; // reinitialization
         while((tmpLine++ < height-1) && (tmpColumn++ < width-1)){
             antidiagonalTmp.add(grid.values[tmpLine][tmpColumn]);
             lenAntiDiag++;
         }
-        tmpLine = lastLine; tmpColumn = lastColumn; // On les réinitialise
+        tmpLine = lastLine; tmpColumn = lastColumn; // reinitialization
         while((tmpLine-- > 0) && (tmpColumn-- > 0)){
             antidiagonalTmp.add(0, grid.values[tmpLine][tmpColumn]);
             lenAntiDiag++;
         }
 
-        // On remplit vertical et horizontal
+        // Filling vertically and horizontally
         for(int i = 0; i<height; i++){
             vertical[i] = grid.values[i][lastColumn];
         }
@@ -222,7 +244,7 @@ public class Game{
             horizontal[i] = grid.values[lastLine][i];
         }
 
-        // On remet diag et antiDiag sous forme de vraie liste
+        // diag and antidiag are now transformed into a list
         int diagonal[] = new int[lenDiag];
         int antiDiagonal[] = new int[lenAntiDiag];
         for (int i = 0; i<lenDiag; i++){
@@ -232,25 +254,20 @@ public class Game{
             antiDiagonal[i] = antidiagonalTmp.get(i);
         }
 
-        // Vérifier ici les listes qu'on donnent à checker
-//        printArray(vertical, width);
-//        printArray(horizontal, height);
-//        printArray(diagonal, lenDiag);
-//        printArray(antiDiagonal, lenAntiDiag);
-
-        // On vérifie chaque liste
+        // check of each list
         if(arrayCheck(vertical, height) == 1){
-            return 1; // Victoire
+            return 1; // victory
         } else if(arrayCheck(horizontal, width) == 1){
-            return 1; // Victoire
+            return 1; // victory
         } else if(arrayCheck(diagonal, lenDiag) == 1){
-            return 1; // Victoire
+            return 1; // victory
         } else if(arrayCheck(antiDiagonal, lenAntiDiag) == 1){
-            return 1; // Victoire
+            return 1; // victory
         }
-        return 0; // Pas encore de victoire
+        return 0; // No victory
     }
 
+    // Print an array
     void printArray(int[] array, int length){
         for (int i=0; i<length; i++){
             System.out.print(array[i]);
@@ -258,6 +275,7 @@ public class Game{
         System.out.print("\n");
     }
 
+    // Check if there is a victory
     int arrayCheck(int[] array, int length){
         int count = 0;
         int max = length - 4;
@@ -265,19 +283,18 @@ public class Game{
         for(int i = 0; i <= max; i++){
           for(int j = 0; j<4; j++){
             count += array[i+j];
-            // System.out.println("i : " + i + " j : " + j + " count : " + count);
           
             if ((count == -4) || (count == 4)){
-              return 1; // Victoire
+              return 1; // victory
             }
           }
-          count = 0; // On réinitialise count
+          count = 0;
         }
-        return 0; // Pas encore de victoire
+        return 0; // no victory
     }
 
 
-    // Méthodes
+    // Actions during the game
     public void play(){
       int i = 1; // player 1 starts playing
       int position = 0;
@@ -288,28 +305,28 @@ public class Game{
       while(win1 == 0 && win2 == 0 && equality == 0){
         i = whichPlayer(i);
 
+        // position = getPlayer(i).choice(grid);
+
         if (i == 1) // si le joueur 1 doit jouer
          position = getPlayer1().choice(grid);
 
         else // si le joueur 2 doit jouer
          position = getPlayer2().choice(grid);
 
-        if (position == -1){ // le joueur a tapé la commande "sortir"
-        // break;
-        System.exit(0);
+        if (position == -1){ // command "sortir"
+          System.exit(0);
         }
         
         System.out.println("");
         position = updateGrid(getGrid(), position, i);
 
-        if (position == -1){ // le joueur a tapé la commande "sortir"
-          // break;
+        if (position == -1){ // command "sortir"
           System.exit(0);
         }
 
         interfacePackage.Display.displayGrid(getGrid());
 
-        if(victoryCheck(grid, position-1) == 1){ // -1 Car index en java commence à 0
+        if(victoryCheck(grid, position-1) == 1){ // -1 because in java, index starts at 0
           if(i == 1){
             WriteInLog.writeBuffer("Joueur 1 gagne");
             setScore(0);

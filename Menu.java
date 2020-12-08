@@ -1,16 +1,3 @@
-/*
-
-Pour compiler ce fichier, il faut faire appel au compilateur Java : javac.
-Vous pouvez compiler le fichier avec la commande suivante : javac Main.java.
-
-Si tout se passe bien, vous devriez obtenir un fichier nommé Main.class. Il
-contient le code source précédent sous forme de bytecode. Pour lancer le fichier, il faut
-cette fois passer par l’intermédiaire de la machine virtuelle Java, avec la
-commande suivante java Main.
-
-*/
-
-
 import gamePackage.*;
 
 public class Menu{
@@ -20,25 +7,24 @@ public class Menu{
       int width = 7;
       int height = 6;
       int rounds = 3;
-
-      String[] inputPlayers;
       int[] score = {0,0};
-      
-      int[] parameters;
+      String[] inputPlayers;
+      int[] parameters = new int[4];
 
+      // Display menu with options
       parameters = interfacePackage.Display.parametersMenu(numberPlayers, width, height, rounds);
       numberPlayers = parameters[0];
       width = parameters[1];
       height = parameters[2];
       rounds = parameters[3];
 
-      // inputPlayers = Display.displayMenu();
-      inputPlayers = gamePackage.Game.selectPlayers();
+      // Players choose a pseudo + type
+      inputPlayers = gamePackage.Game.selectPlayers(numberPlayers);
 
+      // Game initialization
       Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds);
 
-      // game.writePlayers();
-
+      // The game starts
       while(game.getScore(0) != rounds && game.getScore(1) != rounds){
         gamePackage.WriteInLog.writeBuffer("Manche commence");
         game.play();

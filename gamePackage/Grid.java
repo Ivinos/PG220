@@ -15,7 +15,7 @@ public class Grid {
   }
 
   public static int[][] initializeGrid(int width, int height){
-    int grid[][]  = new int[height][width]; // matrix 6x7
+    int grid[][]  = new int[height][width];
     for (int i = 0; i<height; i++){
       for (int j = 0; j<width; j++){
         grid[i][j] = 0;

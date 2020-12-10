@@ -102,7 +102,7 @@ public class Game{
 
       WriteInLog.createLog();
 
-      for (int i = 0; i<numberPlayers; i++){
+      for (int i = 0; i<2*numberPlayers; i +=2){
         String buf[] = new String[2];
         String name = new String();
         String type = new String();

@@ -32,15 +32,27 @@ public class Game{
         if (inputPlayers[type].equals("humain")){
           this.player1 = new Human(inputPlayers[name],i);
         }
+        else if (inputPlayers[type].equals("ia:monkey")){
+          this.player1 = new Monkey(inputPlayers[name],i);
+        }
+        else if (inputPlayers[type].equals("ia:pro")){
+            this.player1 = new Pro(inputPlayers[name],i);
+        }
         else{
-          this.player1 = new Monkey(inputPlayers[name],i); // Ia
+            this.player1 = new Ia(inputPlayers[name],i);
         }
   
         if (inputPlayers[type+2].equals("humain")){
           this.player2 = new Human(inputPlayers[name+2],i+2);
         }
+        else if (inputPlayers[type+2].equals("ia:monkey")){
+            this.player2 = new Monkey(inputPlayers[name+2],i+2);
+        }
+        else if (inputPlayers[type+2].equals("ia:pro")){
+            this.player2 = new Pro(inputPlayers[name+2],i+2);
+        }
         else{
-          this.player2 = new Monkey(inputPlayers[name+2],i+2); // Ia
+            this.player2 = new Ia(inputPlayers[name+2],i+2);
         }
 
       }

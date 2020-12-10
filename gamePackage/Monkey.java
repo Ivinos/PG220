@@ -17,13 +17,25 @@ public class Monkey extends Player{
     }
 
     public static int possibleWin(int[][] grid, int width, int height){
-     for (int i=0;i<width;i++) {
-       for (int j=0;j<height;j++) {
+    width=width;
+    height=height;
+     for (int j=0;j<height;j++) {
+       // System.out.print("\n");
+       // System.out.print("Colonne: ");
+       // System.out.print(i+1);
+       // System.out.print(" : ");
+       for (int i=0;i<width;i++) {
          //Check vers le haut
-           if (j>3){
-             if ((grid[i][j]==grid[i][j-1])&&(grid[i][j]==grid[i][j-2])) {
-               if (grid[i][j-2]!=0) {
-                 return i;
+         // System.out.print("ligne : ");
+         // System.out.print(j);
+         // System.out.print(" : ");
+           if (j>2){
+             if ((grid[j][i]==grid[j-1][i])&&(grid[j][i]==grid[j-2][i])&&(grid[j][i]!=0)) {
+               if (grid[j-2][i]!=0) {
+                 System.out.print("Victoire possible haut");
+                 if (grid[j-3][i]==0) {
+                   return i;
+                 }
                }
              }
            }
@@ -35,69 +47,84 @@ public class Monkey extends Player{
          //     }
          //   }
          //Check vers la gauche
-           if (i>3){
-             if ((grid[i][j]==grid[i-1][j])&&(grid[i][j]==grid[i-2][j])){
-               if((j==height)&&(grid[i-3][j]==0)){
-                 return i-3;
-               }else{
-                 if ((grid[i-3][j]==0)&&(grid[i-3][j+1]!=0)){
-                   return i-3;
-                 }
-               }
-             }
-           }
+           // if (i>3){
+           //   if ((grid[j][i]==grid[j][i-1])&&(grid[j][i]==grid[j][i-2])&&(grid[j][i]!=0)){
+           //     if((j==height)&&(grid[j][i-3]==0)){
+           //       //System.out.print("1");
+           //       return i-3;
+           //     }else{
+           //       if ((grid[j][i-3]==0)&&(grid[j+1][i-3]!=0)){
+           //         System.out.print("Victoire possible gauche");
+           //         return i-3;
+           //       }
+           //     }
+           //   }
+           // }
          //Check vers la droite
-           if (i>width-3){
-             if((grid[i][j]==grid[i+1][j])&&(grid[i][j]==grid[i+2][j])){
-               if((j==height)&&(grid[i+3][j]==0)){
-                 return i+3;
-               }else{
-                 if ((grid[i+3][j]==0)&&(grid[i+3][j+1]!=0)){
-                   return i+3;
-                 }
-               }
-             }
-           }
-         //Check vers le haut-gauche
-           if ((j>3)&&(i>3)){
-             if ((grid[i][j]==grid[i-1][j-1])&&(grid[i][j]==grid[i-2][j-2])){
-               if ((grid[i-3][j-3]==0)&&(grid[i-3][j-2]!=0)){
-                 return i-3;
-               }
-             }
-           }
+           // System.out.print("i: ");
+           // System.out.print(i);
+           // System.out.print("\n");
+         //   if (i<width-3){
+         //     //System.out.print("2.4\n");
+         //     if(((grid[i][j]==grid[i+1][j])&&(grid[i][j]==grid[i+2][j]))&&(grid[i][j]!=0)){
+         //       //System.out.print("2.5\n");
+         //       if((j==height)&&(grid[i+3][j]==0)){
+         //         //System.out.print("3");
+         //         return i+3;
+         //       }else{
+         //         if ((grid[i+3][j]==0)&&(grid[i+3][j+1]!=0)){
+         //           System.out.print("Victoire possible droite");
+         //           return i+3;
+         //         }
+         //       }
+         //     }
+         //   }
+         // //Check vers le haut-gauche
+         //   if ((j>3)&&(i>3)){
+         //     if ((grid[i][j]==grid[i-1][j-1])&&(grid[i][j]==grid[i-2][j-2])&&(grid[i][j]!=0)){
+         //       if ((grid[i-3][j-3]==0)&&(grid[i-3][j-2]!=0)){
+         //         System.out.print("Victoire possible haut gauche");
+         //         return i-3;
+         //       }
+         //     }
+         //   }
          //Check vers le haut-droite
-           if((j>3)&&(i<width-3)){
-             if ((grid[i][j]==grid[i+1][j-1])&&(grid[i][j]==grid[i+2][j-2])){
-               if ((grid[i+3][j-3]==0)&&(grid[i+3][j-2]!=0)){
-                 return i+3;
-               }
-             }
-           }
+           // if((j>3)&&(i<width-3)){
+           //   if ((grid[i][j]==grid[i+1][j-1])&&(grid[i][j]==grid[i+2][j-2])&&(grid[i][j]!=0)){
+           //     if ((grid[i+3][j-3]==0)&&(grid[i+3][j-2]!=0)){
+           //       System.out.print("Victoire possible haut droite");
+           //       return i+3;
+           //     }
+           //   }
+           // }
          //Check vers le bas-droite
-           if ((j<height-3)&&(i<width-3)){
-             if ((grid[i][j]==grid[i+1][j+1])&&(grid[i][j]==grid[i+2][j+2])){
-               if ((grid[i-3][j+3]==0)&&(j+4==height)){
-                 return i-3;
-               }else{
-                 if ((grid[i-3][j+3]==0)&&(grid[i-3][j+4]!=0)) {
-                   return i-3;
-                 }
-               }
-             }
-           }
+           // if ((j<height-3)&&(i<width-3)){
+           //   if ((grid[i][j]==grid[i+1][j+1])&&(grid[i][j]==grid[i+2][j+2])&&(grid[i][j]!=0)){
+           //     if ((grid[i+3][j+3]==0)&&(j+4==height)){
+           //       System.out.print("Victoire possible bas droite");
+           //       return i+3;
+           //     }else{
+           //       if ((grid[i+3][j+3]==0)&&(grid[i+3][j+4]!=0)) {
+           //         System.out.print("Victoire possible bas droite");
+           //         return i+3;
+           //       }
+           //     }
+           //   }
+           // }
          //Check vers le bas-gauche
-           if ((j<height-3)&&(i>3)) {
-             if ((grid[i][j]==grid[i-1][j+1])&&(grid[i][j]==grid[i-2][j+2])){
-               if ((grid[i+3][j+3]==0)&&(j+4==height)){
-                 return i+3;
-               }else{
-                 if ((grid[i+3][j+3]==0)&&(grid[i+3][j+4]!=0)) {
-                   return i+3;
-                 }
-               }
-             }
-           }
+           // if ((j<height-3)&&(i>3)) {
+           //   if ((grid[i][j]==grid[i-1][j+1])&&(grid[i][j]==grid[i-2][j+2])&&(grid[i][j]!=0)){
+           //     if ((grid[i-3][j+3]==0)&&(j+4==height)){
+           //       System.out.print("Victoire possible bas gauche");
+           //       return i-3;
+           //     }else{
+           //       if ((grid[i-3][j+3]==0)&&(grid[i-3][j+4]!=0)) {
+           //         System.out.print("Victoire possible bas gauche");
+           //         return i-3;
+           //       }
+           //     }
+           //   }
+           // }
        }
      }
 
@@ -117,10 +144,23 @@ public class Monkey extends Player{
     public int choice(int[][] grid, int width, int height){
      int position;
      position=possibleWin(grid, width, height);
-     if (position==-1){
-       position = getRandomNumber(1,width);
+     System.out.print("\nPosition calculée: ");
+     System.out.print(position);
+     System.out.print("\n");
+     if (position>-1) {
+       if (grid[0][position]!=0) {
+           position = getRandomNumber(1,width);
+           System.out.print("Random 1VV\n");
+       }
      }
-     return position-1;
+     if(position==-1){
+       position = getRandomNumber(0,width-1);
+      System.out.print("Random 2VV\n");
+     }
+     System.out.print("\nPosition envbyée: ");
+     System.out.print(position);
+     System.out.print("\n");
+     return position+1;
     }
 
 

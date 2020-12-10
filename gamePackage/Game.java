@@ -1,13 +1,13 @@
 package gamePackage;
 
 import java.io.Console;
+import java.util.ArrayList; // Pour tableau de Player dynamique
 
 public class Game{
 
     // Attributs
-    public Player player1;
-    public Player player2;
-    // public Player players[];
+    //public Player[] players;
+    public ArrayList<Player> players;
     public Grid grid;
     public int[] score;
     public int rounds;
@@ -17,40 +17,32 @@ public class Game{
     public Game(String[] inputPlayers, int numberPlayers, int width, int height, int[] score, int rounds){
       int name;
       int type;
+      int numeroPlayer;
+      this.players = new ArrayList<Player>(); // On initialise la collection (elle est actuellement vide)
 
-      for (int i = 0; i<numberPlayers-1; i++){
-        type = 2*i;
-        name = 2*i + 1;
-        
-        // if (inputPlayers[type].equals("humain")){
-        //   this.players[i] = new Human(inputPlayers[name],i+1);
-        // }
-        // else{
-        //   this.players[i] = new Ia(inputPlayers[name],i+1);
-        // }
+      for (int i = 0; i<2*numberPlayers; i+=2) {
+          type = i;
+          name = i + 1;
+          numeroPlayer = (i / 2) + 1;
 
-        if (inputPlayers[type].equals("humain"))
-          this.player1 = new Human(inputPlayers[name],i);
-        else if (inputPlayers[type].equals("ia:monkey"))
-          this.player1 = new Monkey(inputPlayers[name],i);
-        else if (inputPlayers[type].equals("ia:pro"))
-            this.player1 = new Pro(inputPlayers[name],i);
-        else
-            this.player1 = new Ia(inputPlayers[name],i);
-  
-        if (inputPlayers[type+2].equals("humain"))
-          this.player2 = new Human(inputPlayers[name+2],i+2);
-        else if (inputPlayers[type+2].equals("ia:monkey"))
-            this.player2 = new Monkey(inputPlayers[name+2],i+2);
-        else if (inputPlayers[type+2].equals("ia:pro"))
-            this.player2 = new Pro(inputPlayers[name+2],i+2);
-        else
-            this.player2 = new Ia(inputPlayers[name+2],i+2);
+          if (inputPlayers[type].equals("humain"))
+              this.players.add(new Human(inputPlayers[name], numeroPlayer));
+              //this.players[numeroPlayer] = new Human(inputPlayers[name], numeroPlayer);
+          else if (inputPlayers[type].equals("ia:monkey"))
+              this.players.add(new Monkey(inputPlayers[name], numeroPlayer));
+              //this.players[numeroPlayer] = new Monkey(inputPlayers[name], numeroPlayer);
+          else if (inputPlayers[type].equals("ia:pro"))
+              this.players.add(new Pro(inputPlayers[name], numeroPlayer));
+              //this.players[numeroPlayer] = new Pro(inputPlayers[name], numeroPlayer);
+          else // ia normal
+              this.players.add(new Ia(inputPlayers[name], numeroPlayer));
+              //this.players[numeroPlayer] = new Ia(inputPlayers[name], numeroPlayer);
+
+          this.grid = new Grid(width, height);
+          this.score = score;
+          this.rounds = rounds;
+          this.numberPlayers = numberPlayers;
       }
-      this.grid = new Grid(width, height);
-      this.score = score;
-      this.rounds = rounds;
-      this.numberPlayers = numberPlayers;
     }
 
     // Getteurs + setters
@@ -58,16 +50,8 @@ public class Game{
         return grid;
     }
 
-    // public Player getPlayer(int who){
-    //   return players[who-1];
-    // }
-
-    public Player getPlayer1(){
-        return player1;
-    }
-
-    public Player getPlayer2(){
-        return player2;
+    public Player getPlayer(int who){
+       return players.get(who-1);
     }
 
     public int getScore(int i){
@@ -86,7 +70,7 @@ public class Game{
         rounds = i;
     }
 
-    public int getNumberPlayers(int i){
+    public int getNumberPlayers(){
       return numberPlayers;
     }
 
@@ -95,8 +79,6 @@ public class Game{
     }
 
     public void gameParameters(){
-      int numeroPlayer;
-      int cntPlayers = 2;
 
       System.out.println("\n[JEU]");
       System.out.println("Victoire : "+this.rounds+" manches à remporter");
@@ -108,15 +90,16 @@ public class Game{
       System.out.println("Largeur : "+this.grid.width+" colonnes");
 
       System.out.println("\n[JOUEURS]");
-      System.out.println("Nombre de joueurs : "+cntPlayers);
-      for (int i = 0; i<2*cntPlayers; i += 2){
-        numeroPlayer = (i/2)+1;
-        System.out.print("Joueur "+numeroPlayer+" est "+this.getPlayer1().getName()+" de type "+this.getPlayer1().getType()); // Pour l'instant pas ok mais trkl (on va bientôt faire une liste de joeur)
+      System.out.println("Nombre de joueurs : "+this.numberPlayers);
 
-        if (numeroPlayer %2 == 1)
-          System.out.println(" (symbole : croix rouge)");
-        else
-          System.out.println(" (symbole : rond bleue)");
+      for (int i = 0; i<this.numberPlayers; i++){
+
+        System.out.print("Joueur "+i+" est "+this.getPlayer(i).getName()+" de type "+this.getPlayer(i).getType()); // Pour l'instant pas ok mais trkl (on va bientôt faire une liste de joeur)
+
+//        if (numeroPlayer %2 == 1)
+//          System.out.println(" (symbole : croix rouge)");
+//        else
+//          System.out.println(" (symbole : rond bleue)");
       }
       System.out.println("");     
     }
@@ -152,13 +135,23 @@ public class Game{
     }
 
     // Return which player is playing
-    public static int whichPlayer(int i){
-      int res = i%2;
+    public int whichPlayer(int i){
+      int res = i%this.numberPlayers;
 
       if (res == 0)
-        return 2;
-      else
-        return 1;
+          res = this.numberPlayers;
+      // En gros 2%2 = 0 sauf que c'est le dernier joueur
+      // Et rajouter plus 1 au res ne marche pas car sinon le p1 ne joue pas en premier (réflechi..)
+      return res;
+    }
+
+    public int nullTab(int[] tab, int len){
+      int bool = 0;
+      for (int i=0; i<len; i++){
+        if (tab[i] == 1)
+            bool = 1;
+      }
+      return bool;
     }
 
 
@@ -167,22 +160,27 @@ public class Game{
       int i = 1; // player 1 starts playing, i = numéro de tour
       int who; // numéro de joueur
       int position = -3; // -3 correspond à un move non valide (colonne pleine)
-      int win1 = 0, win2 = 0, equality = 0;
+      int[] wins = new int[this.numberPlayers]; // Initialiser à 0 par défaut
+      int equality = 0;
+      // int win1 = 0, win2 = 0, equality = 0;
 
       interfacePackage.Display.displayGrid(getGrid());
 
-      while(win1 == 0 && win2 == 0 && equality == 0){
+      while(nullTab(wins, this.numberPlayers) == 0 && equality == 0){
         who = whichPlayer(i);
         position = -3;
 
         // position = getPlayer(i).choice(grid);
 
         while(position == -3){
-            if (who == 1) // si le joueur 1 doit jouer
-                position = getPlayer1().choice(grid.values, grid.width, grid.height);
 
-            else // si le joueur 2 doit jouer
-                position = getPlayer2().choice(grid.values, grid.width, grid.height);
+            position = this.getPlayer(who).choice(grid.values, grid.width, grid.height);
+
+//            if (who == 1) // si le joueur 1 doit jouer
+//                position = getPlayer1().choice(grid.values, grid.width, grid.height);
+//
+//            else // si le joueur 2 doit jouer
+//                position = getPlayer2().choice(grid.values, grid.width, grid.height);
 
             if (position == -1) // command "sortir"
                 System.exit(0);
@@ -205,16 +203,9 @@ public class Game{
         interfacePackage.Display.displayGrid(getGrid());
 
         if(grid.victoryCheck(position-1) == 1){ // -1 because in java, index starts at 0
-          if(who == 1){
-            WriteInLog.writeBuffer("Joueur 1 gagne");
-            setScore(0);
-            win1 = 1;
-          }
-          else{
-            WriteInLog.writeBuffer("Joueur 2 gagne");
-            setScore(1);
-            win2 = 1;
-          }
+          WriteInLog.writeBuffer("Joeur "+who+" gagne");
+          setScore(who-1); // Le joueur 1 à l'index 0 ect
+          wins[who-1] = 1; // same
         }
 
         else if(grid.equalityCheck() == 1){

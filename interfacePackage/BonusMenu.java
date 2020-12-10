@@ -118,8 +118,8 @@ public class BonusMenu{
             numberPlayers = Integer.parseInt(buf);
             if (numberPlayers < 2)
                 System.out.print("Erreur : nombre de joueurs incorrect (>= 2 requis). Nombre de joueurs : ");
-            else if (numberPlayers % 2 != 0)
-                System.out.print("Erreur : nombre de joueurs incorrect (modulo 2 requis). Nombre de joueurs : ");
+//            else if (numberPlayers % 2 != 0) // Osef des teams pour le moment
+//                System.out.print("Erreur : nombre de joueurs incorrect (modulo 2 requis). Nombre de joueurs : ");
             else
                 return numberPlayers;
             }

@@ -55,10 +55,8 @@ public class Grid {
 
     for(int k = 0; k<height; k++){
       if (this.values[height-1-k][position-1] == 0){ // if cell is empty
-        if (numeroPlayer == 1)
-          this.values[height-1-k][position-1] = -1;
-        else
-          this.values[height-1-k][position-1] = 1;
+
+        this.values[height-1-k][position-1] = numeroPlayer;
 
         // System.out.println("Joueur "+numeroPlayer+" joue en position "+position); // On peut le rajouter pour plus de style
         WriteInLog.writeBuffer("Joueur "+numeroPlayer+" joue "+position);
@@ -175,18 +173,23 @@ public class Grid {
   }
 
   // Check if there is a victory in an array
-  int arrayCheck(int[] array, int length){
-    int count = 0;
+  int arrayCheck(int[] array, int length){ // Pour le moment le nombre de jeton n'est pas dynamique zebi
+    //int count = 0;
     int max = length - 4;
+    int vals [] = {0,0,0,0};
 
     for(int i = 0; i <= max; i++){
       for(int j = 0; j<4; j++){
-        count += array[i+j];
+        //count += array[i+j];
+        vals[j] = array[i+j];
 
-        if ((count == -4) || (count == 4))
+        if ((vals[0] != 0) && (vals[0] == vals[1]) && (vals[1] == vals[2]) && (vals[2] == vals[3]))
           return 1; // victory
+//        if ((count == -4) || (count == 4))
+//          return 1; // victory
       }
-      count = 0;
+      //count = 0;
+      vals[0] = 0; vals[1] = 0; vals[2] = 0; vals[3] = 0;
     }
     return 0; // no victory
   }

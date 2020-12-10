@@ -49,43 +49,28 @@ public class Grid {
   }
 
   // Update the grid after a move
-  public int updateGrid(int position, int numeroPlayer, Player player1, Player player2){
-    int validMove = 0;
+  public int updateGrid(int position, int numeroPlayer){
     int width = this.width;
     int height = this.height;
 
-    while (validMove == 0){
-      for(int k = 0; k<height; k++){
-        if (this.values[height-1-k][position-1] == 0){ // if cell is empty
-          if (numeroPlayer == 1)
-            this.values[height-1-k][position-1] = -1;
-          else
-            this.values[height-1-k][position-1] = 1;
+    for(int k = 0; k<height; k++){
+      if (this.values[height-1-k][position-1] == 0){ // if cell is empty
+        if (numeroPlayer == 1)
+          this.values[height-1-k][position-1] = -1;
+        else
+          this.values[height-1-k][position-1] = 1;
 
-          int ord = position-1+1;
-          validMove = 1;
-          // System.out.println("Joueur "+numeroPlayer+" joue en position "+ord); // On peut le rajouter pour plus de style
-          WriteInLog.writeBuffer("Joueur "+numeroPlayer+" joue "+ord);
-          //getGrid().values = grid.values;
-          return position;
-        }
-      }
-      WriteInLog.writeBuffer("Erreur colonne pleine "+position);
-      System.out.print("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et "+width+" : ");
+        // System.out.println("Joueur "+numeroPlayer+" joue en position "+position); // On peut le rajouter pour plus de style
+        WriteInLog.writeBuffer("Joueur "+numeroPlayer+" joue "+position);
 
-      // position = getPlayer(numeroPlayer).choice(grid);
-
-      if (numeroPlayer == 1){
-        position = player1.choice(this);
-      }
-      else
-        position = player2.choice(this);
-
-      System.out.println("");
-
-      if (position == -1) // Commande sortir
         return position;
+      }
     }
+
+    WriteInLog.writeBuffer("Erreur colonne pleine "+position);
+    System.out.print("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et "+width+" : ");
+
+    position = -2; // Move invalide, on doit recommencer
 
     return position;
   }

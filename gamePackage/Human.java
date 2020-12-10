@@ -80,7 +80,7 @@ public class Human extends Player{
 
     position = Integer.parseInt(buf);
 
-  return position;
+    return position;
   }
 
 

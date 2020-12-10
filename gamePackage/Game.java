@@ -106,7 +106,8 @@ public class Game{
         String name = new String();
         String type = new String();
 
-        cntPlayer = i+1;
+        cntPlayer = (i/2)+1;
+
         System.out.println(s+cntPlayer+"?"); // Joueur i?
 
         buf = CheckInput.checkPlayers(console.readLine(),cntPlayer);
@@ -133,30 +134,38 @@ public class Game{
 
     // Actions during the game
     public void play(){
-      int i = 1; // player 1 starts playing
-      int position = 0;
+      int i = 1; // player 1 starts playing, i = numéro de tour
+      int who; // numéro de joueur
+      int position = -2; // -2 correspond à un move non valide (colonne pleine)
       int win1 = 0, win2 = 0, equality = 0;
 
       interfacePackage.Display.displayGrid(getGrid());
 
       while(win1 == 0 && win2 == 0 && equality == 0){
-        i = whichPlayer(i);
+        who = whichPlayer(i);
+        position = -2;
 
         // position = getPlayer(i).choice(grid);
 
-        if (i == 1) // si le joueur 1 doit jouer
-         position = getPlayer1().choice(grid);
+        while(position == -2){
+            if (who == 1) // si le joueur 1 doit jouer
+                position = getPlayer1().choice(grid);
 
-        else // si le joueur 2 doit jouer
-         position = getPlayer2().choice(grid);
+            else // si le joueur 2 doit jouer
+                position = getPlayer2().choice(grid);
 
-        if (position == -1){ // command "sortir"
-          System.exit(0);
+            if (position == -1){ // command "sortir"
+                System.exit(0);
+            }
+
+            System.out.println("");
+
+            position = grid.updateGrid(position, who);
+
+            if (position == -1){ // command "sortir"
+                System.exit(0);
+            }
         }
-        
-        System.out.println("");
-        //position = updateGrid(getGrid(), position, i);
-          position = grid.updateGrid(position, i, getPlayer1(), getPlayer2());
 
         if (position == -1){ // command "sortir"
           System.exit(0);
@@ -165,7 +174,7 @@ public class Game{
         interfacePackage.Display.displayGrid(getGrid());
 
         if(grid.victoryCheck(position-1) == 1){ // -1 because in java, index starts at 0
-          if(i == 1){
+          if(who == 1){
             WriteInLog.writeBuffer("Joueur 1 gagne");
             setScore(0);
             win1 = 1;
@@ -182,7 +191,7 @@ public class Game{
           WriteInLog.writeBuffer("Egalite");
         }
 
-       i++;
+      i++;
       }
     }
 

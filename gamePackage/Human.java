@@ -43,12 +43,11 @@ public class Human extends Player{
     return "Erreur saisie colonne";
   }
 
-  public int choice(Grid grid){
+  public int choice(int[][] grid, int width, int height){
     String buffer;
     String buf;
     Console console = System.console();
     int position = 0;
-    int width = grid.width;
 
     buffer = console.readLine();
     buf = checkBuffer(buffer,width);

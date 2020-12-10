@@ -19,11 +19,11 @@ public class Ia extends Player{
   }
 
 
-  public int choice(Grid grid){
+  public int choice(int[][] grid, int width, int height){
     int position;
     int min = 1;
-    int max = grid.width;
-    position = getRandomNumber(min,max); 
+
+    position = getRandomNumber(min,width);
 
     return position;
   }

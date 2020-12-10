@@ -18,5 +18,5 @@ abstract class Player {
     return numeroPlayer;
   }
 
-  public abstract int choice(Grid grid);
+  public abstract int choice(int[][] grid, int width, int height);
 }

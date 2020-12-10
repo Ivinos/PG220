@@ -33,14 +33,14 @@ public class Game{
           this.player1 = new Human(inputPlayers[name],i);
         }
         else{
-          this.player1 = new Ia(inputPlayers[name],i);
+          this.player1 = new Monkey(inputPlayers[name],i); // Ia
         }
   
         if (inputPlayers[type+2].equals("humain")){
           this.player2 = new Human(inputPlayers[name+2],i+2);
         }
         else{
-          this.player2 = new Ia(inputPlayers[name+2],i+2);
+          this.player2 = new Monkey(inputPlayers[name+2],i+2); // Ia
         }
 
       }
@@ -149,10 +149,10 @@ public class Game{
 
         while(position == -2){
             if (who == 1) // si le joueur 1 doit jouer
-                position = getPlayer1().choice(grid);
+                position = getPlayer1().choice(grid.values, grid.width, grid.height);
 
             else // si le joueur 2 doit jouer
-                position = getPlayer2().choice(grid);
+                position = getPlayer2().choice(grid.values, grid.width, grid.height);
 
             if (position == -1){ // command "sortir"
                 System.exit(0);

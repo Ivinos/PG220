@@ -17,8 +17,6 @@ public class Monkey extends Player{
     }
 
     public static int possibleWin(int[][] grid, int width, int height){
-    width=width;
-    height=height;
      for (int j=0;j<height;j++) {
        // System.out.print("\n");
        // System.out.print("Colonne: ");

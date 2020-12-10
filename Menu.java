@@ -12,7 +12,7 @@ public class Menu{
       int[] parameters = new int[4];
 
       // Display menu with options
-      parameters = interfacePackage.Display.parametersMenu(numberPlayers, width, height, rounds);
+      parameters = interfacePackage.BonusMenu.parametersMenu(numberPlayers, width, height, rounds);
       numberPlayers = parameters[0];
       width = parameters[1];
       height = parameters[2];
@@ -23,6 +23,7 @@ public class Menu{
 
       // Game initialization
       Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds);
+      System.out.println("");
 
       // The game starts
       while(game.getScore(0) != rounds && game.getScore(1) != rounds){

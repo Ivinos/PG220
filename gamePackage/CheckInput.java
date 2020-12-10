@@ -26,9 +26,9 @@ public class CheckInput{
 
       while (valid == 0){
 
-        if (buf.equals("humain") || buf.equals("ia") || buf.equals("ia:monkey") || buf.equals("ia:pro")){
+        if (buf.equals("humain") || buf.equals("ia") || buf.equals("ia:monkey") || buf.equals("ia:pro"))
           return buf;
-        }
+
         else{
            WriteInLog.writeBuffer("Erreur saisie Joueur "+numeroPlayer);
            System.out.print("Erreur : type invalide. Choisis un type valide (humain ou ia) : ");
@@ -38,27 +38,5 @@ public class CheckInput{
       }
       return buf;
     }
-
-
-    // public static String checkBuffer(String buf){
-    //   Console console = System.console();
-    //   String parameter = "0123456789";
-    //
-    //   System.out.println(parameter+"de taille "+parameter.length());
-    //
-    //   String[] res = buf.split(parameter);
-    //
-    //   System.out.println(res+"de taille "+res.length());
-    //
-    //   while (res.length() != buf.length()){
-    //       System.out.print("Error : please enter a digit for position : ");
-    //       buf = console.readLine();
-    //       System.out.println(buf+"de taille "+buf.length());
-    //       res = buf.split(parameter);
-    //       System.out.println(res+"de taille "+res.length());
-    //   }
-    //
-    //   return buf;
-    // }
 
    }

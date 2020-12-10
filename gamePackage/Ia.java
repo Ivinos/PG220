@@ -15,6 +15,7 @@ public class Ia extends Player{
       throw new IllegalArgumentException("Max must be greater than min");
 
     Random nb = new Random();
+    
     return nb.nextInt((max-min)+1)+min;
   }
 

@@ -99,9 +99,8 @@ public class Grid {
     int height = this.height;
     int lastLine = 0; // Recherche de la coordonné i du dernier coup
 
-    while(this.values[lastLine][lastColumn] == 0){
+    while(this.values[lastLine][lastColumn] == 0)
       lastLine++;
-    }
 
     int vertical[] = new int[height];
     int horizontal[] = new int[width];
@@ -138,41 +137,40 @@ public class Grid {
     }
 
     // Filling vertically and horizontally
-    for(int i = 0; i<height; i++){
+    for(int i = 0; i<height; i++)
       vertical[i] = this.values[i][lastColumn];
-    }
-    for(int i = 0; i<width; i++){
+    
+    for(int i = 0; i<width; i++)
       horizontal[i] = this.values[lastLine][i];
-    }
-
+    
     // diag and antidiag are now transformed into a list
     int diagonal[] = new int[lenDiag];
     int antiDiagonal[] = new int[lenAntiDiag];
-    for (int i = 0; i<lenDiag; i++){
-      diagonal[i] = diagonalTmp.get(i);
-    }
-    for (int i = 0; i<lenAntiDiag; i++){
-      antiDiagonal[i] = antidiagonalTmp.get(i);
-    }
 
+    for (int i = 0; i<lenDiag; i++)
+      diagonal[i] = diagonalTmp.get(i);
+    
+    for (int i = 0; i<lenAntiDiag; i++)
+      antiDiagonal[i] = antidiagonalTmp.get(i);
+    
     // check of each list
-    if(arrayCheck(vertical, height) == 1){
+    if(arrayCheck(vertical, height) == 1)
       return 1; // victory
-    } else if(arrayCheck(horizontal, width) == 1){
+    else if(arrayCheck(horizontal, width) == 1)
       return 1; // victory
-    } else if(arrayCheck(diagonal, lenDiag) == 1){
+    else if(arrayCheck(diagonal, lenDiag) == 1)
       return 1; // victory
-    } else if(arrayCheck(antiDiagonal, lenAntiDiag) == 1){
+    else if(arrayCheck(antiDiagonal, lenAntiDiag) == 1)
       return 1; // victory
-    }
+    
     return 0; // No victory
   }
 
   // Print an array DEBUGING
   void printArray(int[] array, int length){
-    for (int i=0; i<length; i++){
+    for (int i=0; i<length; i++)
       System.out.print(array[i]);
-    }
+    
     System.out.print("\n");
   }
 
@@ -185,9 +183,8 @@ public class Grid {
       for(int j = 0; j<4; j++){
         count += array[i+j];
 
-        if ((count == -4) || (count == 4)){
+        if ((count == -4) || (count == 4))
           return 1; // victory
-        }
       }
       count = 0;
     }

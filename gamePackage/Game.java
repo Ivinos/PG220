@@ -29,32 +29,23 @@ public class Game{
         //   this.players[i] = new Ia(inputPlayers[name],i+1);
         // }
 
-        if (inputPlayers[type].equals("humain")){
+        if (inputPlayers[type].equals("humain"))
           this.player1 = new Human(inputPlayers[name],i);
-        }
-        else if (inputPlayers[type].equals("ia:monkey")){
+        else if (inputPlayers[type].equals("ia:monkey"))
           this.player1 = new Monkey(inputPlayers[name],i);
-        }
-        else if (inputPlayers[type].equals("ia:pro")){
+        else if (inputPlayers[type].equals("ia:pro"))
             this.player1 = new Pro(inputPlayers[name],i);
-        }
-        else{
+        else
             this.player1 = new Ia(inputPlayers[name],i);
-        }
   
-        if (inputPlayers[type+2].equals("humain")){
+        if (inputPlayers[type+2].equals("humain"))
           this.player2 = new Human(inputPlayers[name+2],i+2);
-        }
-        else if (inputPlayers[type+2].equals("ia:monkey")){
+        else if (inputPlayers[type+2].equals("ia:monkey"))
             this.player2 = new Monkey(inputPlayers[name+2],i+2);
-        }
-        else if (inputPlayers[type+2].equals("ia:pro")){
+        else if (inputPlayers[type+2].equals("ia:pro"))
             this.player2 = new Pro(inputPlayers[name+2],i+2);
-        }
-        else{
+        else
             this.player2 = new Ia(inputPlayers[name+2],i+2);
-        }
-
       }
       this.grid = new Grid(width, height);
       this.score = score;
@@ -103,6 +94,35 @@ public class Game{
       numberPlayers = i;
     }
 
+    // public static void gameParameters(int rounds, int width, int height, Player player1, Player player2){
+    public static void gameParameters(int width, int height){
+      int numeroPlayer;
+      int cntPlayers = 2;
+
+      int rounds = 3;
+
+      System.out.println("\n[JEU]");
+      System.out.println("Victoire : "+rounds+" manches à remporter");
+      System.out.println("Manche : 4 jetons à aligner");
+      System.out.println("Score : X - X");
+
+      System.out.println("\n[GRILLE]");
+      System.out.println("Hauteur : "+height+" lignes");
+      System.out.println("Largeur : "+width+" colonnes");
+
+      System.out.println("\n[JOUEURS]");
+      System.out.println("Nombre de joueurs : "+cntPlayers);
+      for (int i = 0; i<2*cntPlayers; i += 2){
+        numeroPlayer = (i/2)+1;
+        System.out.print("Joueur "+numeroPlayer+" est X de type X ");
+
+        if (numeroPlayer %2 == 1)
+          System.out.println(" (symbole : croix rouge)");
+        else
+          System.out.println(" (symbole : rond bleue)");
+      }
+      System.out.println("");     
+    }
 
     // Create file log.txt + check pseudo/type of players
     public static String[] selectPlayers(int numberPlayers){
@@ -137,6 +157,7 @@ public class Game{
     // Return which player is playing
     public static int whichPlayer(int i){
       int res = i%2;
+
       if (res == 0)
         return 2;
       else
@@ -166,22 +187,19 @@ public class Game{
             else // si le joueur 2 doit jouer
                 position = getPlayer2().choice(grid.values, grid.width, grid.height);
 
-            if (position == -1){ // command "sortir"
+            if (position == -1) // command "sortir"
                 System.exit(0);
-            }
 
             System.out.println("");
 
             position = grid.updateGrid(position, who);
 
-            if (position == -1){ // command "sortir"
+            if (position == -1) // command "sortir"
                 System.exit(0);
-            }
         }
 
-        if (position == -1){ // command "sortir"
+        if (position == -1) // command "sortir"
           System.exit(0);
-        }
 
         interfacePackage.Display.displayGrid(getGrid());
 
@@ -206,6 +224,5 @@ public class Game{
       i++;
       }
     }
-
 
 }

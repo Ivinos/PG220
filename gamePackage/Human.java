@@ -8,79 +8,46 @@ public class Human extends Player{
     super(name,numeroPlayer);
   }
 
-
-  public String checkBuffer(String str, int width) {
-
-    if(str == null || str.isEmpty()){
-      WriteInLog.writeBuffer("Erreur saisie colonne "+str);
-      return "Erreur saisie colonne";
-    }
-    else if (str.equals("sortir")){
-      WriteInLog.writeBuffer(str);
-      return str;
-    }
-
-    StringBuilder sb = new StringBuilder();
-
-    for(char c : str.toCharArray()){
-        if(Character.isDigit(c)){ // si c'est un numero
-            sb.append(c);
-        }
-        else{
-          // If we already found a digit before and this char is not a digit, stop looping
-          break;
-        }
-    }
-
-    if (sb.length() == str.length()){
-      String buf = sb.toString();
-      if (Integer.parseInt(buf) > 0 && Integer.parseInt(buf) < width+1)
-        return str;
-      WriteInLog.writeBuffer("Erreur colonne non valide "+str);
-      return "Erreur : position invalide";
-    }
-    WriteInLog.writeBuffer("Erreur saisie colonne "+str);
-    return "Erreur saisie colonne";
-  }
-
-  public int choice(int[][] grid, int width, int height){
-    String buffer;
-    String buf;
+  public static int playerReadLine(int width, int height){
     Console console = System.console();
+    String buffer;
     int position = 0;
+    int validBuffer = 0;
 
-    buffer = console.readLine();
-    buf = checkBuffer(buffer,width);
+    while (validBuffer == 0){
+      buffer = console.readLine();
 
-
-    while(!buf.equals(buffer)){
-      if (buf.equals("sortir")){
-        System.out.println(">>>>>     TCHAO     <<<<<");
+      if (buffer.equals("sortir")){
+        WriteInLog.writeBuffer(buffer);
         return -1;
       }
-      else if(buf.equals("Erreur : position invalide")){
-        System.out.print("Erreur : position invalide. Choisis un nombre entre 1 et "+width+" : ");
+      else if (buffer.equals("parametres")){
+        Game.gameParameters(width, height);
       }
-      else if(buf.equals("Erreur saisie colonne")){
-        System.out.print("Erreur : saisie invalide. Choisis un nombre entre 1 et "+width+" : ");
+      else{
+        try{
+          position = Integer.parseInt(buffer);
+          if (position > 0 && position < width+1)
+            return position;          
+          else{
+            WriteInLog.writeBuffer("Erreur colonne non valide "+buffer);
+            System.out.print("Erreur : colonne non valide "+buffer+". Choisis un nombre entre 1 et "+width+" : ");
+          }
+        }
+
+        catch(Exception e){
+          WriteInLog.writeBuffer("Erreur saisie colonne "+buffer);
+          System.out.print("Erreur : saisie colonne "+buffer+". Choisis un nombre entre 1 et "+width+" : ");
+        }
       }
-
-      else
-        System.out.println("> "+buf);
-
-      buffer = console.readLine();
-      buf = checkBuffer(buffer,width);
     }
-
-    if (buf.equals("sortir")){
-      System.out.println(">>>>>     TCHAO     <<<<<");
-      return -1;
-    }
-
-    position = Integer.parseInt(buf);
-
     return position;
   }
 
+
+  public int choice(int[][] grid, int width, int height){
+    int position = playerReadLine(width, height);
+    return position;
+  }
 
 }

@@ -26,7 +26,7 @@ public class CheckInput{
 
       while (valid == 0){
 
-        if (buf.equals("humain") || buf.equals("ia") ){
+        if (buf.equals("humain") || buf.equals("ia") || buf.equals("ia:monkey") || buf.equals("ia:pro")){
           return buf;
         }
         else{

@@ -6,6 +6,7 @@ public class Ia extends Player{
 
   public Ia(String name, int numeroPlayer){
     super(name,numeroPlayer);
+    this.type = "random";
   }
 
 

@@ -70,7 +70,7 @@ public class Grid {
     WriteInLog.writeBuffer("Erreur colonne pleine "+position);
     System.out.print("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et "+width+" : ");
 
-    position = -2; // Move invalide, on doit recommencer
+    position = -3; // Move invalide, on doit recommencer
 
     return position;
   }

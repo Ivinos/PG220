@@ -6,6 +6,7 @@ public class Pro extends Player{
 
     public Pro(String name,int numeroPlayer){
         super(name,numeroPlayer);
+        this.type = "pro";
     }
 
     public static int possibleWin(int[][] grid, int width, int height){

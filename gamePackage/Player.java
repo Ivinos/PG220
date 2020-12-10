@@ -3,6 +3,7 @@ package gamePackage;
 abstract class Player {
 
   public String name;
+  public String type;
   public int numeroPlayer;
 
   public Player(String name, int numeroPlayer) {
@@ -12,6 +13,10 @@ abstract class Player {
 
   public String getName() {
     return name;
+  }
+
+  public String getType(){
+    return this.type;
   }
 
   public int getNumeroPlayer() {

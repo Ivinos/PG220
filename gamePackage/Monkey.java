@@ -6,6 +6,7 @@ public class Monkey extends Player{
 
     public Monkey(String name,int numeroPlayer){
      super(name,numeroPlayer);
+        this.type = "monkey";
     }
 
     public static int isPlayable(int [][] grid,int x,int y){

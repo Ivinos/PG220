@@ -6,6 +6,7 @@ public class Human extends Player{
 
   public Human(String name, int numeroPlayer){
     super(name,numeroPlayer);
+    this.type = "humain";
   }
 
   public static int playerReadLine(int width, int height){
@@ -22,7 +23,7 @@ public class Human extends Player{
         return -1;
       }
       else if (buffer.equals("parametres")){
-        Game.gameParameters(width, height);
+        return -2;
       }
       else{
         try{

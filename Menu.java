@@ -7,23 +7,25 @@ public class Menu{
       int width = 7;
       int height = 6;
       int rounds = 3;
+      int token = 4;
       int[] score;
       String[] inputPlayers;
-      int[] parameters = new int[4];
+      int[] parameters = new int[5];
 
       // Display menu with options
-      parameters = interfacePackage.BonusMenu.parametersMenu(numberPlayers, width, height, rounds);
+      parameters = interfacePackage.BonusMenu.parametersMenu(numberPlayers, width, height, rounds, token);
       numberPlayers = parameters[0];
       width = parameters[1];
       height = parameters[2];
       rounds = parameters[3];
+      token = parameters[4];
       score = new int[numberPlayers];
 
       // Players choose a pseudo + type
       inputPlayers = gamePackage.Game.selectPlayers(numberPlayers);
 
       // Game initialization
-      Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds);
+      Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds, token);
       System.out.println("");
 
       // The game starts

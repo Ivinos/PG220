@@ -50,12 +50,13 @@ public class BonusMenu{
     }
 
     
-    public static int[] displayParameters(int numberPlayers, int width, int height, int rounds){
+    public static int[] displayParameters(int numberPlayers, int width, int height, int rounds, int tokens){
         Console console = System.console();
-        String buf;
+        String buf, buf2;
         int[] buff;
         int validAnswer = 0;
-        int[] res = {numberPlayers, width, height, rounds};
+        int validAnswer2 = 0;
+        int[] res = {numberPlayers, width, height, rounds, tokens};
 
         System.out.println("\n[Paramètres]");
         System.out.print("Modifier les paramètres ? [Oui/Non] : ");
@@ -67,20 +68,60 @@ public class BonusMenu{
 
             if (buf.equals("Oui")){
                 validAnswer = 1;
+                
+                System.out.println("\nA - Nombre de joueurs");
+                System.out.println("B - Taille de la grille");
+                System.out.println("C - Nombre de manches");
+                System.out.println("D - Nombre de jetons");
+                System.out.println("E - Tous les paramètres ");
+                System.out.print("\nPour revenir au Menu, taper 'menu'\n>> ");
+                buf2 = console.readLine();
 
-                // Choisir le nombre de joueurs
-                res[0] = changeNumberPlayers();
-
-                // Choisir la taille du puissance 4
-                buff = changeWidthAndHeight();
-                res[1] = buff[0];
-                res[2] = buff[1];
-
-                // Choisir le nombre de manches
-                res[3] = changeNumberRounds();
-
-                // Choisir les couleurs des jetons
-                System.out.println(Display.setColor("Les paramètres du jeu ont été modifiés avec succès", "\u001B[32m")); // vert
+                while (validAnswer2 == 0){
+                    
+                    if (buf2.equals("A")){
+                        // Choisir le nombre de joueurs
+                        res[0] = changeNumberPlayers();
+                    }
+                    else if (buf2.equals("B")){
+                        // Choisir la taille du puissance 4
+                        buff = changeWidthAndHeight();
+                        res[1] = buff[0];
+                        res[2] = buff[1];
+                    }
+                    else if (buf2.equals("C")){
+                        // Choisir le nombre de manches
+                        res[3] = changeNumberRounds();
+                    }
+                    else if (buf2.equals("D")){
+                        // Choisir le nombre de jetons
+                        res[4] = changeNumberTokens(); 
+                    }
+                    else if (buf2.equals("E")){
+                        // Modifier tous les paramètres
+                        res[0] = changeNumberPlayers();
+                        buff = changeWidthAndHeight();
+                        res[1] = buff[0];
+                        res[2] = buff[1];
+                        res[3] = changeNumberRounds();
+                        res[4] = changeNumberTokens(); 
+                    }
+                    else if (buf2.equals("menu")){
+                        validAnswer2 = 1;
+                        System.out.println(Display.setColor("Les paramètres du jeu ont été modifiés avec succès", "\u001B[32m")); // vert
+                        goBackToMenu();
+                    }
+                    else{
+                        System.out.print("Erreur de saisie. Mentionner les paramètres à modifier : ");
+                    }
+                    System.out.println("\nA - Nombre de joueurs");
+                    System.out.println("B - Taille de la grille");
+                    System.out.println("C - Nombre de manches");
+                    System.out.println("D - Nombre de jetons");
+                    System.out.println("E - Tous les paramètres ");
+                    System.out.print("\nPour revenir au Menu, taper 'menu'\n>> ");
+                    buf2 = console.readLine();
+                }
             }
             else if (buf.equals("Non"))
                 validAnswer = 1;
@@ -89,7 +130,6 @@ public class BonusMenu{
                 buf = console.readLine();
             }
         }
-        goBackToMenu();
 
         return res;  
     }
@@ -116,12 +156,10 @@ public class BonusMenu{
 
             try{
             numberPlayers = Integer.parseInt(buf);
-            if (numberPlayers < 2)
-                System.out.print("Erreur : nombre de joueurs incorrect (>= 2 requis). Nombre de joueurs : ");
-//            else if (numberPlayers % 2 != 0) // Osef des teams pour le moment
-//                System.out.print("Erreur : nombre de joueurs incorrect (modulo 2 requis). Nombre de joueurs : ");
-            else
+            if (numberPlayers >= 2 && numberPlayers <= 6)
                 return numberPlayers;
+            else
+                System.out.print("Erreur : nombre de joueurs incorrect (2-6 joueurs requis). Nombre de joueurs : ");                
             }
 
             catch(Exception e){
@@ -238,10 +276,38 @@ public class BonusMenu{
         return rounds;
     }
 
-
-    public static int[] parametersMenu(int numberPlayers, int width, int height, int rounds){
+    public static int changeNumberTokens(){
         Console console = System.console();
-        int[] res = {numberPlayers, width, height, rounds};
+        int tokens = 3;
+        int validAnswer = 0;
+        String buf;
+
+        System.out.print("Nombre de jetons à aligner pour remporter la partie : ");
+
+        while(validAnswer == 0){
+            buf = console.readLine();
+            // Quitte le programme si commande "sortir"
+            // quitMenu(buf);
+
+            try{
+                tokens = Integer.parseInt(buf);
+                if (tokens >= 4 && tokens <= 6)
+                    return tokens;
+                else
+                    System.out.print("Erreur : nombre de jetons incorrect (4-6 requis). Nombre de jetons : ");
+            }
+
+            catch(Exception e){
+                System.out.print("Erreur : saisie incorrecte. Nombre de jetons : ");
+            }
+        }
+        return tokens;
+    }
+
+
+    public static int[] parametersMenu(int numberPlayers, int width, int height, int rounds, int tokens){
+        Console console = System.console();
+        int[] res = {numberPlayers, width, height, rounds, tokens};
         String buffer;
         int[] buff;
 
@@ -262,11 +328,12 @@ public class BonusMenu{
 
             // Paramètres
             else if (buffer.equals("3")){
-                buff = displayParameters(numberPlayers, width, height, rounds);
+                buff = displayParameters(numberPlayers, width, height, rounds, tokens);
                 res[0] = buff[0];
                 res[1] = buff[1];
                 res[2] = buff[2];
                 res[3] = buff[3];
+                res[4] = buff[4];
             }
 
             // Informations

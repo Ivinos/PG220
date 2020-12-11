@@ -92,7 +92,7 @@ public class Grid {
 
 
   // Check if the last move make a win
-  int victoryCheck(int lastColumn){
+  int victoryCheck(int tokens, int lastColumn){
     int width = this.width;
     int height = this.height;
     int lastLine = 0; // Recherche de la coordonné i du dernier coup
@@ -152,13 +152,13 @@ public class Grid {
       antiDiagonal[i] = antidiagonalTmp.get(i);
     
     // check of each list
-    if(arrayCheck(vertical, height) == 1)
+    if(arrayCheck(tokens, vertical, height) == 1)
       return 1; // victory
-    else if(arrayCheck(horizontal, width) == 1)
+    else if(arrayCheck(tokens, horizontal, width) == 1)
       return 1; // victory
-    else if(arrayCheck(diagonal, lenDiag) == 1)
+    else if(arrayCheck(tokens, diagonal, lenDiag) == 1)
       return 1; // victory
-    else if(arrayCheck(antiDiagonal, lenAntiDiag) == 1)
+    else if(arrayCheck(tokens, antiDiagonal, lenAntiDiag) == 1)
       return 1; // victory
     
     return 0; // No victory
@@ -173,9 +173,9 @@ public class Grid {
   }
 
   // Check if there is a victory in an array
-  int arrayCheck(int[] array, int length){ // Pour le moment le nombre de jeton n'est pas dynamique zebi
+  int arrayCheck(int tokens, int[] array, int length){ // Pour le moment le nombre de jeton n'est pas dynamique zebi
     //int count = 0;
-    int max = length - 4;
+    int max = length - tokens;
     int vals [] = {0,0,0,0};
 
     for(int i = 0; i <= max; i++){

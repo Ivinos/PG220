@@ -6,15 +6,15 @@ import java.util.ArrayList; // Pour tableau de Player dynamique
 public class Game{
 
     // Attributs
-    //public Player[] players;
     public ArrayList<Player> players;
     public Grid grid;
     public int[] score;
     public int rounds;
+    public int tokens;
     public int numberPlayers;
 
     // Constructeur
-    public Game(String[] inputPlayers, int numberPlayers, int width, int height, int[] score, int rounds){
+    public Game(String[] inputPlayers, int numberPlayers, int width, int height, int[] score, int rounds, int tokens){
       int name;
       int type;
       int numeroPlayer;
@@ -27,20 +27,17 @@ public class Game{
 
           if (inputPlayers[type].equals("humain"))
               this.players.add(new Human(inputPlayers[name], numeroPlayer));
-              //this.players[numeroPlayer] = new Human(inputPlayers[name], numeroPlayer);
           else if (inputPlayers[type].equals("ia:monkey"))
               this.players.add(new Monkey(inputPlayers[name], numeroPlayer));
-              //this.players[numeroPlayer] = new Monkey(inputPlayers[name], numeroPlayer);
           else if (inputPlayers[type].equals("ia:pro"))
               this.players.add(new Pro(inputPlayers[name], numeroPlayer));
-              //this.players[numeroPlayer] = new Pro(inputPlayers[name], numeroPlayer);
-          else // ia normal
+          else // ia normale
               this.players.add(new Ia(inputPlayers[name], numeroPlayer));
-              //this.players[numeroPlayer] = new Ia(inputPlayers[name], numeroPlayer);
 
           this.grid = new Grid(width, height);
           this.score = score;
           this.rounds = rounds;
+          this.tokens = tokens;
           this.numberPlayers = numberPlayers;
       }
     }
@@ -73,8 +70,17 @@ public class Game{
     public int getNumberPlayers(){
       return numberPlayers;
     }
+
     public void setNumberPlayers(int i){
       numberPlayers = i;
+    }
+
+    public int getTokens(){
+      return tokens;
+    }
+    
+    public void setTokens(int i){
+      tokens = i;
     }
 
     public static int checkRounds(Game game){
@@ -99,7 +105,7 @@ public class Game{
     public void gameParameters(){
       System.out.println("\n[JEU]");
       System.out.println("Victoire : "+this.rounds+" manches à remporter");
-      System.out.println("Manche : 4 jetons à aligner");
+      System.out.println("Manche : "+this.tokens+" jetons à aligner");
       System.out.println("Score : "+ this.getScore(0)+" - "+ this.getScore(1));
 
       System.out.println("\n[GRILLE]");
@@ -109,15 +115,8 @@ public class Game{
       System.out.println("\n[JOUEURS]");
       System.out.println("Nombre de joueurs : "+this.numberPlayers);
 
-      for (int i = 0; i<this.numberPlayers; i++){
-
-        System.out.print("Joueur "+i+" est "+this.getPlayer(i).getName()+" de type "+this.getPlayer(i).getType()); // Pour l'instant pas ok mais trkl (on va bientôt faire une liste de joeur)
-
-//        if (numeroPlayer %2 == 1)
-//          System.out.println(" (symbole : croix rouge)");
-//        else
-//          System.out.println(" (symbole : rond bleue)");
-      }
+      for (int i = 1; i<=this.numberPlayers; i++)
+        System.out.println("Joueur "+i+" est "+this.getPlayer(i).getName()+" de type "+this.getPlayer(i).getType());
       System.out.println("");     
     }
 
@@ -172,14 +171,13 @@ public class Game{
     }
 
 
-    // Actions during the game
+    // Actions pendant le jeu
     public void play(){
-      int i = 1; // player 1 starts playing, i = numéro de tour
+      int i = 1; // i = numéro de tour (le joueur 1 commence à jouer)
       int who; // numéro de joueur
       int position = -3; // -3 correspond à un move non valide (colonne pleine)
       int[] wins = new int[this.numberPlayers]; // Initialiser à 0 par défaut
       int equality = 0;
-      // int win1 = 0, win2 = 0, equality = 0;
 
       interfacePackage.Display.displayGrid(getGrid());
 
@@ -193,20 +191,14 @@ public class Game{
 
             position = this.getPlayer(who).choice(grid.values, grid.width, grid.height);
 
-//            if (who == 1) // si le joueur 1 doit jouer
-//                position = getPlayer1().choice(grid.values, grid.width, grid.height);
-//
-//            else // si le joueur 2 doit jouer
-//                position = getPlayer2().choice(grid.values, grid.width, grid.height);
-
-            if (position == -1) // command "sortir"
+            if (position == -1) // commande "sortir"
                 System.exit(0);
 
             if (position == -2) {
                 this.gameParameters();
                 position = -3; // On remet en "attente le choix du joueur"
             }
-            else if (position == -1) { // command "sortir"
+            else if (position == -1) { // commande "sortir"
                 System.exit(0);
             }else{
                 System.out.println("");
@@ -214,14 +206,14 @@ public class Game{
             }
         }
 
-        if (position == -1) // command "sortir"
+        if (position == -1) // commande "sortir"
           System.exit(0);
 
         interfacePackage.Display.displayGrid(getGrid());
 
-        if(grid.victoryCheck(position-1) == 1){ // -1 because in java, index starts at 0
+        if(grid.victoryCheck(this.tokens,position-1) == 1){ // -1 car en java, l'indexe commence à 0
           WriteInLog.writeBuffer("Joeur "+who+" gagne");
-          setScore(who-1); // Le joueur 1 à l'index 0 ect
+          setScore(who-1); // Le joueur 1 a l'indexe 0 ect
           wins[who-1] = 1; // same
         }
 

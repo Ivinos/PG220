@@ -69,15 +69,14 @@ public class BonusMenu{
             if (buf.equals("Oui")){
                 validAnswer = 1;
                 
-                System.out.println("\nA - Nombre de joueurs");
-                System.out.println("B - Taille de la grille");
-                System.out.println("C - Nombre de manches");
-                System.out.println("D - Nombre de jetons");
-                System.out.println("E - Tous les paramètres ");
-                System.out.print("\nPour revenir au Menu, taper 'menu'\n>> ");
-                buf2 = console.readLine();
-
                 while (validAnswer2 == 0){
+                    System.out.println("\nA - Nombre de joueurs");
+                    System.out.println("B - Taille de la grille");
+                    System.out.println("C - Nombre de manches");
+                    System.out.println("D - Nombre de jetons");
+                    System.out.println("E - Tous les paramètres ");
+                    System.out.print("\nPour revenir au Menu, taper 'menu'\n>> ");
+                    buf2 = console.readLine();
                     
                     if (buf2.equals("A")){
                         // Choisir le nombre de joueurs
@@ -109,18 +108,11 @@ public class BonusMenu{
                     else if (buf2.equals("menu")){
                         validAnswer2 = 1;
                         System.out.println(Display.setColor("Les paramètres du jeu ont été modifiés avec succès", "\u001B[32m")); // vert
-                        goBackToMenu();
+                        // goBackToMenu();
                     }
                     else{
                         System.out.print("Erreur de saisie. Mentionner les paramètres à modifier : ");
                     }
-                    System.out.println("\nA - Nombre de joueurs");
-                    System.out.println("B - Taille de la grille");
-                    System.out.println("C - Nombre de manches");
-                    System.out.println("D - Nombre de jetons");
-                    System.out.println("E - Tous les paramètres ");
-                    System.out.print("\nPour revenir au Menu, taper 'menu'\n>> ");
-                    buf2 = console.readLine();
                 }
             }
             else if (buf.equals("Non"))

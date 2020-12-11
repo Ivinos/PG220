@@ -3,15 +3,29 @@ package interfacePackage;
 
 public class Color{
 
-  public static final String  RESET = "\u001B[0m";
-  public static final String  BLACK = "\u001B[30m";
-  public static final String  RED = "\u001B[31m";
-  public static final String  GREEN = "\u001B[32m";
-  public static final String  YELLOW = "\u001B[33m";
-  public static final String  BLUE = "\u001B[34m";
-  public static final String  PURPLE = "\u001B[35m";
-  public static final String  CYAN = "\u001B[36m";
-  public static final String  WHITE = "\u001B[37m";
+  // Attributs
+  // public String reset;
+  // public String black;
+  // public String red;
+  // public String green;
+  // public String yellow;
+  // public String blue;
+  // public String purple;
+  // public String cyan;
+  // public String white;
+
+  // Constructeurs
+  // public Color(){
+  //   this.reset = "\u001B[0m";
+  //   this.black = "\u001B[30m";
+  //   this.red = "\u001B[31m";
+  //   this.green = "\u001B[32m";
+  //   this.yellow = "\u001B[33m";
+  //   this.blue = "\u001B[34m";
+  //   this.purple = "\u001B[35m";
+  //   this.cyan = "\u001B[36m";
+  //   this.white = "\u001B[37m";
+  // }
 
   // public static final String  BLACK_BACKGROUND = "\u001B[40m";
   // public static final String  RED_BACKGROUND = "\u001B[41m";
@@ -22,17 +36,18 @@ public class Color{
   // public static final String  CYAN_BACKGROUND = "\u001B[46m";
   // public static final String  WHITE_BACKGROUND = "\u001B[47m";
 
-  public static String getColor(String COLOR) {
-    System.out.println("J'ai du "+COLOR); 
-    return COLOR;
-  }
+  // public String getColor(String COLOR) {
+  //   System.out.println("J'ai du "+COLOR); 
+  //   return this.COLOR;
+  // }
 
   // System.out.println(Color.getColor(Color.GREEN)); pour Display
 
 
-  public static String setColor(String buffer, String COLOR) {
-    return COLOR + buffer + RESET;
-  }
+  // public static String setColor(String buffer, String color) {
+  //   String reset = "\u001B[0m";
+  //   return color + buffer + reset;
+  // }
 
 
 // public static void main(String[] args){

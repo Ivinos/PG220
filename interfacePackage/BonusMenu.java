@@ -80,7 +80,7 @@ public class BonusMenu{
                 res[3] = changeNumberRounds();
 
                 // Choisir les couleurs des jetons
-                System.out.println(Color.setColor("Les paramètres du jeu ont été modifiés avec succès", "\u001B[32m")); // vert
+                System.out.println(Display.setColor("Les paramètres du jeu ont été modifiés avec succès", "\u001B[32m")); // vert
             }
             else if (buf.equals("Non"))
                 validAnswer = 1;

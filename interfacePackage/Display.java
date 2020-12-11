@@ -2,32 +2,28 @@ package interfacePackage;
 
 public class Display{
 
-    public static void displayGrid(gamePackage.Grid grid){
-      int width = grid.width;
-      int height = grid.height;
-      String[] symboles = {". ", "X ", "O ", "V ", "T ", "Y ", "W ", "@ "}; // à changer plus tard surement parce que pas très beau
-      String lineNumero = new String("1");
-      
-      for (int k = 2; k<width+1; k++)
-        lineNumero = lineNumero+" "+k;
+  public static String setColor(String buffer, String color) {
+    String reset = "\u001B[0m";
+    return color + buffer + reset;
+  }
 
-      System.out.println(lineNumero);
+  public static void displayGrid(gamePackage.Grid grid){
+    int width = grid.width;
+    int height = grid.height;
+    String[] symbols = {". ", "X ", "O ", "V ", "T ", "Y ", "@ "}; // à changer plus tard surement parce que pas très beau
+    String[] colors = {"\u001B[37m","\u001B[31m","\u001B[34m","\u001B[32m","\u001B[35m","\u001B[33m","\u001B[36m"};
+    String lineNumero = new String("1");
+    
+    for (int k = 2; k<width+1; k++)
+      lineNumero = lineNumero+" "+k;
 
-      for (int i = 0; i<height; i++){
-        for (int j = 0; j<width; j++){
-          System.out.print(symboles[grid.values[i][j]]);
+    System.out.println(lineNumero);
 
-//          if (grid.values[i][j] == 0)
-//            System.out.print(". ");
-//          else if (grid.values[i][j] == -1)     // player 1
-//            System.out.print(Color.setColor("X ", "\u001B[31m")); // RED
-//          else if (grid.values[i][j] == 1)     // player 2
-//            System.out.print(Color.setColor("O ", "\u001B[34m")); // BLUE
-//          else                          // error
-//            System.out.print("E ");
-        }
-        System.out.println("");
-      }
+    for (int i = 0; i<height; i++){
+      for (int j = 0; j<width; j++)
+        System.out.print(setColor(symbols[grid.values[i][j]],colors[grid.values[i][j]]));
       System.out.println("");
+    }
+    System.out.println("");
   }
 }

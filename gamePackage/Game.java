@@ -73,13 +73,30 @@ public class Game{
     public int getNumberPlayers(){
       return numberPlayers;
     }
-
     public void setNumberPlayers(int i){
       numberPlayers = i;
     }
 
-    public void gameParameters(){
+    public static int checkRounds(Game game){
+      int res = 0;
+      for (int i = 0; i<game.numberPlayers; i++){
+        if (game.score[i] == game.rounds)
+          res = 1;
+      }
+      return res;
+    }
 
+    public static String writeScore(Game game){
+      String res;
+      res = "Score "+game.score[0];
+
+      for (int i = 1; i<game.numberPlayers; i++){
+        res = res+" - "+game.score[i];
+      }
+      return res;
+    }
+
+    public void gameParameters(){
       System.out.println("\n[JEU]");
       System.out.println("Victoire : "+this.rounds+" manches à remporter");
       System.out.println("Manche : 4 jetons à aligner");

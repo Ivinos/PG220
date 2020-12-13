@@ -138,7 +138,7 @@ public class Monkey extends Player{
      System.out.print("\n");
      if (position>-1) {
        while(grid[0][position]!=0) {
-           position = getRandomNumber(1,width);
+           position = getRandomNumber(0,width);
            System.out.print("Random1\n");
        }
      }

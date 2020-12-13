@@ -51,8 +51,14 @@ public class Monkey extends Player{
          //Check vers la droite
            if (i<width-3){
              if(((grid[j][i]==grid[j][i+1])&&(grid[j][i]==grid[j][i+2]))&&(grid[j][i]!=0)){
-               if((j==height-1)&&(grid[i+3][j]==0)){
-                 return i+3;
+               if(j==height-1){
+                System.out.print(i);
+                System.out.print("Voilà\n");
+                System.out.print(j);
+                System.out.print("Voilà\n");
+                 if(grid[j][i+3]==0){
+                   return i+3;
+                 }
                }
                if(j<height-1){
                  if ((grid[j][i+3]==0)&&(grid[j+1][i+3]!=0)){
@@ -131,13 +137,16 @@ public class Monkey extends Player{
      System.out.print(position);
      System.out.print("\n");
      if (position>-1) {
-       if (grid[0][position]!=0) {
+       while(grid[0][position]!=0) {
            position = getRandomNumber(1,width);
            System.out.print("Random1\n");
        }
      }
      if(position==-1){
        position = getRandomNumber(0,width-1);
+        while(grid[0][position]!=0) {
+         position = getRandomNumber(0,width-1);
+        }
       System.out.print("Random2\n");
      }
      System.out.print("\nPosition envbyée: ");

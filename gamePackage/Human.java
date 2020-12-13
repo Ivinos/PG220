@@ -9,6 +9,7 @@ public class Human extends Player{
     this.type = "humain";
   }
 
+  // Actions en fonction des actions du joueur
   public static int playerReadLine(int width, int height){
     Console console = System.console();
     String buffer;
@@ -45,7 +46,7 @@ public class Human extends Player{
     return position;
   }
 
-
+  // Action du joueur
   public int choice(int[][] grid, int width, int height){
     int position = playerReadLine(width, height);
     return position;

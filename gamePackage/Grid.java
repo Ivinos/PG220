@@ -48,7 +48,7 @@ public class Grid {
     }
   }
 
-  // Update the grid after a move
+  // Mise à jour de la grille après qu'un joueur ait joué
   public int updateGrid(int position, int numeroPlayer){
     int width = this.width;
     int height = this.height;
@@ -75,7 +75,7 @@ public class Grid {
 
 
 
-  // Check if there is equality
+  // Test s'il y a égalité
   int equalityCheck(){
     int width = this.width;
     int cpt = 0;
@@ -91,7 +91,7 @@ public class Grid {
   }
 
 
-  // Check if the last move make a win
+  // Test s'il y a victoire 
   int victoryCheck(int tokens, int lastColumn){
     int width = this.width;
     int height = this.height;
@@ -107,41 +107,41 @@ public class Grid {
     ArrayList<Integer> diagonalTmp = new ArrayList<Integer>();
     ArrayList<Integer> antidiagonalTmp = new ArrayList<Integer>();
 
-    diagonalTmp.add(this.values[lastLine][lastColumn]); // the move has been added
+    diagonalTmp.add(this.values[lastLine][lastColumn]); // le move a été ajouté
     antidiagonalTmp.add(this.values[lastLine][lastColumn]); // idem
 
-    // Filling diagonal
+    // Remplissage de la diagonale
     int tmpLine = lastLine; int tmpColumn = lastColumn;
-    while((tmpLine-- > 0) && (tmpColumn++ < width-1)){ // check if the next cell is possible
+    while((tmpLine-- > 0) && (tmpColumn++ < width-1)){ // test si la cellule est possible
       diagonalTmp.add(this.values[tmpLine][tmpColumn]);
       lenDiag++;
     }
-    tmpLine = lastLine; tmpColumn = lastColumn; // reinitialization
+    tmpLine = lastLine; tmpColumn = lastColumn; // reinitialisation
     while((tmpLine++ < height-1) && (tmpColumn-- > 0)){
       diagonalTmp.add(0, this.values[tmpLine][tmpColumn]);
       lenDiag++;
     }
 
-    // Filling antidiagonal
-    tmpLine = lastLine; tmpColumn = lastColumn; // reinitialization
+    // Remplissage de l'antidiagonale
+    tmpLine = lastLine; tmpColumn = lastColumn; // reinitialisation
     while((tmpLine++ < height-1) && (tmpColumn++ < width-1)){
       antidiagonalTmp.add(this.values[tmpLine][tmpColumn]);
       lenAntiDiag++;
     }
-    tmpLine = lastLine; tmpColumn = lastColumn; // reinitialization
+    tmpLine = lastLine; tmpColumn = lastColumn; // reinitialisation
     while((tmpLine-- > 0) && (tmpColumn-- > 0)){
       antidiagonalTmp.add(0, this.values[tmpLine][tmpColumn]);
       lenAntiDiag++;
     }
 
-    // Filling vertically and horizontally
+    // Remplissage de l'horizontale + la verticale
     for(int i = 0; i<height; i++)
       vertical[i] = this.values[i][lastColumn];
     
     for(int i = 0; i<width; i++)
       horizontal[i] = this.values[lastLine][i];
     
-    // diag and antidiag are now transformed into a list
+    // Diagonale et Antidiagonale sont désormais des listes
     int diagonal[] = new int[lenDiag];
     int antiDiagonal[] = new int[lenAntiDiag];
 
@@ -151,20 +151,20 @@ public class Grid {
     for (int i = 0; i<lenAntiDiag; i++)
       antiDiagonal[i] = antidiagonalTmp.get(i);
     
-    // check of each list
+    // Recherche d'une victoire dans chaque liste 
     if(arrayCheck(tokens, vertical, height) == 1)
-      return 1; // victory
+      return 1; // victoire
     else if(arrayCheck(tokens, horizontal, width) == 1)
-      return 1; // victory
+      return 1; // victoire
     else if(arrayCheck(tokens, diagonal, lenDiag) == 1)
-      return 1; // victory
+      return 1; // victoire
     else if(arrayCheck(tokens, antiDiagonal, lenAntiDiag) == 1)
-      return 1; // victory
+      return 1; // victoire
     
-    return 0; // No victory
+    return 0; // pas de victoire
   }
 
-  // Print an array DEBUGING
+  // Affichage d'un tableau (DEBUGING)
   void printArray(int[] array, int length){
     for (int i=0; i<length; i++)
       System.out.print(array[i]);
@@ -172,26 +172,21 @@ public class Grid {
     System.out.print("\n");
   }
 
-  // Check if there is a victory in an array
+  // Test s'il y a une victoire dans le tableau
   int arrayCheck(int tokens, int[] array, int length){ // Pour le moment le nombre de jeton n'est pas dynamique zebi
-    //int count = 0;
     int max = length - tokens;
     int vals [] = {0,0,0,0};
 
     for(int i = 0; i <= max; i++){
       for(int j = 0; j<4; j++){
-        //count += array[i+j];
         vals[j] = array[i+j];
 
         if ((vals[0] != 0) && (vals[0] == vals[1]) && (vals[1] == vals[2]) && (vals[2] == vals[3]))
-          return 1; // victory
-//        if ((count == -4) || (count == 4))
-//          return 1; // victory
+          return 1; // victoire
       }
-      //count = 0;
       vals[0] = 0; vals[1] = 0; vals[2] = 0; vals[3] = 0;
     }
-    return 0; // no victory
+    return 0; // pas de victoire
   }
 
 }

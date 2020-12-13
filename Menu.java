@@ -1,7 +1,7 @@
 import gamePackage.*;
 
 public class Menu{
-
+  
     public static void main(String[] args){
       int numberPlayers = 2;
       int width = 7;
@@ -12,7 +12,7 @@ public class Menu{
       String[] inputPlayers;
       int[] parameters = new int[5];
 
-      // Display menu with options
+      // Afichage du menu
       parameters = interfacePackage.BonusMenu.parametersMenu(numberPlayers, width, height, rounds, token);
       numberPlayers = parameters[0];
       width = parameters[1];
@@ -21,14 +21,14 @@ public class Menu{
       token = parameters[4];
       score = new int[numberPlayers];
 
-      // Players choose a pseudo + type
+      // Choix du pseudo + type
       inputPlayers = gamePackage.Game.selectPlayers(numberPlayers);
 
-      // Game initialization
+      // Initialisation du jeu
       Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds, token);
       System.out.println("");
 
-      // The game starts
+      // Début du jeu
       while(gamePackage.Game.checkRounds(game) == 0){
         gamePackage.WriteInLog.writeBuffer("Manche commence");
         game.play();

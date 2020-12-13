@@ -10,7 +10,7 @@ public class Ia extends Player{
   }
 
 
-  // Return a random number
+  // Retourne un nombre aléatoire
   public static int getRandomNumber(int min, int max) throws IllegalArgumentException {
     if (min > max)
       throw new IllegalArgumentException("Max must be greater than min");
@@ -20,7 +20,7 @@ public class Ia extends Player{
     return nb.nextInt((max-min)+1)+min;
   }
 
-
+  // Action du joueur
   public int choice(int[][] grid, int width, int height){
     int position;
     int min = 1;

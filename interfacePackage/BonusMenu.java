@@ -4,15 +4,18 @@ import java.io.Console;
 
 public class BonusMenu{
 
+    // Affichage de l'interface du Menu
     public static void interfaceMenu(){
-        System.out.println("\n----- Menu -----\n");
+        String bold = Color.getTextBold();
+        String reset = Color.getTextReset();
+        System.out.println(bold+"\n----- Menu -----\n"+reset);
         System.out.println("1 - Jouer");
         System.out.println("2 - Règles");
         System.out.println("3 - Paramètres");
         System.out.println("4 - Informations\n");
     }
 
-    
+    // Commande pour retourner au Menu
     public static void goBackToMenu(){
         Console console = System.console();
         String buf;
@@ -20,7 +23,6 @@ public class BonusMenu{
 
         System.out.print("Pour retourner au menu, taper 'menu' : ");
         
-
         while (validAnswer == 0){
             buf = console.readLine();
 
@@ -33,6 +35,7 @@ public class BonusMenu{
         }
     }
 
+    // Affichage du message de fin lorsque la commande "sortir" est tapée
     public static void quitMenu(String buffer){
         if (buffer.equals("sortir")){
             gamePackage.WriteInLog.writeBuffer(buffer);
@@ -41,24 +44,34 @@ public class BonusMenu{
         }
     }
 
-
+    // Affichage des règles
     public static void displayRules(){    
-        System.out.println("\n[Règles]");
-        System.out.println("Blablabla règles");
+        System.out.println(Color.setColor("\n[Règles]", "NONE",1));
+        System.out.print(Color.setColor("       Le but du jeu est d'aligner une suite de 4 pions de même couleur sur", "NONE",2));
+        System.out.print(Color.setColor(" une grille comptant 6 rangées et 7 colonnes. Chaque joueur dispose de", "NONE",2));
+        System.out.print(Color.setColor(" 21 pions d'une couleur (par convention, en général jaune ou rouge). Tour", "NONE",2));
+        System.out.print(Color.setColor(" à tour, les deux joueurs placent un pion dans la colonne de leur choix,", "NONE",2));
+        System.out.print(Color.setColor(" le pion coulisse alors jusqu'à la position la plus basse possible dans", "NONE",2));
+        System.out.print(Color.setColor(" la dite colonne à la suite de quoi c'est à l'adversaire de jouer.\n\nLe", "NONE",2));
+        System.out.print(Color.setColor(" vainqueur est le joueur qui réalise le premier un alignement (horizontal,", "NONE",2));
+        System.out.print(Color.setColor(" vertical ou diagonal) consécutif d'au moins quatre pions de sa couleur.\n\n", "NONE",2));
+        System.out.print(Color.setColor("Si, alors que toutes les cases de la grille de jeu sont remplies, aucun", "NONE",2));
+        System.out.println(Color.setColor(" des deux joueurs n'a réalisé un tel alignement, la partie est déclarée nulle.\n", "NONE",2));
 
         goBackToMenu();
     }
 
-    
+    // Affichage des paramètres modifiables du jeu
     public static int[] displayParameters(int numberPlayers, int width, int height, int rounds, int tokens){
         Console console = System.console();
         String buf, buf2;
         int[] buff;
         int validAnswer = 0;
         int validAnswer2 = 0;
+        int modification = 0;
         int[] res = {numberPlayers, width, height, rounds, tokens};
 
-        System.out.println("\n[Paramètres]");
+        System.out.println(Color.setColor("\n[Paramètres]", "NONE",1));
         System.out.print("Modifier les paramètres ? [Oui/Non] : ");
         buf = console.readLine();
 
@@ -74,42 +87,54 @@ public class BonusMenu{
                     System.out.println("B - Taille de la grille");
                     System.out.println("C - Nombre de manches");
                     System.out.println("D - Nombre de jetons");
-                    System.out.println("E - Tous les paramètres ");
+                    System.out.println("Z - Tous les paramètres ");
                     System.out.print("\nPour revenir au Menu, taper 'menu'\n>> ");
                     buf2 = console.readLine();
                     
+                    // Choisir le nombre de joueurs
                     if (buf2.equals("A")){
-                        // Choisir le nombre de joueurs
                         res[0] = changeNumberPlayers();
+                        modification = 1;
                     }
+
+                    // Choisir la taille du puissance 4
                     else if (buf2.equals("B")){
-                        // Choisir la taille du puissance 4
-                        buff = changeWidthAndHeight();
+                        buff = changeWidthAndHeight(res[1], res[2],res[4]);
                         res[1] = buff[0];
                         res[2] = buff[1];
+                        modification = 1;
                     }
-                    else if (buf2.equals("C")){
-                        // Choisir le nombre de manches
+
+                    // Choisir le nombre de manches
+                    else if (buf2.equals("C")){                     
                         res[3] = changeNumberRounds();
+                        modification = 1;
                     }
-                    else if (buf2.equals("D")){
-                        // Choisir le nombre de jetons
-                        res[4] = changeNumberTokens(); 
-                    }
-                    else if (buf2.equals("E")){
-                        // Modifier tous les paramètres
+
+                    // Choisir le nombre de jetons
+                    else if (buf2.equals("D")){                        
+                        res[4] = changeNumberTokens(res[1], res[2]);
+                        modification = 1;
+                    } 
+                        
+                    // Modifier tous les paramètres
+                    else if (buf2.equals("Z")){                        
                         res[0] = changeNumberPlayers();
-                        buff = changeWidthAndHeight();
+                        buff = changeWidthAndHeight(res[1], res[2],res[4]);
                         res[1] = buff[0];
                         res[2] = buff[1];
                         res[3] = changeNumberRounds();
-                        res[4] = changeNumberTokens(); 
+                        res[4] = changeNumberTokens(res[1], res[2]); 
+                        modification = 1;
                     }
+                    // Retour au Menu
                     else if (buf2.equals("menu")){
                         validAnswer2 = 1;
-                        System.out.println(Display.setColor("Les paramètres du jeu ont été modifiés avec succès", "\u001B[32m")); // vert
-                        // goBackToMenu();
+                        if (modification == 1)
+                            System.out.println(Color.setColor("Les paramètres du jeu ont été modifiés avec succès", "GREEN",0)); // vert
                     }
+
+                    // Erreur de saisie
                     else{
                         System.out.print("Erreur de saisie. Mentionner les paramètres à modifier : ");
                     }
@@ -122,17 +147,21 @@ public class BonusMenu{
                 buf = console.readLine();
             }
         }
-
         return res;  
     }
 
+    // Affichage des informations 
     public static void displayInformations(){
-        System.out.println("\n[Informations]");
-        System.out.println("Blablabla infos");
+        System.out.println(Color.setColor("\n[Informations]", "NONE",1));
+        System.out.print(Color.setColor("       Puissance 4 (appelé aussi parfois 4 en ligne) est un jeu de stratégie ", "NONE",2));
+        System.out.print(Color.setColor("combinatoire abstrait, commercialisé pour la première fois en 1974 par ", "NONE",2));
+        System.out.print(Color.setColor("la Milton Bradley Company, plus connue sous le nom de MB et détenue ", "NONE",2));
+        System.out.println(Color.setColor("depuis 1984 par la société Hasbro.\n", "NONE",2));
+
         goBackToMenu();
     }
 
-
+    // Modification du nombre de joueurs
     public static int changeNumberPlayers(){
         Console console = System.console();
         int numberPlayers = 2;
@@ -161,7 +190,8 @@ public class BonusMenu{
         return numberPlayers;
     }
 
-    public static int changeWidth(){
+    // Modification de la largeur de la grille
+    public static int changeWidth(int tokens){
         Console console = System.console();
         int width = 7;
         int validAnswer = 0;
@@ -178,6 +208,8 @@ public class BonusMenu{
                 width = Integer.parseInt(buf);
                 if (width <= 3)
                     System.out.print("Erreur : largeur de la grille incorrecte (>= 4 requise). Largeur de la grille : ");
+                else if (width < tokens)
+                    System.out.print("Erreur : largeur de la grille incorrecte (largeur < "+tokens+" : nombre de jetons à aligner). Largeur de la grille : ");
                 else
                     return width;
             }
@@ -188,8 +220,8 @@ public class BonusMenu{
         }
         return width;
     }
-
-    public static int changeHeight(){
+    // Modification de la hauteur de la grille
+    public static int changeHeight(int tokens){
         Console console = System.console();
         int height = 6;
         int validAnswer = 0;
@@ -205,6 +237,8 @@ public class BonusMenu{
                 height = Integer.parseInt(buf);
                 if (height <= 1)
                     System.out.print("Erreur : hauteur de la grille incorrecte (>= 2 requise). Hauteur de la grille : ");
+                else if (height < tokens)
+                    System.out.print("Erreur : hauteur de la grille incorrecte (hauteur < "+tokens+" : nombre de jetons à aligner). Hauteur de la grille : ");
                 else
                     return height;
             }
@@ -216,22 +250,20 @@ public class BonusMenu{
         return height;
     }
 
-    public static int[] changeWidthAndHeight(){
+    // Vérification des nouvelles valeurs pour la largeur et la hauteur de la grille
+    public static int[] changeWidthAndHeight(int width, int height, int tokens){
         int validAnswer = 0;
-        int width = -1; 
-        int height = -1;
         int[]res = new int[2];
 
         while (validAnswer == 0){
-            width = changeWidth();
-            height = changeHeight(); 
+            width = changeWidth(tokens);
+            height = changeHeight(tokens); 
 
-            if ((width*height)%2 == 0 && (width*height) >= 8){
+            if ((width*height)%2 == 0 && (width*height) >= 8)
                 validAnswer = 1;
-            }
-            else{
-                System.out.println("Erreur : longueur x largeur n'est pas pair");
-            }      
+            
+            else
+                System.out.println("Erreur : longueur x largeur n'est pas pair");    
         }
 
         res[0] = width;
@@ -240,6 +272,7 @@ public class BonusMenu{
         return res;
     }
 
+    // Modification du nombre de manches à gagner
     public static int changeNumberRounds(){
         Console console = System.console();
         int rounds = 3;
@@ -268,7 +301,8 @@ public class BonusMenu{
         return rounds;
     }
 
-    public static int changeNumberTokens(){
+    // Modification du nombre de jetons à aligner pour gagner une manche
+    public static int changeNumberTokens(int width, int height){
         Console console = System.console();
         int tokens = 3;
         int validAnswer = 0;
@@ -283,10 +317,14 @@ public class BonusMenu{
 
             try{
                 tokens = Integer.parseInt(buf);
-                if (tokens >= 4 && tokens <= 6)
-                    return tokens;
+                if (tokens < 4)
+                    System.out.print("Erreur : nombre de jetons incorrect (>= 4 jetons requis). Nombre de jetons : ");
+                else if (tokens > width)
+                    System.out.print("Erreur : nombre de jetons incorrect (nombre de jetons > "+tokens+" : largeur de la grille). Nombre de jetons : ");
+                else if (tokens > height)
+                    System.out.print("Erreur : nombre de jetons incorrect (nombre de jetons > "+tokens+" : hauteur de la grille). Nombre de jetons : ");
                 else
-                    System.out.print("Erreur : nombre de jetons incorrect (4-6 requis). Nombre de jetons : ");
+                    return tokens;
             }
 
             catch(Exception e){

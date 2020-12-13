@@ -5,7 +5,7 @@ import java.io.FileWriter;
 
 public class WriteInLog{
 
-  // Create the log.txt file to register players actions
+  // Création du fichier log.txt
   public static void createLog(){
     String filename = "log.txt";
 
@@ -19,7 +19,7 @@ public class WriteInLog{
   }
 
 
-  //Write in log.txt the string "buffer"
+  // Ecriture dans log.txt la chaîne "buffer"
   public static void writeBuffer(String buffer){
     String filename = "log.txt";
     try{

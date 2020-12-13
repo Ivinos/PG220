@@ -102,25 +102,37 @@ public class Game{
       return res;
     }
 
-    public void gameParameters(){
-      System.out.println("\n[JEU]");
-      System.out.println("Victoire : "+this.rounds+" manches à remporter");
-      System.out.println("Manche : "+this.tokens+" jetons à aligner");
-      System.out.println("Score : "+ this.getScore(0)+" - "+ this.getScore(1));
+    // public static String setColor(String buffer, String color, int attr) {
+    //   String reset = "\u001B[0m";
+    //   String bold = "\u001B[1m";
 
-      System.out.println("\n[GRILLE]");
-      System.out.println("Hauteur : "+this.grid.height+" lignes");
-      System.out.println("Largeur : "+this.grid.width+" colonnes");
+    //   if (attr == 0)
+    //     return color + buffer + reset;
+    //   return bold + color + buffer + reset;
+    // }
 
-      System.out.println("\n[JOUEURS]");
-      System.out.println("Nombre de joueurs : "+this.numberPlayers);
+    // public void gameParameters(){
+    //   String[] symbols = {".", "X", "O", "V", "T", "Y", "@"}; // à changer plus tard surement parce que pas très beau
+    //   String[] colors = {"\u001B[37m","\u001B[31m","\u001B[34m","\u001B[32m","\u001B[35m","\u001B[33m","\u001B[36m"};
 
-      for (int i = 1; i<=this.numberPlayers; i++)
-        System.out.println("Joueur "+i+" est "+this.getPlayer(i).getName()+" de type "+this.getPlayer(i).getType());
-      System.out.println("");     
-    }
 
-    // Create file log.txt + check pseudo/type of players
+    //   System.out.println(setColor("\n[JEU]","\u001B[33m",1));
+    //   System.out.println("Victoire : "+this.rounds+" manches à remporter");
+    //   System.out.println("Manche : "+this.tokens+" jetons à aligner pour remporter 1 manche");
+    //   System.out.println(writeScore(this));
+
+    //   System.out.println(setColor("\n[GRILLE]","\u001B[33m",1));
+    //   System.out.println("Hauteur : "+this.grid.height+" lignes");
+    //   System.out.println("Largeur : "+this.grid.width+" colonnes");
+
+    //   System.out.println(setColor("\n[JOUEURS]","\u001B[33m",1));
+    //   System.out.println("Nombre de joueurs : "+this.numberPlayers);
+    //   for (int i = 1; i<=this.numberPlayers; i++)
+    //     System.out.println("Joueur "+i+" est "+this.getPlayer(i).getName()+" de type "+this.getPlayer(i).getType()+" (symbole : "+setColor(symbols[i],colors[i],0)+")");
+    //   System.out.println("");     
+    // }
+
+    // Création du fichier log.txt 
     public static String[] selectPlayers(int numberPlayers){
       Console console = System.console();
       String s = new String("Joueur ");
@@ -150,14 +162,14 @@ public class Game{
       return res; // type1 name1 type2 name2 ..
     }
 
-    // Return which player is playing
+    // Retourne le numéro du joueur qui joue
     public int whichPlayer(int i){
       int res = i%this.numberPlayers;
 
       if (res == 0)
           res = this.numberPlayers;
       // En gros 2%2 = 0 sauf que c'est le dernier joueur
-      // Et rajouter plus 1 au res ne marche pas car sinon le p1 ne joue pas en premier (réflechi..)
+      // Et rajouter plus 1 au res ne marche pas car sinon le p1 ne joue pas en premier
       return res;
     }
 
@@ -176,7 +188,7 @@ public class Game{
       int i = 1; // i = numéro de tour (le joueur 1 commence à jouer)
       int who; // numéro de joueur
       int position = -3; // -3 correspond à un move non valide (colonne pleine)
-      int[] wins = new int[this.numberPlayers]; // Initialiser à 0 par défaut
+      int[] wins = new int[this.numberPlayers];
       int equality = 0;
 
       interfacePackage.Display.displayGrid(getGrid());
@@ -184,8 +196,6 @@ public class Game{
       while(nullTab(wins, this.numberPlayers) == 0 && equality == 0){
         who = whichPlayer(i);
         position = -3;
-
-        // position = getPlayer(i).choice(grid);
 
         while(position == -3){
 
@@ -195,13 +205,16 @@ public class Game{
                 System.exit(0);
 
             if (position == -2) {
-                this.gameParameters();
+                interfacePackage.Display.gameParameters(this);
                 position = -3; // On remet en "attente le choix du joueur"
             }
             else if (position == -1) { // commande "sortir"
                 System.exit(0);
-            }else{
-                System.out.println("");
+            }
+            else{
+                if (getPlayer(who).getType().equals("humain")) // pour un affichage bien (oui oui)
+                  System.out.println("");
+                  
                 position = grid.updateGrid(position, who);
             }
         }
@@ -213,8 +226,8 @@ public class Game{
 
         if(grid.victoryCheck(this.tokens,position-1) == 1){ // -1 car en java, l'indexe commence à 0
           WriteInLog.writeBuffer("Joeur "+who+" gagne");
-          setScore(who-1); // Le joueur 1 a l'indexe 0 ect
-          wins[who-1] = 1; // same
+          setScore(who-1); 
+          wins[who-1] = 1; 
         }
 
         else if(grid.equalityCheck() == 1){

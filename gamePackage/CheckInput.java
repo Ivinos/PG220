@@ -4,6 +4,7 @@ import java.io.Console;
 
 public class CheckInput{
 
+    // Test si la manière du choix du pseudo + type est valide
     public static String[] checkPlayers(String buf, int numeroPlayer){
       Console console = System.console();
       String[] res;
@@ -20,6 +21,7 @@ public class CheckInput{
       return res;
     }
 
+    // Test si le type choisi est valide
     public static String checkType(String buf, int numeroPlayer){
       Console console = System.console();
       int valid = 0;

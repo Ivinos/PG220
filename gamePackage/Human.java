@@ -33,13 +33,13 @@ public class Human extends Player{
             return position;          
           else{
             WriteInLog.writeBuffer("Erreur colonne non valide "+buffer);
-            System.out.print("Erreur : colonne non valide "+buffer+". Choisis un nombre entre 1 et "+width+" : ");
+            System.out.print("Erreur : colonne non valide "+buffer+". Choisir un nombre entre 1 et "+width+" : ");
           }
         }
 
         catch(Exception e){
           WriteInLog.writeBuffer("Erreur saisie colonne "+buffer);
-          System.out.print("Erreur : saisie colonne "+buffer+". Choisis un nombre entre 1 et "+width+" : ");
+          System.out.print("Erreur : saisie colonne "+buffer+". Choisir un nombre entre 1 et "+width+" : ");
         }
       }
     }

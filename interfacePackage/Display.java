@@ -12,7 +12,7 @@ public class Display{
     int width = grid.width;
     int height = grid.height;
     String[] symbols = {". ", "X ", "O ", "V ", "T ", "Y ", "@ "}; // à changer plus tard surement parce que pas très beau
-    String[] colors = {"RESET","RED","BLUE","GREEN","PURPLE","YELLOW","CYAN"};
+    String[] colors = {"NONE","RED","BLUE","GREEN","PURPLE","YELLOW","CYAN"};
     String lineNumero = new String("1");
     
     for (int k = 2; k<width+1; k++)

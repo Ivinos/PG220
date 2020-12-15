@@ -18,7 +18,7 @@ public class Pro extends Player{
                if (grid[j-2][i]!=0) {
 
                  if (grid[j-3][i]==0) {
-                  System.out.print("Victoire possible haut");
+                  // System.out.print("Victoire possible haut");
                    return i;
                  }
                }
@@ -28,7 +28,7 @@ public class Pro extends Player{
            if (i>3){
              if ((grid[j][i]==grid[j][i-1])&&(grid[j][i]==grid[j][i-2])&&(grid[j][i]!=0)){
                if((j==height-1)&&(grid[j][i-3]==0)){
-                 System.out.print("Victoire possible gauche");
+                //  System.out.print("Victoire possible gauche");
                  return i-3;
                }
                if(j<height-1){
@@ -44,17 +44,17 @@ public class Pro extends Player{
            if (i<width-3){
              if(((grid[j][i]==grid[j][i+1])&&(grid[j][i]==grid[j][i+2]))&&(grid[j][i]!=0)){
                if(j==height-1){
-                System.out.print(i);
-                System.out.print("Voilà\n");
-                System.out.print(j);
-                System.out.print("Voilà\n");
+                // System.out.print(i);
+                // System.out.print("Voilà\n");
+                // System.out.print(j);
+                // System.out.print("Voilà\n");
                  if(grid[j][i+3]==0){
                    return i+3;
                  }
                }
                if(j<height-1){
                  if ((grid[j][i+3]==0)&&(grid[j+1][i+3]!=0)){
-                   System.out.print("Victoire possible droite");
+                  //  System.out.print("Victoire possible droite");
                    return i+3;
                  }
                }
@@ -64,7 +64,7 @@ public class Pro extends Player{
            if ((j>3)&&(i>3)){
              if ((grid[j][i]==grid[j-1][i-1])&&(grid[j][i]==grid[j-2][i-2])&&(grid[j][i]!=0)){
                if ((grid[j-3][i-3]==0)&&(grid[j-2][i-3]!=0)){
-                 System.out.print("Victoire possible haut gauche");
+                //  System.out.print("Victoire possible haut gauche");
                  return i-3;
                }
              }
@@ -73,7 +73,7 @@ public class Pro extends Player{
            if((j>3)&&(i<width-3)){
              if ((grid[j][i]==grid[j-1][i+1])&&(grid[j][i]==grid[j-2][i+2])&&(grid[j][i]!=0)){
                if ((grid[j-3][i+3]==0)&&(grid[j-2][i+3]!=0)){
-                 System.out.print("Victoire possible haut droite");
+                //  System.out.print("Victoire possible haut droite");
                  return i+3;
                }
              }
@@ -82,11 +82,11 @@ public class Pro extends Player{
            if ((j<height-3)&&(i<width-3)){
              if ((grid[j][i]==grid[j+1][i+1])&&(grid[j][i]==grid[j+2][i+2])&&(grid[j][i]!=0)){
                if ((grid[j+3][i+3]==0)&&(j+3==height-1)){
-                 System.out.print("Victoire possible bas droite");
+                //  System.out.print("Victoire possible bas droite");
                  return i+3;
                }if(j+3<height-1){
                  if ((grid[j+3][i+3]==0)&&(grid[j+4][i+3]!=0)) {
-                   System.out.print("Victoire possible bas droite");
+                  //  System.out.print("Victoire possible bas droite");
                    return i+3;
                  }
                }
@@ -96,11 +96,11 @@ public class Pro extends Player{
            if ((j<height-3)&&(i>3)) {
              if ((grid[j][i]==grid[j+1][i-1])&&(grid[j][i]==grid[j+2][i-2])&&(grid[j][i]!=0)){
                if ((grid[j+3][i-3]==0)&&(j+3==height-1)){
-                 System.out.print("Victoire possible bas gauche");
+                //  System.out.print("Victoire possible bas gauche");
                  return i-3;
                }if(j+3<height-1){
                  if ((grid[j+3][i-3]==0)&&(grid[j+4][i-3]!=0)) {
-                   System.out.print("Victoire possible bas gauche");
+                  //  System.out.print("Victoire possible bas gauche");
                    return i-3;
                  }
                }
@@ -158,13 +158,13 @@ public class Pro extends Player{
     public int choice(int[][] grid, int width, int height){
      int position;
      position=possibleWin(grid, width, height);
-     System.out.print("\nPosition calculée: ");
-     System.out.print(position);
-     System.out.print("\n");
+    //  System.out.print("\nPosition calculée: ");
+    //  System.out.print(position);
+    //  System.out.print("\n");
      if (position>-1) {
        while(grid[0][position]!=0) {
            position = (getRandomNumber(0,width-1)+getRandomNumber(0,width-1))/2;
-           System.out.print("Random1\n");
+          //  System.out.print("Random1\n");
        }
      }
      if(position==-1){
@@ -172,11 +172,11 @@ public class Pro extends Player{
         while(grid[0][position]!=0) {
          position = (getRandomNumber(0,width-1)+getRandomNumber(0,width-1))/2;
         }
-      System.out.print("Random2\n");
+      // System.out.print("Random2\n");
      }
-     System.out.print("\nPosition envbyée: ");
-     System.out.print(position);
-     System.out.print("\n");
+    //  System.out.print("\nPosition envbyée: ");
+    //  System.out.print(position);
+    //  System.out.print("\n");
      return position+1;
     }
 

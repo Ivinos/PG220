@@ -21,7 +21,7 @@ public class Ia extends Player{
   }
 
   // Action du joueur
-  public int choice(int[][] grid, int width, int height){
+  public int choice(int[][] grid, int width, int height, int tokens){
     int position;
     int min = 1;
 

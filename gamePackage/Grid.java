@@ -173,7 +173,7 @@ public class Grid {
   }
 
   // Test s'il y a une victoire dans le tableau
-  int arrayCheck(int tokens, int[] array, int length){ // Pour le moment le nombre de jeton n'est pas dynamique zebi
+  int arrayCheck(int tokens, int[] array, int length){
     int max = length - tokens;
     int[] vals  = new int[tokens];
     int cpt = 1;

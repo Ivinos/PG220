@@ -17,7 +17,7 @@ public class Monkey extends Player{
      }
     }
 
-    public static int possibleWin(int[][] grid, int width, int height){
+    public static int possibleWin(int[][] grid, int width, int height, int tokens){
      for (int j=0;j<height;j++) {
        for (int i=0;i<width;i++) {
          //Check vers le haut
@@ -130,9 +130,9 @@ public class Monkey extends Player{
     }
 
 
-    public int choice(int[][] grid, int width, int height){
+    public int choice(int[][] grid, int width, int height, int tokens){
      int position;
-     position=possibleWin(grid, width, height);
+     position = possibleWin(grid, width, height, tokens);
     //  System.out.print("\nPosition calculée: ");
     //  System.out.print(position);
     //  System.out.print("\n");

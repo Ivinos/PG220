@@ -47,7 +47,7 @@ public class Human extends Player{
   }
 
   // Action du joueur
-  public int choice(int[][] grid, int width, int height){
+  public int choice(int[][] grid, int width, int height, int tokens){
     int position = playerReadLine(width, height);
     return position;
   }

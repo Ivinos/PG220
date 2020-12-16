@@ -155,7 +155,7 @@ public class Pro extends Player{
     }
 
 
-    public int choice(int[][] grid, int width, int height){
+    public int choice(int[][] grid, int width, int height, int tokens){
      int position;
      position=possibleWin(grid, width, height);
     //  System.out.print("\nPosition calculée: ");

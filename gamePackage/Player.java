@@ -23,5 +23,5 @@ abstract class Player {
     return numeroPlayer;
   }
 
-  public abstract int choice(int[][] grid, int width, int height);
+  public abstract int choice(int[][] grid, int width, int height, int tokens);
 }

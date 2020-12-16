@@ -199,7 +199,7 @@ public class Game{
 
         while(position == -3){
 
-            position = this.getPlayer(who).choice(grid.values, grid.width, grid.height);
+            position = this.getPlayer(who).choice(grid.values, grid.width, grid.height, this.tokens);
 
             if (position == -1) // commande "sortir"
                 System.exit(0);
@@ -223,7 +223,6 @@ public class Game{
           System.exit(0);
 
         interfacePackage.Display.displayGrid(getGrid());
-        System.out.println("Jetons : "+this.tokens);
         
         if(grid.victoryCheck(this.tokens,position-1) == 1){ // -1 car en java, l'indexe commence à 0
           WriteInLog.writeBuffer("Joueur "+who+" gagne");

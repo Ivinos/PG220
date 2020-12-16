@@ -175,16 +175,23 @@ public class Grid {
   // Test s'il y a une victoire dans le tableau
   int arrayCheck(int tokens, int[] array, int length){ // Pour le moment le nombre de jeton n'est pas dynamique zebi
     int max = length - tokens;
-    int vals [] = {0,0,0,0};
+    int[] vals  = new int[tokens];
+    int cpt = 1;
 
     for(int i = 0; i <= max; i++){
-      for(int j = 0; j<4; j++){
+      for(int j = 0; j<tokens; j++){
         vals[j] = array[i+j];
-
-        if ((vals[0] != 0) && (vals[0] == vals[1]) && (vals[1] == vals[2]) && (vals[2] == vals[3]))
-          return 1; // victoire
       }
-      vals[0] = 0; vals[1] = 0; vals[2] = 0; vals[3] = 0;
+      if (vals[0] != 0)
+        for (int k = 1; k<tokens; k++){
+          if (vals[0] == vals[k])
+            cpt += 1;
+        }
+        if (cpt == tokens)
+          return 1;
+      
+      vals = new int[tokens];
+      cpt = 1;
     }
     return 0; // pas de victoire
   }

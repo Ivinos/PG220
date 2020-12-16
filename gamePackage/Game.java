@@ -214,7 +214,7 @@ public class Game{
             else{
                 if (getPlayer(who).getType().equals("humain")) // pour un affichage bien (oui oui)
                   System.out.println("");
-                  
+
                 position = grid.updateGrid(position, who);
             }
         }
@@ -223,9 +223,10 @@ public class Game{
           System.exit(0);
 
         interfacePackage.Display.displayGrid(getGrid());
-
+        System.out.println("Jetons : "+this.tokens);
+        
         if(grid.victoryCheck(this.tokens,position-1) == 1){ // -1 car en java, l'indexe commence à 0
-          WriteInLog.writeBuffer("Joeur "+who+" gagne");
+          WriteInLog.writeBuffer("Joueur "+who+" gagne");
           setScore(who-1); 
           wins[who-1] = 1; 
         }

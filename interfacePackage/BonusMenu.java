@@ -12,7 +12,8 @@ public class BonusMenu{
         System.out.println("1 - Jouer");
         System.out.println("2 - Règles");
         System.out.println("3 - Paramètres");
-        System.out.println("4 - Informations\n");
+        System.out.println("4 - Informations");
+        System.out.println("5 - Statistiques\n");
     }
 
     // Commande pour retourner au Menu
@@ -157,6 +158,21 @@ public class BonusMenu{
         System.out.print(Color.setColor("combinatoire abstrait, commercialisé pour la première fois en 1974 par ", "NONE",2));
         System.out.print(Color.setColor("la Milton Bradley Company, plus connue sous le nom de MB et détenue ", "NONE",2));
         System.out.println(Color.setColor("depuis 1984 par la société Hasbro.\n", "NONE",2));
+
+        goBackToMenu();
+    }
+
+    // Affichage des statistiques entre les ia
+    public static void displayStats(){    
+        System.out.println(Color.setColor("\n[Statistiques]", "NONE",1));
+        System.out.print(Color.setColor("       Des simulations ont été realisées pour déterminer et comparer les", "NONE",2));
+        System.out.print(Color.setColor(" différentes ia implémentées (ia:random, ia:monkey et ia:pro)\n\n", "NONE",2));
+        System.out.print(Color.setColor("     Manches gagnantes                       IA/IA                      Score moyen\n", "NONE",1));
+        System.out.print(Color.setColor("           100                        ia:random/ia:monkey                  23/100\n", "NONE",2));
+        System.out.print(Color.setColor("           100                        ia:monkey/ia:pro                     56/100\n", "NONE",2));
+        System.out.print(Color.setColor("           100                        ia:random/ia:pro                     12/100\n", "NONE",2));
+        System.out.print(Color.setColor("           100                        ia:random/ia:monkey/ia:pro         35/64/100\n", "NONE",2));
+        System.out.println(Color.setColor("\n", "NONE",2));
 
         goBackToMenu();
     }
@@ -369,6 +385,10 @@ public class BonusMenu{
             // Informations
             else if (buffer.equals("4"))
                 displayInformations();
+
+            // Statistiques
+            else if (buffer.equals("5"))
+                displayStats();
             
             // Cas d'erreur : mauvaise saisie
             else

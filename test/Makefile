@@ -1,8 +1,9 @@
+SOURCES := $(shell find .. -name "*.java")
 release:
-	javac -d build #liste des sources
+	javac -d build $(SOURCES) #liste des sources
 
 run:
-	java -cp build #nom de la classe principale
+	java -cp build Menu #nom de la classe principale
 
 run_jar:
-	java -jar #nom du fichier .jar
+	java -jar puissance.jar #nom du fichier .jar

@@ -1,0 +1,5 @@
+test game_complete_fight.sc result has failed starting at line:1
+line: "Joueur 2?" has not been found
+test game_complete_fight.sc log has failed starting at line:0
+line: "Joueur 1 est humain moi" has not been found
+

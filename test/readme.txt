@@ -1,4 +1,4 @@
----------------------------------Pour compiler et créer un executable .jar---------------------------------
+	---------------------------------Pour compiler et créer un executable .jar---------------------------------
 
 -placer les sources dans le même dossier que le script "create_a_jar.sh"
 
@@ -40,7 +40,7 @@ Il existe 12 scénarios possibles, tous présents dans le dossier "possible_scen
 
 -game_tie.sc: le cas de l'égalité
 
--game_complete_fight.sc: une partie complète en 3 manches       
+-game_complete_fight.sc: une partie complète en 3 manches       	
    
 -game_error_player_1.sc: mauvais format pour les type/nom de joueurs
 -game_error_player_2.sc
@@ -58,6 +58,6 @@ Après avoir executer les scénarios, le script les compare avec les différents
 Pour lancer les scripts:
 -placer le fichier .jar dans le dossier contenant le script "test_scenario.sh"
 -copier les différents scenarios à tester depuis le dossier "possible_scenarios" vers le dossier "test_scenarios"
--lancer la commande "./text_scenario.sh jeu.jar" où jeu.jar est le nom de votre fichier .jar
+-lancer la commande "./test_scenario.sh puissance.jar" où puissance.jar est le nom de votre fichier .jar
 
 Les résulats des tests apparaîtront dans le fichier result_test.txt.

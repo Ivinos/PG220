@@ -10,15 +10,17 @@ public class Menu{
       int token = 4;
       int[] score;
       String[] inputPlayers;
-      int[] parameters = new int[5];
 
       // Afichage du menu
-      parameters = interfacePackage.BonusMenu.parametersMenu(numberPlayers, width, height, rounds, token);
-      numberPlayers = parameters[0];
-      width = parameters[1];
-      height = parameters[2];
-      rounds = parameters[3];
-      token = parameters[4];
+      // int[] parameters = new int[5];
+
+      // parameters = interfacePackage.BonusMenu.parametersMenu(numberPlayers, width, height, rounds, token);
+      // numberPlayers = parameters[0];
+      // width = parameters[1];
+      // height = parameters[2];
+      // rounds = parameters[3];
+      // token = parameters[4];
+      
       score = new int[numberPlayers];
 
       // Choix du pseudo + type

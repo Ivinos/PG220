@@ -11,8 +11,8 @@ public class Display{
   public static void displayGrid(gamePackage.Grid grid){
     int width = grid.width;
     int height = grid.height;
-    String[] symbols = {". ", "X ", "O ", "V ", "T ", "Y ", "@ "}; // à changer plus tard surement parce que pas très beau
-    String[] colors = {"NONE","RED","BLUE","GREEN","PURPLE","YELLOW","CYAN"};
+    String[] symbols = {". ", "x ", "o ", "V ", "T ", "Y ", "@ "}; // à changer plus tard surement parce que pas très beau // REMETTRE X ET O ensuite
+    String[] colors = {"NONE","NONE","NONE","GREEN","PURPLE","YELLOW","CYAN"}; // REMETTRE RED ET BLUE
     String lineNumero = new String("1");
     
     for (int k = 2; k<width+1; k++)
@@ -25,7 +25,7 @@ public class Display{
         System.out.print(Color.setColor(symbols[grid.values[i][j]],colors[grid.values[i][j]],0));
       System.out.println("");
     }
-    System.out.println("");
+    //System.out.println("");
   }
 
   // Affichage des paramètres de la partie

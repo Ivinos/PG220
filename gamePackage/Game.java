@@ -213,7 +213,7 @@ public class Game{
             }
             else{
                 if (getPlayer(who).getType().equals("humain")) // pour un affichage bien (oui oui)
-                  System.out.println("");
+                  //System.out.println("");
 
                 position = grid.updateGrid(position, who);
             }

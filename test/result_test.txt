@@ -1,3 +1,0 @@
-test game_complete_fight.sc result is ok.
-test game_complete_fight.sc log is ok.
-

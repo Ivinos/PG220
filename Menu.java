@@ -28,7 +28,7 @@ public class Menu{
 
       // Initialisation du jeu
       Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds, token);
-      System.out.println("");
+      //System.out.println("");
 
       // Début du jeu
       while(gamePackage.Game.checkRounds(game) == 0){

@@ -82,8 +82,10 @@ public class Color{
       color2 = getWhite();
     else if (color.equals(colors[7]))
       color2 = getBlack();
-    else if (color.equals("NONE"))
-      color2 = "";
+    else if (color.equals("NONE")){
+      //color2 = "";
+      return buffer; // à changer quand on veut code full fonctionnalité
+    }
     else{
       System.out.println("Erreur : couleur inexistante");
       System.exit(0);

@@ -1,4 +1,3 @@
-test game_complete_fight.sc result has failed starting at line:1
-line: "Joueur 2?" has not been found
+test game_complete_fight.sc result is ok.
 test game_complete_fight.sc log is ok.
 

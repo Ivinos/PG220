@@ -1,7 +1,8 @@
 package gamePackage;
 
 import gamePackage.interfacePackage.Display;
-import java.io.Console;
+//import java.io.Console;
+import java.util.Scanner;
 import java.util.ArrayList; // Pour tableau de Player dynamique
 
 public class Game{
@@ -97,6 +98,18 @@ public class Game{
       return res;
     }
 
+    public static int checkRounds_noBestOf(Game game){
+        int res = 0;
+        int sum = 0;
+        for (int i = 0; i<game.numberPlayers; i++){
+            sum += game.score[i];
+        }
+        if (sum == game.rounds)
+            res = 1;
+        return res;
+    }
+
+
     public static String writeScore(Game game){
       String res;
       res = "Score "+game.score[0];
@@ -105,6 +118,14 @@ public class Game{
         res = res+" - "+game.score[i];
       }
       return res;
+    }
+
+    public static int getRoundNumber(Game game){
+        int sum = 1; // Car on commence à la manche 1
+        for (int i = 0; i<game.numberPlayers; i++){
+            sum += game.score[i];
+        }
+        return sum;
     }
 
     // public static String setColor(String buffer, String color, int attr) {
@@ -139,7 +160,8 @@ public class Game{
 
     // Création du fichier log.txt 
     public static String[] selectPlayers(int numberPlayers){
-      Console console = System.console();
+      //Console console = System.console();
+      Scanner scanner = new Scanner(System.in);
       String s = new String("Joueur ");
       String res[] = new String[2*numberPlayers];
       int cntPlayer;
@@ -155,11 +177,11 @@ public class Game{
 
         System.out.println(s+cntPlayer+"?"); // Joueur i?
 
-        buf = check.checkPlayers(console.readLine(),cntPlayer);
+        buf = check.checkPlayers(scanner.nextLine(),cntPlayer);
         type = check.checkType(buf[0],cntPlayer);
         name = buf[1];
 
-        write.writeBuffer("Joueur "+cntPlayer+" est "+name);
+        write.writeBuffer("Joueur "+cntPlayer+" est "+type+" "+name);
         res[i] = type;
         res[i+1] = name;
         }
@@ -168,14 +190,16 @@ public class Game{
     }
 
     // Retourne le numéro du joueur qui joue
-    public int whichPlayer(int i){
-      int res = i%this.numberPlayers;
+    public int whichPlayer(int tour, int roundNumber){
+      int res = tour%this.numberPlayers; // 1er tour = 1, 2ème = 0, puis 1 ect
 
-      if (res == 0)
+      int roundParity = (roundNumber-1)%this.numberPlayers; // 1er round = 0, 2ème round = 1, puis 0 ect
+
+      if (res + roundParity == 0)
           res = this.numberPlayers;
       // En gros 2%2 = 0 sauf que c'est le dernier joueur
       // Et rajouter plus 1 au res ne marche pas car sinon le p1 ne joue pas en premier
-      return res;
+      return res + roundParity;
     }
 
     public int nullTab(int[] tab, int len){
@@ -190,7 +214,7 @@ public class Game{
 
     // Actions pendant le jeu
     public void play(){
-      int i = 1; // i = numéro de tour (le joueur 1 commence à jouer)
+      int tour = 1; // i = numéro de tour (le joueur 1 commence à jouer) (se réinitialise à chaque manche)
       int who; // numéro de joueur
       int position = -3; // -3 correspond à un move non valide (colonne pleine)
       int[] wins = new int[this.numberPlayers];
@@ -199,7 +223,7 @@ public class Game{
       disp.displayGrid(getGrid());
 
       while(nullTab(wins, this.numberPlayers) == 0 && equality == 0){
-        who = whichPlayer(i);
+        who = whichPlayer(tour, getRoundNumber(this)); // pour 2 joueurs who = 1 ou 2
         position = -3;
 
         while(position == -3){
@@ -231,6 +255,7 @@ public class Game{
         
         if(grid.victoryCheck(this.tokens,position-1) == 1){ // -1 car en java, l'indexe commence à 0
           write.writeBuffer("Joueur "+who+" gagne");
+          System.out.println("Joueur "+who+" gagne");
           setScore(who-1); 
           wins[who-1] = 1; 
         }
@@ -240,7 +265,7 @@ public class Game{
           write.writeBuffer("Egalite");
         }
 
-      i++;
+      tour++;
       }
     }
 

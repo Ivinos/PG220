@@ -1,6 +1,6 @@
 package gamePackage.interfacePackage;
 
-import java.io.Console;
+import java.util.Scanner;
 
 public class BonusMenu{
 
@@ -18,14 +18,14 @@ public class BonusMenu{
 
     // Commande pour retourner au Menu
     public static void goBackToMenu(){
-        Console console = System.console();
+        Scanner scanner = new Scanner(System.in);
         String buf;
         int validAnswer = 0;
 
         System.out.print("Pour retourner au menu, taper 'menu' : ");
         
         while (validAnswer == 0){
-            buf = console.readLine();
+            buf = scanner.nextLine();
 
             if (buf.equals("menu")){
                 validAnswer = 1;
@@ -64,7 +64,7 @@ public class BonusMenu{
 
     // Affichage des paramètres modifiables du jeu
     public static int[] displayParameters(int numberPlayers, int width, int height, int rounds, int tokens){
-        Console console = System.console();
+        Scanner scanner = new Scanner(System.in);
         String buf, buf2;
         int[] buff;
         int validAnswer = 0;
@@ -74,7 +74,7 @@ public class BonusMenu{
 
         System.out.println(Color.setColor("\n[Paramètres]", "NONE",1));
         System.out.print("Modifier les paramètres ? [Oui/Non] : ");
-        buf = console.readLine();
+        buf = scanner.nextLine();
 
         while (validAnswer == 0){
             // Quitte le programme si commande "sortir"
@@ -90,7 +90,7 @@ public class BonusMenu{
                     System.out.println("D - Nombre de jetons");
                     System.out.println("Z - Tous les paramètres ");
                     System.out.print("\nPour revenir au Menu, taper 'menu'\n>> ");
-                    buf2 = console.readLine();
+                    buf2 = scanner.nextLine();
                     
                     // Choisir le nombre de joueurs
                     if (buf2.equals("A")){
@@ -145,7 +145,7 @@ public class BonusMenu{
                 validAnswer = 1;
             else{
                 System.out.print("Erreur de saisie. Modifier les paramètres ? [Oui/Non] : ");
-                buf = console.readLine();
+                buf = scanner.nextLine();
             }
         }
         return res;  
@@ -179,7 +179,7 @@ public class BonusMenu{
 
     // Modification du nombre de joueurs
     public static int changeNumberPlayers(){
-        Console console = System.console();
+        Scanner scanner = new Scanner(System.in);
         int numberPlayers = 2;
         int validAnswer = 0;
         String buf;
@@ -187,7 +187,7 @@ public class BonusMenu{
         System.out.print("Nombre de joueurs : ");
         
         while(validAnswer == 0){
-            buf = console.readLine();
+            buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
             // quitMenu(buf);
 
@@ -208,7 +208,7 @@ public class BonusMenu{
 
     // Modification de la largeur de la grille
     public static int changeWidth(int tokens){
-        Console console = System.console();
+        Scanner scanner = new Scanner(System.in);
         int width = 7;
         int validAnswer = 0;
         String buf;
@@ -216,7 +216,7 @@ public class BonusMenu{
         System.out.print("Largeur de la grille : ");
 
         while(validAnswer == 0){
-            buf = console.readLine();
+            buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
             // quitMenu(buf);
 
@@ -238,14 +238,14 @@ public class BonusMenu{
     }
     // Modification de la hauteur de la grille
     public static int changeHeight(int tokens){
-        Console console = System.console();
+        Scanner scanner = new Scanner(System.in);
         int height = 6;
         int validAnswer = 0;
         String buf;
         System.out.print("Hauteur de la grille : ");
 
         while(validAnswer == 0){
-            buf = console.readLine();
+            buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
             // quitMenu(buf);
 
@@ -290,7 +290,7 @@ public class BonusMenu{
 
     // Modification du nombre de manches à gagner
     public static int changeNumberRounds(){
-        Console console = System.console();
+        Scanner scanner = new Scanner(System.in);
         int rounds = 3;
         int validAnswer = 0;
         String buf;
@@ -298,7 +298,7 @@ public class BonusMenu{
         System.out.print("Nombre de manches à gagner pour remporter la partie : ");
 
         while(validAnswer == 0){
-            buf = console.readLine();
+            buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
             // quitMenu(buf);
 
@@ -319,7 +319,7 @@ public class BonusMenu{
 
     // Modification du nombre de jetons à aligner pour gagner une manche
     public static int changeNumberTokens(int width, int height){
-        Console console = System.console();
+        Scanner scanner = new Scanner(System.in);
         int tokens = 3;
         int validAnswer = 0;
         String buf;
@@ -327,7 +327,7 @@ public class BonusMenu{
         System.out.print("Nombre de jetons à aligner pour remporter la partie : ");
 
         while(validAnswer == 0){
-            buf = console.readLine();
+            buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
             // quitMenu(buf);
 
@@ -352,7 +352,7 @@ public class BonusMenu{
 
 
     public static int[] parametersMenu(int numberPlayers, int width, int height, int rounds, int tokens){
-        Console console = System.console();
+        Scanner scanner = new Scanner(System.in);
         int[] res = {numberPlayers, width, height, rounds, tokens};
         String buffer;
         int[] buff;
@@ -362,7 +362,7 @@ public class BonusMenu{
         // Interface du menu
         interfaceMenu();
         System.out.print("Choix : ");
-        buffer = console.readLine();
+        buffer = scanner.nextLine();
 
         while(!buffer.equals("1")){
             // Quitte le programme si commande "sortir"
@@ -397,7 +397,7 @@ public class BonusMenu{
             // System.out.println("\n");
             interfaceMenu();
             System.out.print("Choix : ");
-            buffer = console.readLine();
+            buffer = scanner.nextLine();
         }
         System.out.println("\nC'est parti !\n");
         return res;

@@ -1,6 +1,6 @@
 package gamePackage;
 
-import java.io.Console;
+import java.util.Scanner;
 
 public class Human extends Player{
 
@@ -11,13 +11,13 @@ public class Human extends Player{
 
   // Actions en fonction des actions du joueur
   public static int playerReadLine(int width, int height){
-    Console console = System.console();
+    Scanner scanner = new Scanner(System.in);
     String buffer;
     int position = 0;
     int validBuffer = 0;
 
     while (validBuffer == 0){
-      buffer = console.readLine();
+      buffer = scanner.nextLine();
 
       if (buffer.equals("sortir")){
         WriteInLog.writeBuffer(buffer);

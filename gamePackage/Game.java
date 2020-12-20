@@ -1,5 +1,6 @@
 package gamePackage;
 
+import gamePackage.interfacePackage.Display;
 import java.io.Console;
 import java.util.ArrayList; // Pour tableau de Player dynamique
 
@@ -12,6 +13,10 @@ public class Game{
     public int rounds;
     public int tokens;
     public int numberPlayers;
+
+    public static Display disp;
+    public static WriteInLog write;
+    public static gamePackage.CheckInput check;
 
     // Constructeur
     public Game(String[] inputPlayers, int numberPlayers, int width, int height, int[] score, int rounds, int tokens){
@@ -139,7 +144,7 @@ public class Game{
       String res[] = new String[2*numberPlayers];
       int cntPlayer;
 
-      WriteInLog.createLog();
+      write.createLog();
 
       for (int i = 0; i<2*numberPlayers; i +=2){
         String buf[] = new String[2];
@@ -150,11 +155,11 @@ public class Game{
 
         System.out.println(s+cntPlayer+"?"); // Joueur i?
 
-        buf = CheckInput.checkPlayers(console.readLine(),cntPlayer);
-        type = CheckInput.checkType(buf[0],cntPlayer);
+        buf = check.checkPlayers(console.readLine(),cntPlayer);
+        type = check.checkType(buf[0],cntPlayer);
         name = buf[1];
 
-        WriteInLog.writeBuffer("Joueur "+cntPlayer+" est "+name);
+        write.writeBuffer("Joueur "+cntPlayer+" est "+name);
         res[i] = type;
         res[i+1] = name;
         }
@@ -191,7 +196,7 @@ public class Game{
       int[] wins = new int[this.numberPlayers];
       int equality = 0;
 
-      interfacePackage.Display.displayGrid(getGrid());
+      disp.displayGrid(getGrid());
 
       while(nullTab(wins, this.numberPlayers) == 0 && equality == 0){
         who = whichPlayer(i);
@@ -205,7 +210,7 @@ public class Game{
                 System.exit(0);
 
             if (position == -2) {
-                interfacePackage.Display.gameParameters(this);
+                disp.gameParameters(this);
                 position = -3; // On remet en "attente le choix du joueur"
             }
             else if (position == -1) { // commande "sortir"
@@ -222,17 +227,17 @@ public class Game{
         if (position == -1) // commande "sortir"
           System.exit(0);
 
-        interfacePackage.Display.displayGrid(getGrid());
+        disp.displayGrid(getGrid());
         
         if(grid.victoryCheck(this.tokens,position-1) == 1){ // -1 car en java, l'indexe commence à 0
-          WriteInLog.writeBuffer("Joueur "+who+" gagne");
+          write.writeBuffer("Joueur "+who+" gagne");
           setScore(who-1); 
           wins[who-1] = 1; 
         }
 
         else if(grid.equalityCheck() == 1){
           equality = 1;
-          WriteInLog.writeBuffer("Egalite");
+          write.writeBuffer("Egalite");
         }
 
       i++;

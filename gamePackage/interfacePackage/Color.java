@@ -1,4 +1,4 @@
-package interfacePackage;
+package gamePackage.interfacePackage;
 
 public class Color{
 

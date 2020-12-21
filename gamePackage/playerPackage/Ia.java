@@ -1,17 +1,20 @@
-package gamePackage;
+package gamePackage.playerPackage;
+
+import gamePackage.interfacePackage.WriteInLog;
 
 import java.util.Random;
 
 public class Ia extends Player{
 
-  public Ia(String name, int numeroPlayer){
-    super(name,numeroPlayer);
-    this.type = "random";
+  public Ia(String name, int numeroPlayer, String type){
+    super(name,numeroPlayer,type);
+    //this.type = "random";
+    this.write = new WriteInLog();
   }
 
 
   // Retourne un nombre aléatoire
-  public static int getRandomNumber(int min, int max) throws IllegalArgumentException {
+  private static int getRandomNumber(int min, int max) throws IllegalArgumentException {
     if (min > max)
       throw new IllegalArgumentException("Max must be greater than min");
 

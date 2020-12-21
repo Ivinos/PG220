@@ -1,23 +1,26 @@
 package gamePackage;
 
 import gamePackage.interfacePackage.Display;
-//import java.io.Console;
+import gamePackage.interfacePackage.CheckInput;
+import gamePackage.interfacePackage.WriteInLog;
+import gamePackage.playerPackage.*;
+
 import java.util.Scanner;
 import java.util.ArrayList; // Pour tableau de Player dynamique
 
 public class Game{
 
     // Attributs
-    public ArrayList<Player> players;
-    public Grid grid;
-    public int[] score;
-    public int rounds;
-    public int tokens;
-    public int numberPlayers;
+    private ArrayList<Player> players;
+    private Grid grid;
+    private int[] score;
+    private int rounds;
+    private int tokens;
+    private int numberPlayers;
 
-    public static Display disp;
-    public static WriteInLog write;
-    public static gamePackage.CheckInput check;
+    private static Display disp;
+    private static WriteInLog write;
+    private static CheckInput check;
 
     // Constructeur
     public Game(String[] inputPlayers, int numberPlayers, int width, int height, int[] score, int rounds, int tokens){
@@ -32,13 +35,13 @@ public class Game{
           numeroPlayer = (i / 2) + 1;
 
           if (inputPlayers[type].equals("humain"))
-              this.players.add(new Human(inputPlayers[name], numeroPlayer));
+              this.players.add(new Human(inputPlayers[name], numeroPlayer, inputPlayers[type]));
           else if (inputPlayers[type].equals("ia:monkey"))
-              this.players.add(new Monkey(inputPlayers[name], numeroPlayer));
+              this.players.add(new Monkey(inputPlayers[name], numeroPlayer, inputPlayers[type]));
           else if (inputPlayers[type].equals("ia:pro"))
-              this.players.add(new Pro(inputPlayers[name], numeroPlayer));
+              this.players.add(new Pro(inputPlayers[name], numeroPlayer, inputPlayers[type]));
           else // ia normale
-              this.players.add(new Ia(inputPlayers[name], numeroPlayer));
+              this.players.add(new Ia(inputPlayers[name], numeroPlayer, inputPlayers[type]));
 
           this.grid = new Grid(width, height);
           this.score = score;
@@ -48,7 +51,7 @@ public class Game{
       }
     }
 
-    // Getteurs + setters
+    // Getteurs
     public Grid getGrid(){
         return grid;
     }
@@ -61,69 +64,67 @@ public class Game{
         return score[i];
     }
 
-    public void setScore(int i){
-        score[i] += 1;
-    }
-
-    public int getRounds(int i){
+    public int getRounds(){
       return rounds;
-    }
-
-    public void setRounds(int i){
-        rounds = i;
     }
 
     public int getNumberPlayers(){
       return numberPlayers;
     }
 
-    public void setNumberPlayers(int i){
-      numberPlayers = i;
-    }
-
     public int getTokens(){
       return tokens;
     }
-    
-    public void setTokens(int i){
-      tokens = i;
+
+    public int getHeight(){
+        return grid.getHeight();
     }
 
-    public static int checkRounds(Game game){
+    public int getWidth(){
+        return grid.getWidth();
+    }
+
+    // Setters
+    private void setScore(int i){
+        score[i] += 1;
+    }
+
+    // Autres méthodes
+    private int checkRounds(){
       int res = 0;
-      for (int i = 0; i<game.numberPlayers; i++){
-        if (game.score[i] == game.rounds)
+      for (int i = 0; i<this.numberPlayers; i++){
+        if (this.score[i] == this.rounds)
           res = 1;
       }
       return res;
     }
 
-    public static int checkRoundsNoBestOf(Game game){
+    // Renvoie vrai si le nombre total de manche jouée = le nombre de manche à jouer
+    public int checkRoundsBestOf(){
         int res = 0;
         int sum = 0;
-        for (int i = 0; i<game.numberPlayers; i++){
-            sum += game.score[i];
+        for (int i = 0; i<this.numberPlayers; i++){
+            sum += this.score[i];
         }
-        if (sum == game.rounds)
+        if (sum == this.rounds)
             res = 1;
         return res;
     }
 
-
-    public static String writeScore(Game game){
+    public String writeScore(){
       String res;
-      res = "Score "+game.score[0];
+      res = "Score "+this.score[0];
 
-      for (int i = 1; i<game.numberPlayers; i++){
-        res = res+" - "+game.score[i];
+      for (int i = 1; i<this.numberPlayers; i++){
+        res = res+" - "+this.score[i];
       }
       return res;
     }
 
-    public static int getRoundNumber(Game game){
+    private int getRoundNumber(){
         int sum = 1; // Car on commence à la manche 1
-        for (int i = 0; i<game.numberPlayers; i++){
-            sum += game.score[i];
+        for (int i = 0; i<numberPlayers; i++){
+            sum += score[i];
         }
         return sum;
     }
@@ -158,44 +159,9 @@ public class Game{
     //   System.out.println("");     
     // }
 
-    // Création du fichier log.txt 
-    public static String[] selectPlayers(int numberPlayers){
-      //Console console = System.console();
-      Scanner scanner = new Scanner(System.in);
-      String s = new String("Joueur ");
-      String res[] = new String[2*numberPlayers];
-      int cntPlayer;
-
-      write.createLog();
-
-      for (int i = 0; i<2*numberPlayers; i +=2){
-        String buf[] = new String[2];
-        String name = new String();
-        String type = new String();
-
-        cntPlayer = (i/2)+1;
-
-        System.out.println(s+cntPlayer+"?"); // Joueur i?
-
-        // buf = check.checkPlayers(scanner.nextLine(),cntPlayer);
-        // type = check.checkType(buf[0],cntPlayer);
-        buf = check.checkNameType(scanner.nextLine(), cntPlayer);
-        if (buf[0].equals("sortir")){
-            return buf;
-          }
-        type = buf[0];
-        name = buf[1];
-
-        write.writeBuffer("Joueur "+cntPlayer+" est "+type+" "+name);
-        res[i] = type;
-        res[i+1] = name;
-        }
-
-      return res; // type1 name1 type2 name2 ..
-    }
 
     // Retourne le numéro du joueur qui joue
-    public int whichPlayer(int tour, int roundNumber){
+    private int whichPlayer(int tour, int roundNumber){
       int res = tour%this.numberPlayers; // 1er tour = 1, 2ème = 0, puis 1 ect
 
       int roundParity = (roundNumber-1)%this.numberPlayers; // 1er round = 0, 2ème round = 1, puis 0 ect
@@ -207,7 +173,7 @@ public class Game{
       return res + roundParity;
     }
 
-    public int nullTab(int[] tab, int len){
+    private int nullTab(int[] tab, int len){
       int bool = 0;
       for (int i=0; i<len; i++){
         if (tab[i] == 1)
@@ -215,7 +181,6 @@ public class Game{
       }
       return bool;
     }
-
 
     // Actions pendant le jeu
     public void play(){
@@ -225,15 +190,15 @@ public class Game{
       int[] wins = new int[this.numberPlayers];
       int equality = 0;
 
-      disp.displayGrid(getGrid());
+      disp.displayGrid(grid);
 
       while(nullTab(wins, this.numberPlayers) == 0 && equality == 0){
-        who = whichPlayer(tour, getRoundNumber(this)); // pour 2 joueurs who = 1 ou 2
+        who = whichPlayer(tour, getRoundNumber()); // pour 2 joueurs who = 1 ou 2
         position = -3;
 
         while(position == -3){
 
-            position = this.getPlayer(who).choice(grid.values, grid.width, grid.height, this.tokens);
+            position = this.getPlayer(who).choice(grid.getValues(), grid.getWidth(), grid.getHeight(), this.tokens);
 
             if (position == -1) // commande "sortir"
                 System.exit(0);
@@ -249,14 +214,14 @@ public class Game{
                 //if (getPlayer(who).getType().equals("humain")) // pour un affichage bien (oui oui)
                   //System.out.println("");
 
-                position = grid.updateGrid(position, who);
+                position = grid.updateGrid(position, who, write);
             }
         }
 
         if (position == -1) // commande "sortir"
           System.exit(0);
 
-        disp.displayGrid(getGrid());
+        disp.displayGrid(grid);
         
         if(grid.victoryCheck(this.tokens,position-1) == 1){ // -1 car en java, l'indexe commence à 0
           write.writeBuffer("Joueur "+who+" gagne");
@@ -273,6 +238,7 @@ public class Game{
 
       tour++;
       }
+      grid.resetGrid(); // On réinitialise la grille
     }
 
 }

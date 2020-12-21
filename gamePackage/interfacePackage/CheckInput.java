@@ -1,4 +1,4 @@
-package gamePackage;
+package gamePackage.interfacePackage;
 
 //import java.io.Console;
 import java.util.Scanner;
@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class CheckInput{
 
     private static WriteInLog write;
-
 
     public static String[] checkNameType(String buf, int numeroPlayer){
       Scanner scanner = new Scanner(System.in);

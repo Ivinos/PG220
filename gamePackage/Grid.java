@@ -5,18 +5,18 @@ import java.util.ArrayList; // Pour victoryCheck
 public class Grid {
 
   // Attributs
-  public int width;
-  public int height;
-  public int[][] values;
+  private int width;
+  private int height;
+  private int[][] values;
 
   // Constructeurs
   public Grid(int width, int height){
     this.width = width;
     this.height = height;
-    this.values = initializeGrid(width, height);
+    this.values = initializeValues(width, height);
   }
 
-  public static int[][] initializeGrid(int width, int height){
+  private static int[][] initializeValues(int width, int height){
     int grid[][]  = new int[height][width];
     for (int i = 0; i<height; i++){
       for (int j = 0; j<width; j++){
@@ -26,6 +26,7 @@ public class Grid {
     return grid;
   }
 
+  // Getters
   public int getWidth(){
     return this.width;
   }
@@ -38,18 +39,19 @@ public class Grid {
     return this.values;
   }
 
-  public static void resetGrid(Grid grid){
-    int width = grid.width;
-    int height = grid.height;
+  // Autres méthodes
+  void resetGrid(){
+    int width = this.width;
+    int height = this.height;
     for (int i = 0; i<height; i++){
       for (int j = 0; j<width; j++){
-        grid.values[i][j] = 0;
+        this.values[i][j] = 0;
       }
     }
   }
 
   // Mise à jour de la grille après qu'un joueur ait joué
-  public int updateGrid(int position, int numeroPlayer){
+  int updateGrid(int position, int numeroPlayer, gamePackage.interfacePackage.WriteInLog write){
     int width = this.width;
     int height = this.height;
 
@@ -59,12 +61,12 @@ public class Grid {
         this.values[height-1-k][position-1] = numeroPlayer;
 
         // System.out.println("Joueur "+numeroPlayer+" joue en position "+position); // On peut le rajouter pour plus de style
-        WriteInLog.writeBuffer("Joueur "+numeroPlayer+" joue "+position);
+        write.writeBuffer("Joueur "+numeroPlayer+" joue "+position);
 
         return position;
       }
     }
-    WriteInLog.writeBuffer("Joueur "+numeroPlayer+" joue "+position);
+    write.writeBuffer("Joueur "+numeroPlayer+" joue "+position);
     // WriteInLog.writeBuffer("Erreur colonne pleine "+position);
     System.out.println("Erreur colonne pleine "+position);
     // System.out.print("Erreur : colonne "+position+" pleine. Choisir un nombre entre 1 et "+width+" : ");
@@ -166,7 +168,7 @@ public class Grid {
   }
 
   // Affichage d'un tableau (DEBUGING)
-  void printArray(int[] array, int length){
+  private void printArray(int[] array, int length){
     for (int i=0; i<length; i++)
       System.out.print(array[i]);
     
@@ -174,7 +176,7 @@ public class Grid {
   }
 
   // Test s'il y a une victoire dans le tableau
-  int arrayCheck(int tokens, int[] array, int length){
+  private int arrayCheck(int tokens, int[] array, int length){
     int max = length - tokens;
     int[] vals  = new int[tokens];
     int cpt = 1;

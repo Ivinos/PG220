@@ -1,4 +1,4 @@
-package gamePackage;
+package gamePackage.interfacePackage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,7 +17,6 @@ public class WriteInLog{
       System.err.println(e);
     }
   }
-
 
   // Ecriture dans log.txt la chaîne "buffer"
   public static void writeBuffer(String buffer){

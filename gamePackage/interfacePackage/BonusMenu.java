@@ -39,7 +39,7 @@ public class BonusMenu{
     // Affichage du message de fin lorsque la commande "sortir" est tapée
     public static void quitMenu(String buffer){
         if (buffer.equals("sortir")){
-            gamePackage.WriteInLog.writeBuffer(buffer);
+            gamePackage.interfacePackage.WriteInLog.writeBuffer(buffer);
             System.out.println("Jeu terminé suite à la commande '"+buffer+"'");
             System.exit(0);
         }

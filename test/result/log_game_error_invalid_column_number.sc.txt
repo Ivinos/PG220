@@ -1,6 +1,0 @@
-Joueur 1 est humain moi
-Joueur 2 est humain lui
-Manche commence
-Erreur colonne non valide -1
-Joueur 1 joue 1
-Erreur colonne non valide 12

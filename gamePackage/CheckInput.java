@@ -19,6 +19,9 @@ public class CheckInput{
       while (validString == 0){
         if ((res.length > 1) && (res[0].equals("humain") || res[0].equals("ia") || res[0].equals("ia:monkey") || res[0].equals("ia:pro")))
           return res;
+        else if (res[0].equals("sortir")){
+          return res;
+        }
         else{
           System.out.println("Erreur saisie Joueur "+numeroPlayer);
           System.out.println("Joueur "+numeroPlayer+"?");

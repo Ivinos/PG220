@@ -180,6 +180,9 @@ public class Game{
         // buf = check.checkPlayers(scanner.nextLine(),cntPlayer);
         // type = check.checkType(buf[0],cntPlayer);
         buf = check.checkNameType(scanner.nextLine(), cntPlayer);
+        if (buf[0].equals("sortir")){
+            return buf;
+          }
         type = buf[0];
         name = buf[1];
 
@@ -243,7 +246,7 @@ public class Game{
                 System.exit(0);
             }
             else{
-                if (getPlayer(who).getType().equals("humain")) // pour un affichage bien (oui oui)
+                //if (getPlayer(who).getType().equals("humain")) // pour un affichage bien (oui oui)
                   //System.out.println("");
 
                 position = grid.updateGrid(position, who);

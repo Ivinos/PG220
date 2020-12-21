@@ -25,6 +25,9 @@ public class Menu{
 
       // Choix du pseudo + type
       inputPlayers = gamePackage.Game.selectPlayers(numberPlayers);
+      if (inputPlayers[0].equals("sortir")){
+        System.exit(0);
+      }
 
       // Initialisation du jeu
       Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds, token);

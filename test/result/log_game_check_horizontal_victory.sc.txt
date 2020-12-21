@@ -11,4 +11,3 @@ Joueur 1 joue 4
 Joueur 1 gagne
 Score 1 - 0
 Manche commence
-sortir

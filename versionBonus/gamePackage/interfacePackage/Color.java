@@ -2,105 +2,55 @@ package gamePackage.interfacePackage;
 
 public class Color{
 
-  private final String[] colors = {"RED","GREEN","YELLOW","BLUE","PURPLE","CYAN","WHITE","BLACK"};
+  // équivalence                            {"NONE", "RED",     "BLUE",       "GREEN",      "PURPLE",     "YELLOW",     "CYAN"};
+  private final static String[] colorsCode = {"", "\u001B[31m", "\u001B[34m", "\u001B[32m", "\u001B[35m", "\u001B[33m", "\u001B[36m"};
+
+  // équivalence                          {"NORMAL", "BOLD",   "Italic"};
+  private final static String[] formatType = {"", "\u001B[1m", "\u001B[3m"};
 
   public static String getTextReset(){
     String reset = "\u001B[0m";
     return reset;
   }
 
-  public static String getTextBold(){
-    String bold = "\u001B[1m";
-    return bold;
+  public static int getTextBold(){
+    return 1;
   }
 
-  public static String getTextItalic(){
-    String italic = "\u001B[3m";
-    return italic;
+  public static int getTextItalic(){
+    return 2;
   }
 
-
-  public static String getBlack(){
-    String black = "\u001B[30m";
-    return black;
+  public static int getNone(){
+    return 0;
   }
 
-  public static String getRed(){
-    String red = "\u001B[31m";
-    return red;
+  public static int getRed(){
+    return 1;
   }
 
-  public static String getGreen(){
-    String green = "\u001B[32m";
-    return green;
+  public static int getBlue(){
+    return 2;
   }
 
-  public static String getYellow(){
-    String yellow = "\u001B[33m";
-    return yellow;
+  public static int getGreen(){
+    return 3;
   }
 
-  public static String getBlue(){
-    String blue = "\u001B[34m";
-    return blue;
+  public static int getPurple(){
+    return 4;
   }
 
-  public static String getPurple(){
-    String purple = "\u001B[35m";
-    return purple;
+  public static int getYellow(){
+    return 5;
   }
 
-  public static String getCyan(){
-    String cyan = "\u001B[36m";
-    return cyan;
+  public static int getCyan(){
+    return 6;
   }
 
-  public static String getWhite(){
-    String white = "\u001B[37m";
-    return white;
-  }
-
-  public static String setColor(String buffer, String color, int attr) {
+  public static String setColor(String buffer, int indexColor, int indexFormat) {
     String reset = getTextReset();
-    String bold = getTextBold();
-    String italic = getTextItalic();
-    String color2 = new String();
-    String bufferColor;
-
-    if (color.equals(colors[0]))
-      color2 = getRed();
-    else if (color.equals(colors[1]))
-      color2 = getGreen();
-    else if (color.equals(colors[2]))
-      color2 = getYellow();
-    else if (color.equals(colors[3]))
-      color2 = getBlue();
-    else if (color.equals(colors[4]))
-      color2 = getPurple();
-    else if (color.equals(colors[5]))
-      color2 = getCyan();
-    else if (color.equals(colors[6]))
-      color2 = getWhite();
-    else if (color.equals(colors[7]))
-      color2 = getBlack();
-    else if (color.equals("NONE")){
-      //color2 = "";
-      return buffer; // à changer quand on veut code full fonctionnalité
-    }
-    else{
-      System.out.println("Erreur : couleur inexistante");
-      System.exit(0);
-    }    
-
-    if (attr == 1)
-      bufferColor = bold+color2+buffer+reset;
-    else if (attr == 2)
-      bufferColor = italic+color2+buffer+reset;
-    else 
-      bufferColor = color2+buffer+reset;
-
-    return bufferColor;
+    return formatType[indexFormat] + colorsCode[indexColor] + buffer + reset;
   }
-
-
 }

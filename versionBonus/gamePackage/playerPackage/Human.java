@@ -22,7 +22,6 @@ public class Human extends Player{
       buffer = scanner.nextLine();
 
       if (buffer.equals("sortir")){
-        // write.writeBuffer(buffer);
         return -1;
       }
       else if (buffer.equals("parametres")){
@@ -35,15 +34,13 @@ public class Human extends Player{
             return position;          
           else{
             write.writeBuffer("Erreur colonne non valide "+buffer);
-            System.out.println("Erreur colonne non valide "+buffer);
-            // System.out.print("Erreur : colonne non valide "+buffer+". Choisir un nombre entre 1 et "+width+" : ");
+            System.out.println("Erreur : colonne non valide "+buffer+". Choisir un nombre entre 1 et "+width+" : ");
           }
         }
 
         catch(Exception e){
           write.writeBuffer("Erreur saisie colonne "+buffer);
-          System.out.println("Erreur saisie colonne "+buffer);
-          // System.out.print("Erreur : saisie colonne "+buffer+". Choisir un nombre entre 1 et "+width+" : ");
+          System.out.println("Erreur : saisie colonne "+buffer+". Choisir un nombre entre 1 et "+width+" : ");
         }
       }
     }

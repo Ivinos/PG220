@@ -60,16 +60,14 @@ public class Grid {
 
         this.values[height-1-k][position-1] = numeroPlayer;
 
-        // System.out.println("Joueur "+numeroPlayer+" joue en position "+position); // On peut le rajouter pour plus de style
+        System.out.println("Joueur "+numeroPlayer+" joue en position "+position); // On peut le rajouter pour plus de style
         write.writeBuffer("Joueur "+numeroPlayer+" joue "+position);
 
         return position;
       }
     }
     write.writeBuffer("Joueur "+numeroPlayer+" joue "+position);
-    // WriteInLog.writeBuffer("Erreur colonne pleine "+position);
-    System.out.println("Erreur colonne pleine "+position);
-    // System.out.print("Erreur : colonne "+position+" pleine. Choisir un nombre entre 1 et "+width+" : ");
+    System.out.println("Erreur : colonne "+position+" pleine. Choisir un nombre entre 1 et "+width+" : ");
 
     position = -3; // Move invalide, on doit recommencer
 

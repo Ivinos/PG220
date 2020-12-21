@@ -211,8 +211,8 @@ public class Game{
                 System.exit(0);
             }
             else{
-                //if (getPlayer(who).getType().equals("humain")) // pour un affichage bien (oui oui)
-                  //System.out.println("");
+                if (getPlayer(who).getType().equals("humain")) // pour un affichage bien (oui oui)
+                  System.out.println("");
 
                 position = grid.updateGrid(position, who, write);
             }

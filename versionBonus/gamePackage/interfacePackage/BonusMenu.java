@@ -6,9 +6,7 @@ public class BonusMenu{
 
     // Affichage de l'interface du Menu
     public static void interfaceMenu(){
-        String bold = Color.getTextBold();
-        String reset = Color.getTextReset();
-        System.out.println(bold+"\n----- Menu -----\n"+reset);
+        System.out.println(Color.setColor("\n----- Menu -----\n", Color.getYellow(), Color.getTextBold()));
         System.out.println("1 - Jouer");
         System.out.println("2 - Règles");
         System.out.println("3 - Paramètres");
@@ -47,17 +45,17 @@ public class BonusMenu{
 
     // Affichage des règles
     public static void displayRules(){    
-        System.out.println(Color.setColor("\n[Règles]", "NONE",1));
-        System.out.print(Color.setColor("       Le but du jeu est d'aligner une suite de 4 pions de même couleur sur", "NONE",2));
-        System.out.print(Color.setColor(" une grille comptant 6 rangées et 7 colonnes. Chaque joueur dispose de", "NONE",2));
-        System.out.print(Color.setColor(" 21 pions d'une couleur (par convention, en général jaune ou rouge). Tour", "NONE",2));
-        System.out.print(Color.setColor(" à tour, les deux joueurs placent un pion dans la colonne de leur choix,", "NONE",2));
-        System.out.print(Color.setColor(" le pion coulisse alors jusqu'à la position la plus basse possible dans", "NONE",2));
-        System.out.print(Color.setColor(" la dite colonne à la suite de quoi c'est à l'adversaire de jouer.\n\nLe", "NONE",2));
-        System.out.print(Color.setColor(" vainqueur est le joueur qui réalise le premier un alignement (horizontal,", "NONE",2));
-        System.out.print(Color.setColor(" vertical ou diagonal) consécutif d'au moins quatre pions de sa couleur.\n\n", "NONE",2));
-        System.out.print(Color.setColor("Si, alors que toutes les cases de la grille de jeu sont remplies, aucun", "NONE",2));
-        System.out.println(Color.setColor(" des deux joueurs n'a réalisé un tel alignement, la partie est déclarée nulle.\n", "NONE",2));
+        System.out.println(Color.setColor("\n[Règles]", Color.getNone(),1));
+        System.out.print(Color.setColor("       Le but du jeu est d'aligner une suite de 4 pions de même couleur sur", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor(" une grille comptant 6 rangées et 7 colonnes. Chaque joueur dispose de", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor(" 21 pions d'une couleur (par convention, en général jaune ou rouge). Tour", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor(" à tour, les deux joueurs placent un pion dans la colonne de leur choix,", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor(" le pion coulisse alors jusqu'à la position la plus basse possible dans", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor(" la dite colonne à la suite de quoi c'est à l'adversaire de jouer.\n\nLe", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor(" vainqueur est le joueur qui réalise le premier un alignement (horizontal,", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor(" vertical ou diagonal) consécutif d'au moins quatre pions de sa couleur.\n\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("Si, alors que toutes les cases de la grille de jeu sont remplies, aucun", Color.getNone(),Color.getTextItalic()));
+        System.out.println(Color.setColor(" des deux joueurs n'a réalisé un tel alignement, la partie est déclarée nulle.\n", Color.getNone(),Color.getTextItalic()));
 
         goBackToMenu();
     }
@@ -72,7 +70,7 @@ public class BonusMenu{
         int modification = 0;
         int[] res = {numberPlayers, width, height, rounds, tokens};
 
-        System.out.println(Color.setColor("\n[Paramètres]", "NONE",1));
+        System.out.println(Color.setColor("\n[Paramètres]", Color.getNone(),Color.getTextBold()));
         System.out.print("Modifier les paramètres ? [Oui/Non] : ");
         buf = scanner.nextLine();
 
@@ -132,7 +130,7 @@ public class BonusMenu{
                     else if (buf2.equals("menu")){
                         validAnswer2 = 1;
                         if (modification == 1)
-                            System.out.println(Color.setColor("Les paramètres du jeu ont été modifiés avec succès", "GREEN",0)); // vert
+                            System.out.println(Color.setColor("Les paramètres du jeu ont été modifiés avec succès", Color.getGreen(),0));
                     }
 
                     // Erreur de saisie
@@ -153,26 +151,26 @@ public class BonusMenu{
 
     // Affichage des informations 
     public static void displayInformations(){
-        System.out.println(Color.setColor("\n[Informations]", "NONE",1));
-        System.out.print(Color.setColor("       Puissance 4 (appelé aussi parfois 4 en ligne) est un jeu de stratégie ", "NONE",2));
-        System.out.print(Color.setColor("combinatoire abstrait, commercialisé pour la première fois en 1974 par ", "NONE",2));
-        System.out.print(Color.setColor("la Milton Bradley Company, plus connue sous le nom de MB et détenue ", "NONE",2));
-        System.out.println(Color.setColor("depuis 1984 par la société Hasbro.\n", "NONE",2));
+        System.out.println(Color.setColor("\n[Informations]", Color.getNone(),1));
+        System.out.print(Color.setColor("       Puissance 4 (appelé aussi parfois 4 en ligne) est un jeu de stratégie ", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("combinatoire abstrait, commercialisé pour la première fois en 1974 par ", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("la Milton Bradley Company, plus connue sous le nom de MB et détenue ", Color.getNone(),Color.getTextItalic()));
+        System.out.println(Color.setColor("depuis 1984 par la société Hasbro.\n", Color.getNone(),Color.getTextItalic()));
 
         goBackToMenu();
     }
 
     // Affichage des statistiques entre les ia
     public static void displayStats(){    
-        System.out.println(Color.setColor("\n[Statistiques]", "NONE",1));
-        System.out.print(Color.setColor("       Des simulations ont été realisées pour déterminer et comparer les", "NONE",2));
-        System.out.print(Color.setColor(" différentes ia implémentées (ia:random, ia:monkey et ia:pro)\n\n", "NONE",2));
-        System.out.print(Color.setColor("     Manches gagnantes                       IA/IA                      Score moyen\n", "NONE",1));
-        System.out.print(Color.setColor("           100                        ia:random/ia:monkey                  23/100\n", "NONE",2));
-        System.out.print(Color.setColor("           100                        ia:monkey/ia:pro                     56/100\n", "NONE",2));
-        System.out.print(Color.setColor("           100                        ia:random/ia:pro                     12/100\n", "NONE",2));
-        System.out.print(Color.setColor("           100                        ia:random/ia:monkey/ia:pro         35/64/100\n", "NONE",2));
-        System.out.println(Color.setColor("\n", "NONE",2));
+        System.out.println(Color.setColor("\n[Statistiques]", Color.getNone(),1));
+        System.out.print(Color.setColor("       Des simulations ont été realisées pour déterminer et comparer les", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor(" différentes ia implémentées (ia:random, ia:monkey et ia:pro)\n\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("     Manches gagnantes                       IA/IA                      Score moyen\n", Color.getNone(),Color.getTextBold()));
+        System.out.print(Color.setColor("           100                        ia:random/ia:monkey                  23/100\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("           100                        ia:monkey/ia:pro                     56/100\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("           100                        ia:random/ia:pro                     12/100\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("           100                        ia:random/ia:monkey/ia:pro         35/64/100\n", Color.getNone(),Color.getTextItalic()));
+        System.out.println(Color.setColor("\n", Color.getNone(),2));
 
         goBackToMenu();
     }

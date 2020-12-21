@@ -1,5 +1,6 @@
 import gamePackage.interfacePackage.WriteInLog;
 import gamePackage.interfacePackage.CheckInput;
+import gamePackage.interfacePackage.BonusMenu;
 import gamePackage.Game;
 import java.util.Scanner;
 
@@ -7,6 +8,7 @@ public class Menu{
 
     private static WriteInLog write; // Pour utiliser les méthodes de WriteInLog
     private static CheckInput check; // Pour utiliser les méthodes de CheckInput
+    private static BonusMenu menu; // Pour utiliser les méthodes de BonusMenu (gère les paramètres)
   
     public static void main(String[] args){
       int numberPlayers = 2;
@@ -17,15 +19,15 @@ public class Menu{
       int[] score;
       String[] inputPlayers;
 
-      // Afichage du menu
-      // int[] parameters = new int[5];
+       // Afichage du menu
+       int[] parameters = new int[5];
 
-      // parameters = interfacePackage.BonusMenu.parametersMenu(numberPlayers, width, height, rounds, tokens);
-      // numberPlayers = parameters[0];
-      // width = parameters[1];
-      // height = parameters[2];
-      // rounds = parameters[3];
-      // tokens = parameters[4];
+       parameters = menu.parametersMenu(numberPlayers, width, height, rounds, tokens);
+       numberPlayers = parameters[0];
+       width = parameters[1];
+       height = parameters[2];
+       rounds = parameters[3];
+       tokens = parameters[4];
       
       score = new int[numberPlayers];
 
@@ -37,7 +39,7 @@ public class Menu{
 
       // Initialisation du jeu
       Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds, tokens);
-      //System.out.println("");
+      System.out.println("");
 
       // Début du jeu
       while(game.checkRoundsBestOf() == 0){
@@ -46,7 +48,7 @@ public class Menu{
         write.writeBuffer(game.writeScore());
       }
 
-      //System.out.println("Partie finie");
+      System.out.println("Partie finie");
       write.writeBuffer("Partie finie");
     }
 
@@ -68,8 +70,6 @@ public class Menu{
 
       System.out.println(s+cntPlayer+"?"); // Joueur i?
 
-      // buf = check.checkPlayers(scanner.nextLine(),cntPlayer);
-      // type = check.checkType(buf[0],cntPlayer);
       buf = check.checkNameType(scanner.nextLine(), cntPlayer);
       if (buf[0].equals("sortir")){
         return buf;

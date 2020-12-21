@@ -22,7 +22,7 @@ Les scripts de tests sont excutable sur toute distribution linux possedant une i
 Ils simulent des entrées claviers utilisateur, puis compare le résultat des executions avec ce qui est attendu.
 Deux packages sont néessaires à leur execution: il faut donc les installer préalablement:
 -xdotool: "sudo apt-get install xdotool" : permet de simuler les entrées claviers
--wmctrl: "sudo apt-get install xdotool" : permet de gérer les fenêtres
+-wmctrl: "sudo apt-get install wmctrl" : permet de gérer les fenêtres
 
 Le script permettant de lancer les tests est "test_scenarios.sh" : il lancera les tests correspondant aux scenarios présents dans le dossier "test_scenario" enregistrera les resultats dans "result_test.txt". 
 Pour chaque scenario le script ouvre un nouveau terminal et execute le scenario des entrées claviers sur le jeu (ne pas interagir avec le programme tant que le scenario n'est pas terminé). 
@@ -40,7 +40,7 @@ Il existe 12 scénarios possibles, tous présents dans le dossier "possible_scen
 
 -game_tie.sc: le cas de l'égalité
 
--game_complete_fight.sc: une partie complète en 3 manches       	
+OK -game_complete_fight.sc: une partie complète en 3 manches       	
    
 -game_error_player_1.sc: mauvais format pour les type/nom de joueurs
 -game_error_player_2.sc

@@ -31,7 +31,7 @@ public class Menu{
       //System.out.println("");
 
       // Début du jeu
-      while(gamePackage.Game.checkRounds_noBestOf(game) == 0){
+      while(gamePackage.Game.checkRoundsNoBestOf(game) == 0){
         gamePackage.WriteInLog.writeBuffer("Manche commence");
         game.play();
         gamePackage.WriteInLog.writeBuffer(gamePackage.Game.writeScore(game));
@@ -41,5 +41,5 @@ public class Menu{
       //System.out.println("Partie finie");
       gamePackage.WriteInLog.writeBuffer("Partie finie");
     }
-
+    
 }

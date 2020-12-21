@@ -1,0 +1,5 @@
+Joueur 1 est humain moi
+Joueur 2 est humain lui
+Manche commence
+Erreur saisie colonne iugdg
+sortir

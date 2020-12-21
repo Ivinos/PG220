@@ -1,0 +1,3 @@
+test game_tie.sc result is ok.
+test game_tie.sc log is ok.
+

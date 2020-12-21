@@ -100,7 +100,7 @@ function generate_test_log()
 		cp "log.txt" "result/log_"$scenario".txt"
 
 		echo
-
+	
 	done
 
 	restore_keyboard_layout

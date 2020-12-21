@@ -98,7 +98,7 @@ public class Game{
       return res;
     }
 
-    public static int checkRounds_noBestOf(Game game){
+    public static int checkRoundsNoBestOf(Game game){
         int res = 0;
         int sum = 0;
         for (int i = 0; i<game.numberPlayers; i++){
@@ -177,8 +177,10 @@ public class Game{
 
         System.out.println(s+cntPlayer+"?"); // Joueur i?
 
-        buf = check.checkPlayers(scanner.nextLine(),cntPlayer);
-        type = check.checkType(buf[0],cntPlayer);
+        // buf = check.checkPlayers(scanner.nextLine(),cntPlayer);
+        // type = check.checkType(buf[0],cntPlayer);
+        buf = check.checkNameType(scanner.nextLine(), cntPlayer);
+        type = buf[0];
         name = buf[1];
 
         write.writeBuffer("Joueur "+cntPlayer+" est "+type+" "+name);
@@ -263,6 +265,7 @@ public class Game{
         else if(grid.equalityCheck() == 1){
           equality = 1;
           write.writeBuffer("Egalite");
+          System.out.println("Egalite");
         }
 
       tour++;

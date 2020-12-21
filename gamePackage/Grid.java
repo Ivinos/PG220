@@ -64,9 +64,10 @@ public class Grid {
         return position;
       }
     }
-
-    WriteInLog.writeBuffer("Erreur colonne pleine "+position);
-    System.out.print("Erreur : colonne "+position+" pleine. Choisis un nombre entre 1 et "+width+" : ");
+    WriteInLog.writeBuffer("Joueur "+numeroPlayer+" joue "+position);
+    // WriteInLog.writeBuffer("Erreur colonne pleine "+position);
+    System.out.print("Erreur colonne pleine "+position);
+    // System.out.print("Erreur : colonne "+position+" pleine. Choisir un nombre entre 1 et "+width+" : ");
 
     position = -3; // Move invalide, on doit recommencer
 

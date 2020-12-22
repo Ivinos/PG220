@@ -1,6 +1,6 @@
 # PG220
 
-Projet de programmation orientée objet de seconde année Télécommunication à l'ENSEIRB-MATMECA.
+Projet de programmation orientée objet de seconde année en Télécommunications à l'ENSEIRB-MATMECA.
 
 Le projet contient deux dossiers : versionBase et versionBonus
 Dans le premier, les fonctionnalités de base ont été implémentées et le programme passe tous les scenarios de tests avec succès.

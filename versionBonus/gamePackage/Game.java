@@ -129,48 +129,22 @@ public class Game{
         return sum;
     }
 
-    // public static String setColor(String buffer, String color, int attr) {
-    //   String reset = "\u001B[0m";
-    //   String bold = "\u001B[1m";
-
-    //   if (attr == 0)
-    //     return color + buffer + reset;
-    //   return bold + color + buffer + reset;
-    // }
-
-    // public void gameParameters(){
-    //   String[] symbols = {".", "X", "O", "V", "T", "Y", "@"}; // à changer plus tard surement parce que pas très beau
-    //   String[] colors = {"\u001B[37m","\u001B[31m","\u001B[34m","\u001B[32m","\u001B[35m","\u001B[33m","\u001B[36m"};
-
-
-    //   System.out.println(setColor("\n[JEU]","\u001B[33m",1));
-    //   System.out.println("Victoire : "+this.rounds+" manches à remporter");
-    //   System.out.println("Manche : "+this.tokens+" jetons à aligner pour remporter 1 manche");
-    //   System.out.println(writeScore(this));
-
-    //   System.out.println(setColor("\n[GRILLE]","\u001B[33m",1));
-    //   System.out.println("Hauteur : "+this.grid.height+" lignes");
-    //   System.out.println("Largeur : "+this.grid.width+" colonnes");
-
-    //   System.out.println(setColor("\n[JOUEURS]","\u001B[33m",1));
-    //   System.out.println("Nombre de joueurs : "+this.numberPlayers);
-    //   for (int i = 1; i<=this.numberPlayers; i++)
-    //     System.out.println("Joueur "+i+" est "+this.getPlayer(i).getName()+" de type "+this.getPlayer(i).getType()+" (symbole : "+setColor(symbols[i],colors[i],0)+")");
-    //   System.out.println("");     
-    // }
-
-
     // Retourne le numéro du joueur qui joue
     private int whichPlayer(int tour, int roundNumber){
       int res = tour%this.numberPlayers; // 1er tour = 1, 2ème = 0, puis 1 ect
 
       int roundParity = (roundNumber-1)%this.numberPlayers; // 1er round = 0, 2ème round = 1, puis 0 ect
 
-      if (res + roundParity == 0)
+      res = res + roundParity; // exemple à trois joueurs round 3, le 1er = 6
+
+      if (res == 0)
           res = this.numberPlayers;
+
+      if (res > this.numberPlayers)
+          res = res%this.numberPlayers;
       // En gros 2%2 = 0 sauf que c'est le dernier joueur
       // Et rajouter plus 1 au res ne marche pas car sinon le p1 ne joue pas en premier
-      return res + roundParity;
+      return res;
     }
 
     private int nullTab(int[] tab, int len){
@@ -197,7 +171,6 @@ public class Game{
         position = -3;
 
         while(position == -3){
-
             position = this.getPlayer(who).choice(grid.getValues(), grid.getWidth(), grid.getHeight(), this.tokens);
 
             if (position == -1) // commande "sortir"

@@ -403,31 +403,32 @@ public class BonusMenu{
                     while (validAnswer2 == 0){
                         System.out.print("Choix du nouveau symbole : ");
                         buf2 = scanner.nextLine();
+                        newSymbol = 1;
 
-                        if (buf2.length() == 1){
-                            if (buf2.equals(".") || buf2.equals(" ")){
-                                System.out.print("Erreur : symbole interdit ('.' ou ''). ");                               
-                            }
-                            else{
-                                try{
+                        try{
+                            if (buf2.length() == 1){
+                                if (buf2.equals(".") || buf2.equals(" ")){
+                                    System.out.print("Erreur : symbole interdit ('.' ou ''). ");                               
+                                }
+                                else{
                                     for (int k = 1; k<numberPlayers+1; k++){
-                                        if (buf2 == symbols[k]){
-                                            System.out.print("Erreur : symbole déjà utilisé. ");
+                                        if (buf2.concat(" ").equals(symbols[k]) && k != numeroPlayer){
+                                            System.out.print("Erreur : symbole "+symbols[k]+"déjà utilisé. ");
                                             newSymbol = 0;
                                         }
                                     }
                                     if (newSymbol == 1){
                                         symbols[numeroPlayer] = buf2.concat(" ");
                                         return symbols;
-                                    }
-                                }
-                                catch(Exception e){
-                                    System.out.print("Erreur : saisie incorrecte. Choix du nouveau symbole : ");
+                                    } 
                                 }
                             }
+                            else
+                                System.out.print("Erreur : le symbole ne peut contenir qu'une lettre. ");
                         }
-                        else
-                            System.out.print("Erreur : le symbole ne peut contenir qu'une lettre. ");
+                        catch(Exception e){
+                            System.out.print("Erreur : saisie incorrecte. Choix du nouveau symbole : ");
+                        }
                     }
                 }
             }

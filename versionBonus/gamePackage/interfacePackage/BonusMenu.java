@@ -35,6 +35,7 @@ public class BonusMenu{
         }
     }
 
+
     // Affichage du message de fin lorsque la commande "sortir" est tapée
     public static void quitMenu(String buffer){
         if (buffer.equals("sortir")){
@@ -43,6 +44,7 @@ public class BonusMenu{
             System.exit(0);
         }
     }
+
 
     // Affichage des règles
     public static void displayRules(){    
@@ -61,6 +63,7 @@ public class BonusMenu{
         goBackToMenu();
     }
 
+
     // Affichage des paramètres modifiables du jeu
     public static String[] displayParameters(int numberPlayers, int width, int height, int rounds, int tokens, String[] symbols){
         Scanner scanner = new Scanner(System.in);
@@ -71,11 +74,6 @@ public class BonusMenu{
         int modification = 0;
         int[] res = {numberPlayers, width, height, rounds, tokens};
         String[] symb = symbols; // Symboles des joueurs (index 0 = personne)
-
-        // String[] str1 = {"1","2","3","4"};
-        // String[] str2 = {"5","6","7","8"};
-        // for (int i = 0; i<str1.length+str2.length; i++)
-        //     System.out.print(concatString(str1,str2)[i]);
 
         System.out.println(Color.setColor("\n[Paramètres]", Color.getNone(),Color.getTextBold()));
         System.out.print("Modifier les paramètres ? [Oui/Non] : ");
@@ -166,6 +164,7 @@ public class BonusMenu{
         return finalRes;  
     }
 
+
     // Affichage des informations 
     public static void displayInformations(){
         System.out.println(Color.setColor("\n[Informations]", Color.getNone(),1));
@@ -177,6 +176,7 @@ public class BonusMenu{
         goBackToMenu();
     }
 
+
     // Affichage des statistiques entre les ia
     public static void displayStats(){    
         System.out.println(Color.setColor("\n[Statistiques]", Color.getNone(),1));
@@ -187,13 +187,14 @@ public class BonusMenu{
         System.out.print(Color.setColor("           1000                        ia:random/ia:monkey                  188/812\n", Color.getNone(),Color.getTextItalic()));
         System.out.print(Color.setColor("           1000                        ia:random/ia:pro                     91/909\n", Color.getNone(),Color.getTextItalic()));
         System.out.print(Color.setColor("           1000                        ia:monkey/ia:pro                     336/664\n", Color.getNone(),Color.getTextItalic()));
-        System.out.print(Color.setColor("           1000                    ia:random/ia:monkey/ia:pro               170/276/554\n", Color.getNone(),Color.getTextItalic()));
-        System.out.print(Color.setColor("           6                           ia:pro/Evan Colly                    4/2\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("           1000                    ia:random/ia:monkey/ia:pro             170/276/554\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("            6                          ia:pro/Evan Colly                      4/2\n", Color.getNone(),Color.getTextItalic()));
         System.out.print(Color.setColor("\nSur une grille de 12 de largeur et 10 de hauteur :\n           1000     ia:random/ia:random/ia:monkey/ia:monkey/ia:pro/ia:pro   72/86/198/113/255/276\n", Color.getNone(),Color.getTextItalic()));
         System.out.println(Color.setColor("\n", Color.getNone(),2));
 
         goBackToMenu();
     }
+
 
     // Modification du nombre de joueurs
     public static int changeNumberPlayers(){
@@ -224,6 +225,7 @@ public class BonusMenu{
 
         return numberPlayers;
     }
+
 
     // Modification de la largeur de la grille
     public static int changeWidth(int tokens){
@@ -258,7 +260,6 @@ public class BonusMenu{
     }
 
     
-
     // Modification de la hauteur de la grille
     public static int changeHeight(int tokens){
         Scanner scanner = new Scanner(System.in);
@@ -290,6 +291,7 @@ public class BonusMenu{
         return height;
     }
 
+
     // Vérification des nouvelles valeurs pour la largeur et la hauteur de la grille
     public static int[] changeWidthAndHeight(int width, int height, int tokens){
         int validAnswer = 0;
@@ -311,6 +313,7 @@ public class BonusMenu{
 
         return res;
     }
+
 
     // Modification du nombre de manches à gagner
     public static int changeNumberRounds(){
@@ -341,6 +344,7 @@ public class BonusMenu{
 
         return rounds;
     }
+
 
     // Modification du nombre de jetons à aligner pour gagner une manche
     public static int changeNumberTokens(int width, int height){
@@ -376,6 +380,7 @@ public class BonusMenu{
         return tokens;
     }
 
+
     // Modification des symaboles des joueurs
     public static String[] changeTokensSymbols(String[] symbols, int numberPlayers){
         Scanner scanner = new Scanner(System.in);
@@ -388,7 +393,7 @@ public class BonusMenu{
         while(validAnswer == 0){
             buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
-            // quitMenu(buf);
+            quitMenu(buf);
 
             try{
                 numeroPlayer = Integer.parseInt(buf);
@@ -426,7 +431,6 @@ public class BonusMenu{
                     }
                 }
             }
-
             catch(Exception e){
                 System.out.print("Erreur : saisie incorrecte. Modifier le symbole du joueur : ");
             }
@@ -435,6 +439,7 @@ public class BonusMenu{
     }
 
 
+    // Conversion d'un tableau d'entiers en un tableau de chaînes de caractères
     public static String[] convertIntToString(int[] res){
         int len = res.length;
         String[] intToString = new String[len];
@@ -446,6 +451,8 @@ public class BonusMenu{
         return intToString;
     }
 
+
+    // Conversion d'un tableau de chaînes de caractères en un tableau d'entiers 
     public static int[] convertStringToInt(String[] res){
         int len = res.length;
         int[] stringToInt = new int[len];
@@ -457,6 +464,8 @@ public class BonusMenu{
         return stringToInt;
     }
 
+
+    // Concaténation de 2 tableaux de chaînes de caractères
     public static String[] concatString(String[] str1, String[] str2){
         int len1 = str1.length;
         int len2 = str2.length;
@@ -470,7 +479,9 @@ public class BonusMenu{
         }
         return res;
     }
+    
 
+    // Récupération d'un tableau de chaînes de caractères de l'indice start jusqu'à l'indice end
     public static String[] getStringFromTo(String[] str, int start, int end){
         String[] res = new String[end-start+1];
         for (int i = 0; i<end-start+1; i++)
@@ -479,6 +490,7 @@ public class BonusMenu{
     }
 
 
+    // Options du menu
     public static String[] parametersMenu(int numberPlayers, int width, int height, int rounds, int tokens, String[] symbols){
         Scanner scanner = new Scanner(System.in);
         int[] res = {numberPlayers, width, height, rounds, tokens};
@@ -512,7 +524,6 @@ public class BonusMenu{
                 res[2] = buff[2];
                 res[3] = buff[3];
                 res[4] = buff[4];
-                System.out.println("Taille de buffString.length : "+buffString.length);
                 symb = getStringFromTo(buffString,5,buffString.length-1);
             }
 
@@ -526,7 +537,7 @@ public class BonusMenu{
             
             // Cas d'erreur : mauvaise saisie
             else
-                System.out.println("Erreur : saisie incorrecte. Le numéro doit être compris entre 1 et 4 !");
+                System.out.println("Erreur : saisie incorrecte. Le numéro doit être compris entre 1 et 5 !");
 
             // System.out.println("\n");
             interfaceMenu();

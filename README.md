@@ -1,10 +1,10 @@
 # PG220
 
-Projet de programmation orientés objet de seconde année Télécommunication à l'ENSEIRB-MATMECA.
+Projet de programmation orientée objet de seconde année Télécommunication à l'ENSEIRB-MATMECA.
 
 Le projet contient deux dossiers : versionBase et versionBonus
-Dans le premier, les fonctionnalitées de base ont été implémentées et le programme passe tous les scenarios de tests.
-Dans le deuxième, nous avons essayé d'ajouter un maximum de fonctionnalitées bonus pour rendre le jeu plus agréable à jouer et plus personnalisables. Cette version ne peut pas passer les tests car l'interface terminal y est différente.
+Dans le premier, les fonctionnalités de base ont été implémentées et le programme passe tous les scenarios de tests avec succès.
+Dans le second dossier, nous avons essayé d'ajouter un maximum de fonctionnalites bonus pour rendre le jeu plus agréable à jouer et plus personnalisable. Cette version ne peut pas passer les tests car l'interface terminal y est différente.
 
 
 # Fonctionnalités supplémentaires
@@ -43,29 +43,36 @@ Cette commande (utilisable uniquement pendant le jeu) permet de visualiser l'ét
   Random vs Pro:    90% pour Pro
   Monkey vs Pro:    66% pour Pro
   
- Par ailleurs, c'est très simple de rajouter une Ia, il suffit de faire une classe de la même forme que les autres Ia et de rajouter deux lignes dans Game.java. Ces deux lignes doivent malheuresment être ajoutés car on ne peut pas rendre cela dynamique puisqu'il faut instancier des classes dont on ne connaitrait pas le nom.
+ Par ailleurs, c'est très simple de rajouter une Ia, il suffit de faire une classe de la même forme que les autres Ia et de rajouter deux lignes dans Game.java. Ces deux lignes doivent malheureusement être ajoutés car on ne peut pas rendre cela dynamique puisqu'il faut instancier des classes dont on ne connaitrait pas le nom.
  
  
 # Points faibles
 
-1) La gestion d'erreurs et d'exception
+1) La gestion d'erreurs et d'exceptions
 
-Nous pensons que notre code n'est pas optimal pour gérer les erreurs et les exceptions mais nous ne savons pas vraiment comment l'améliorer. Je pense que nous aurions dû approfondir la gestion des erreurs mais par manque de temps cela n'a pas été fait.
+Nous pensons que notre code n'est pas optimal pour gérer les erreurs et les exceptions mais nous ne savons pas vraiment comment l'améliorer. Nous pensons que nous aurions dû approfondir la gestion des erreurs mais par manque de temps cela n'a pas été fait (néanmoins, toutes les possibles erreurs sont traitées).
 
 2) La classe WriteInLog
 
-Cette classe n'est pas caché des autres classes et ses méthodes sont publiques, cela veut dire que tout le monde peut écrire dans le fichier de log. Ce sont notamment les Ia qui vont le faire lors de l'execution de notre code. Nous aurions dû changer la structure du code pour que ce soit uniquement la classe Game qui puisse écrire dans le fichier de log mais nous nous sommes rendu compte de ce problème trop tard.
+Cette classe n'est pas cachée des autres classes et ses méthodes sont publiques, cela veut dire que tout le monde peut écrire dans le fichier de log.txt. En effet, un joueur de type Human doit écrire dans le log.txt donc par etension, les Ia peuvent (mais ne le font pas dans notre code) également écrire. Nous aurions dû changer la structure du code pour que ce soit uniquement la classe Game qui puisse écrire dans le fichier de log mais nous nous sommes rendus compte de ce problème trop tard.
 
-3) L'utilisation de scanner
+3) L'utilisation de l'outil 'scanner'
 
-Pour lire les inputs utilisateur, nous passons par la classe Scanner. Nous n'avons pas très bien compris si après avoir ouvert un scanner il fallait le femrer (comme les descripteurs de fichier en c par exemple), dans le doute, nous n'avons rien fait.
+Pour lire les inputs utilisateur, nous passons par la classe Scanner. Nous n'avons pas très bien compris si après avoir ouvert un scanner il fallait le fermer (comme les descripteurs de fichier en c par exemple), dans le doute, nous n'avons rien fait.
 
 
 # Pistes d'amélioration
 
-- Optimiser la recherche de victoire via des algorithmes plus efficaces (c'est à dire faisant moins de calcul). Nous aurions pu optimiser nos algos de recherche de victoire mais cela prenait du temps et comme le projet était plutôt orienté programmation objet, nous n'avons pas voulu passer autant de temps sur de l'arithmétique.
-- Le code des Ia n'est pas spécialement dynamique si jamais le nombre de joueur ou le nombre de jetons à aligner pour gagner change. Cependant, le code ne plante pas pour autant et dans certains cas de figure les Ia se montrent quand même efficace (en effet, vu qu'elles cherchent à aligner 4 jetons, cela va les aider à en aligner 5 par exemple). Si nous prenons 5 jetons, l'Ia pro gagne quand même 100 à 0 contre l'Ia random.
-- Une quatrième IA Champion était prévue, elle devait reprendre les capacités de la précédente, et en plus générer des alignements de 3 jetons à partir de 2 jetons. Nous n'avons cependant pas eu le temps de l'imlplémenter. De manière général, nous aurions pu optimiser les autres Ia et essayer de faire la meilleure Ia possible mais cela s'éloignait un peu du sujet de base aussi donc nous n'avons pas consacré tout notr etemps là dessus.
+- Optimiser la recherche de victoire via des algorithmes plus efficaces (c'est à dire faisant moins de calcul). Nous aurions pu optimiser nos algorithmes de recherche de victoire mais cela prenait du temps et comme le projet était plutôt orienté programmation objet, nous n'avons pas voulu passer autant de temps sur de l'arithmétique.
+- Le code des Ia n'est pas spécialement dynamique si jamais le nombre de joueur ou le nombre de jetons à aligner pour gagner change. Cependant, le code ne plante pas pour autant et dans certains cas de figure les Ia se montrent quand même efficaces (en effet, vu qu'elles cherchent à aligner 4 jetons, cela va les aider à en aligner 5 par exemple). Si nous prenons 5 jetons, l'Ia pro gagne quand même 100 à 0 contre l'Ia random.
+- Une quatrième IA Champion était prévue, elle devait reprendre les capacités de la précédente, et en plus générer des alignements de 3 jetons à partir de 2 jetons. Nous n'avons cependant pas eu le temps de l'implémenter. De manière générale, nous aurions pu optimiser les autres Ia et essayer de faire la meilleure Ia possible mais cela s'éloignait un peu du sujet de base aussi donc nous n'avons pas consacré tout notre temps là dessus, mais plutôt à la structure du projet.
 - Rajouter un fichier pour les paramètres de base (nombre de jetons/joueurs, taille de la grille ect). Le programme aurait pu lire un fichier .txt présent dans le même dossier pour connaitre les paramètres de base souhaité par le joueur.
 - Marquer les égalités dans le log.txt quand on compte le score.
 - Ajouter une interface graphique.
+
+
+# Conclusion
+Nous sommes plutôt satisfaits de ce projet, nous avons réussi à implémenter toutes les tâches obligatoires. Des tâches facultatives ont été ajoutées également de manière à rendre l'interface du jeu plsu agréable pour le joueur.
+
+
+COLLY Evan, BREJON Louis & LEPAJOLEC Théo

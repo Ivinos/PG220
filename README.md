@@ -53,6 +53,7 @@ Autrement, une commande (utilisable uniquement pendant le jeu) a été créée :
 - marquer les égalités dans le log.txt quand on compte le score
 - Gestion des erreurs
 - Fermer le scanner mais on a pas tout compris
+- Optimiser victory check en faisant full maths
 
 
 

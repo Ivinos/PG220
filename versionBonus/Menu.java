@@ -8,15 +8,15 @@ public class Menu{
 
     private static WriteInLog write; // Pour utiliser les méthodes de WriteInLog
     private static CheckInput check; // Pour utiliser les méthodes de CheckInput
-    private static BonusMenu menu; // Pour utiliser les méthodes de BonusMenu (gère les paramètres)
+    private static BonusMenu menu;   // Pour utiliser les méthodes de BonusMenu (gère les paramètres)
   
     public static void main(String[] args){
-      int numberPlayers = 2;
-      int width = 7;
-      int height = 6;
-      int rounds = 3;
-      int tokens = 4;
-      int[] score;
+      int numberPlayers = 2; // Nombre de joueur
+      int width = 7;  // Largeur de la grille
+      int height = 6; // Hauteur de la grille
+      int rounds = 3; // Nombre de manche à jouer
+      int tokens = 4; // Nombre de jeton à aligner pour gagner
+      int[] score;    // Score des joueur (liste des score de chacun dans l'ordre des joueurs)
       String[] inputPlayers;
       String[] symbols = {". ", "X ", "O ", "V ", "T ", "Y ", "@ "}; // Symboles des joueurs (index 0 = personne)
 

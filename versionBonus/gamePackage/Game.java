@@ -13,10 +13,10 @@ public class Game{
     // Attributs
     private ArrayList<Player> players;
     private Grid grid;
-    private int[] score;
-    private int rounds;
-    private final int tokens;
-    private final int numberPlayers;
+    private int[] score;             // Compte le score des joueurs dans l'ordre de ces derniers
+    private int rounds;              // Nombre de manche à faire au total
+    private final int tokens;        // Nombre de jetons à aligner pour gagner
+    private final int numberPlayers; // Nombre de joueurs
 
     private final static Display disp = new Display();
     private final static WriteInLog write = new WriteInLog();
@@ -29,11 +29,14 @@ public class Game{
       int numeroPlayer;
       this.players = new ArrayList<Player>(); // On initialise la collection (elle est actuellement vide)
 
-      for (int i = 0; i<2*numberPlayers; i+=2) {
+      for (int i = 0; i<2*numberPlayers; i+=2) { // Le parcours se fait deux par deux car la liste inputPlayers contient type + nom
           type = i;
           name = i + 1;
           numeroPlayer = (i / 2) + 1;
 
+          // Malheuresement cette partie n'est pas dynamique et on doit rajouter à la main deux lignes si on veut ajouter
+          // une ia supplémentaire. On ne peut pas le mettre en dynamique car il faut initialiser une classe dont le nom
+          // dépend de la nouvelle ia que l'on vient d'implémenter
           if (inputPlayers[type].equals("humain"))
               this.players.add(new Human(inputPlayers[name], numeroPlayer, inputPlayers[type]));
           else if (inputPlayers[type].equals("ia:monkey"))
@@ -92,6 +95,9 @@ public class Game{
     }
 
     // Autres méthodes
+
+    // Renvoie vrai si un joueur à autant de victoire que le nombre de manche à gagner
+    // (la fct n'est plus utilisée car elle correspond à un autre mode de jeu)
     private int checkRounds(){
       int res = 0;
       for (int i = 0; i<this.numberPlayers; i++){
@@ -105,14 +111,15 @@ public class Game{
     public int checkRoundsBestOf(){
         int res = 0;
         int sum = 0;
-        for (int i = 0; i<this.numberPlayers; i++){
-            sum += this.score[i];
+        for (int i = 0; i<this.numberPlayers; i++){ // Parcours de tous les joueurs
+            sum += this.score[i]; // Chaque joueur ajoute son nombre de victoire dans la somme
         }
-        if (sum == this.rounds)
+        if (sum == this.rounds) // Si la somme est égale au nombre de manche alors la partie se finit
             res = 1;
         return res;
     }
 
+    // Ecrit le score des joeurs dans une string
     public String writeScore(){
       String res;
       res = "Score "+this.score[0];
@@ -123,6 +130,7 @@ public class Game{
       return res;
     }
 
+    // Renvoie le numéro de manche en cours
     private int getRoundNumber(){
         int sum = 1; // Car on commence à la manche 1
         for (int i = 0; i<numberPlayers; i++){
@@ -131,28 +139,30 @@ public class Game{
         return sum;
     }
 
-    // Retourne le numéro du joueur qui joue
+    // Retourne le numéro du joueur qui doit jouer ce tour
     private int whichPlayer(int tour, int roundNumber){
-      int res = tour%this.numberPlayers; // 1er tour = 1, 2ème = 0, puis 1 ect
+      int res = tour%this.numberPlayers; // 1er tour = 1, 2ème = 0, puis 1 ect (pour deux joueurs)
 
-      int roundParity = (roundNumber-1)%this.numberPlayers; // 1er round = 0, 2ème round = 1, puis 0 ect
+      int roundParity = (roundNumber-1)%this.numberPlayers; // 1er round = 0, 2ème round = 1, puis 0 ect (toujours pour deux joueurs)
 
-      res = res + roundParity; // exemple à trois joueurs round 3, le 1er = 6
+      res = res + roundParity; // Exemple à trois joueurs round 3, le 1er = 6
 
-      if (res == 0)
-          res = this.numberPlayers;
-
-      if (res > this.numberPlayers)
-          res = res%this.numberPlayers;
       // En gros 2%2 = 0 sauf que c'est le dernier joueur
       // Et rajouter plus 1 au res ne marche pas car sinon le p1 ne joue pas en premier
+      if (res == 0) // Si les deux sont à zéro c'est que c'est au tour du dernier joueur de jouer
+          res = this.numberPlayers;
+
+      if (res > this.numberPlayers) // Si on dépasse le nombre de joueur total on doit refaire un modulo
+          res = res%this.numberPlayers;
+
       return res;
     }
 
+    // Retourne vrai si un array est non nul
     private int nullTab(int[] tab, int len){
       int bool = 0;
       for (int i=0; i<len; i++){
-        if (tab[i] == 1)
+        if (tab[i] == 1) // Si un joueur a gagné alors on renvoie 1
             bool = 1;
       }
       return bool;
@@ -168,9 +178,10 @@ public class Game{
 
       disp.displayGrid(grid);
 
+      // Tant que aucun joueur n'a gagné la manche et qu'il n'y a pas égalité, on continue de jouer
       while(nullTab(wins, this.numberPlayers) == 0 && equality == 0){
-        who = whichPlayer(tour, getRoundNumber()); // pour 2 joueurs who = 1 ou 2
-        position = -3;
+        who = whichPlayer(tour, getRoundNumber()); // Pour 2 joueurs who = 1 ou 2
+        position = -3; // Initialisation à la valeur -3 qui correspond à une position invalide
 
         while(position == -3){
             position = this.getPlayer(who).choice(grid.getValues(), grid.getWidth(), grid.getHeight(), this.tokens);
@@ -186,7 +197,7 @@ public class Game{
                 System.exit(0);
             }
             else{
-                if (getPlayer(who).getType().equals("humain")) // pour un affichage bien (oui oui)
+                if (getPlayer(who).getType().equals("humain")) // Pour un affichage bien (oui oui)
                   System.out.println("");
 
                 position = grid.updateGrid(position, who, write);
@@ -211,7 +222,7 @@ public class Game{
           System.out.println("Egalite");
         }
 
-      tour++;
+      tour++; // On incrémente le nombre de tour
       }
       grid.resetGrid(); // On réinitialise la grille
     }

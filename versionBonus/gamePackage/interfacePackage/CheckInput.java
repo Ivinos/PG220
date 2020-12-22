@@ -26,7 +26,7 @@ public class CheckInput{
           res = scanner.nextLine().split(parameter);
         }
       }     
-         
+
       return res;
     }
 

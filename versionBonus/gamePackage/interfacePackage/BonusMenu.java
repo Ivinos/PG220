@@ -24,6 +24,7 @@ public class BonusMenu{
         
         while (validAnswer == 0){
             buf = scanner.nextLine();
+            quitMenu(buf);
 
             if (buf.equals("menu")){
                 validAnswer = 1;
@@ -82,7 +83,7 @@ public class BonusMenu{
 
         while (validAnswer == 0){
             // Quitte le programme si commande "sortir"
-            // quitMenu(buf);
+            quitMenu(buf);
 
             if (buf.equals("Oui")){
                 validAnswer = 1;
@@ -96,6 +97,7 @@ public class BonusMenu{
                     System.out.println("Z - Tous les paramètres ");
                     System.out.print("\nPour revenir au Menu, taper 'menu'\n>> ");
                     buf2 = scanner.nextLine();
+                    quitMenu(buf2);
                     
                     // Choisir le nombre de joueurs
                     if (buf2.equals("A")){
@@ -168,9 +170,9 @@ public class BonusMenu{
     public static void displayInformations(){
         System.out.println(Color.setColor("\n[Informations]", Color.getNone(),1));
         System.out.print(Color.setColor("       Puissance 4 (appelé aussi parfois 4 en ligne) est un jeu de stratégie ", Color.getNone(),Color.getTextItalic()));
-        System.out.print(Color.setColor("combinatoire abstrait, commercialisé pour la première fois en 1974 par ", Color.getNone(),Color.getTextItalic()));
-        System.out.print(Color.setColor("la Milton Bradley Company, plus connue sous le nom de MB et détenue ", Color.getNone(),Color.getTextItalic()));
-        System.out.println(Color.setColor("depuis 1984 par la société Hasbro.\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("\n       combinatoire abstrait, commercialisé pour la première fois en 1974 par ", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("\n       la Milton Bradley Company, plus connue sous le nom de MB et détenue ", Color.getNone(),Color.getTextItalic()));
+        System.out.println(Color.setColor("\n       depuis 1984 par la société Hasbro.\n", Color.getNone(),Color.getTextItalic()));
 
         goBackToMenu();
     }
@@ -180,11 +182,14 @@ public class BonusMenu{
         System.out.println(Color.setColor("\n[Statistiques]", Color.getNone(),1));
         System.out.print(Color.setColor("       Des simulations ont été realisées pour déterminer et comparer les", Color.getNone(),Color.getTextItalic()));
         System.out.print(Color.setColor(" différentes ia implémentées (ia:random, ia:monkey et ia:pro)\n\n", Color.getNone(),Color.getTextItalic()));
-        System.out.print(Color.setColor("     Manches gagnantes                       IA/IA                      Score moyen\n", Color.getNone(),Color.getTextBold()));
-        System.out.print(Color.setColor("           100                        ia:random/ia:monkey                  23/100\n", Color.getNone(),Color.getTextItalic()));
-        System.out.print(Color.setColor("           100                        ia:monkey/ia:pro                     56/100\n", Color.getNone(),Color.getTextItalic()));
-        System.out.print(Color.setColor("           100                        ia:random/ia:pro                     12/100\n", Color.getNone(),Color.getTextItalic()));
-        System.out.print(Color.setColor("           100                        ia:random/ia:monkey/ia:pro         35/64/100\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("          Manches                             IA/IA                          Score\n", Color.getNone(),Color.getTextBold()));
+        System.out.print(Color.setColor("           1000                        ia:random/ia:random                  503/497\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("           1000                        ia:random/ia:monkey                  188/812\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("           1000                        ia:random/ia:pro                     91/909\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("           1000                        ia:monkey/ia:pro                     336/664\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("           1000                    ia:random/ia:monkey/ia:pro               170/276/554\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("           6                           ia:pro/Evan Colly                    4/2\n", Color.getNone(),Color.getTextItalic()));
+        System.out.print(Color.setColor("\nSur une grille de 12 de largeur et 10 de hauteur :\n           1000     ia:random/ia:random/ia:monkey/ia:monkey/ia:pro/ia:pro   72/86/198/113/255/276\n", Color.getNone(),Color.getTextItalic()));
         System.out.println(Color.setColor("\n", Color.getNone(),2));
 
         goBackToMenu();
@@ -202,7 +207,7 @@ public class BonusMenu{
         while(validAnswer == 0){
             buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
-            // quitMenu(buf);
+            quitMenu(buf);
 
             try{
             numberPlayers = Integer.parseInt(buf);
@@ -216,6 +221,7 @@ public class BonusMenu{
                 System.out.print("Erreur : saisie incorrecte. Nombre de joueurs : ");
             }
         }
+
         return numberPlayers;
     }
 
@@ -231,7 +237,7 @@ public class BonusMenu{
         while(validAnswer == 0){
             buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
-            // quitMenu(buf);
+            quitMenu(buf);
 
             try{
                 width = Integer.parseInt(buf);
@@ -247,6 +253,7 @@ public class BonusMenu{
                 System.out.print("Erreur : saisie incorrecte. Largeur de la grille : ");
             }
         }
+
         return width;
     }
 
@@ -263,7 +270,7 @@ public class BonusMenu{
         while(validAnswer == 0){
             buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
-            // quitMenu(buf);
+            quitMenu(buf);
 
             try{
                 height = Integer.parseInt(buf);
@@ -279,6 +286,7 @@ public class BonusMenu{
                 System.out.print("Erreur : saisie incorrecte. Hauteur de la grille : ");
             }
         }
+
         return height;
     }
 
@@ -316,7 +324,7 @@ public class BonusMenu{
         while(validAnswer == 0){
             buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
-            // quitMenu(buf);
+            quitMenu(buf);
 
             try{
                 rounds = Integer.parseInt(buf);
@@ -330,6 +338,7 @@ public class BonusMenu{
             System.out.print("Erreur : saisie incorrecte. Nombre de manches : ");
             }
         }
+
         return rounds;
     }
 
@@ -345,7 +354,7 @@ public class BonusMenu{
         while(validAnswer == 0){
             buf = scanner.nextLine();
             // Quitte le programme si commande "sortir"
-            // quitMenu(buf);
+            quitMenu(buf);
 
             try{
                 tokens = Integer.parseInt(buf);
@@ -363,6 +372,7 @@ public class BonusMenu{
                 System.out.print("Erreur : saisie incorrecte. Nombre de jetons : ");
             }
         }
+
         return tokens;
     }
 

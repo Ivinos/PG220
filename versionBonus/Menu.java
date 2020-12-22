@@ -11,21 +11,14 @@ public class Menu{
     private static BonusMenu menu;   // Pour utiliser les méthodes de BonusMenu (gère les paramètres)
   
     public static void main(String[] args){
-      int numberPlayers = 2; // Nombre de joueur
+      int numberPlayers = 2; // Nombre de joueurs
       int width = 7;  // Largeur de la grille
       int height = 6; // Hauteur de la grille
-      int rounds = 3; // Nombre de manche à jouer
-      int tokens = 4; // Nombre de jeton à aligner pour gagner
-      int[] score;    // Score des joueur (liste des score de chacun dans l'ordre des joueurs)
+      int rounds = 3; // Nombre de manches à jouer
+      int tokens = 4; // Nombre de jetons à aligner pour gagner
+      int[] score;    // Score des joueurs (liste des score de chacun dans l'ordre des joueurs)
       String[] inputPlayers;
       String[] symbols = {". ", "X ", "O ", "V ", "T ", "Y ", "@ "}; // Symboles des joueurs (index 0 = personne)
-
-      
-      String[] A = {"1","2","3","4","5","6","7","8","9"};
-      String[] AA = menu.getStringFromTo(A,2,5);
-      for (int i = 0; i<AA.length; i++)
-          System.out.print(AA[i]);
-      System.out.println("\n");
 
       // Afichage du menu
       int[] parameters = new int[5];
@@ -39,10 +32,6 @@ public class Menu{
       rounds = parameters[3];
       tokens = parameters[4];
       symbols = menu.getStringFromTo(parametersString,5,parametersString.length-1);
-
-      // for (int i = 0; i<symbols.length; i++)
-      //     System.out.print(symbols[i]);
-      // System.out.println("FINI");
 
       score = new int[numberPlayers];
 

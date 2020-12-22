@@ -18,17 +18,32 @@ public class Menu{
       int tokens = 4; // Nombre de jeton à aligner pour gagner
       int[] score;    // Score des joueur (liste des score de chacun dans l'ordre des joueurs)
       String[] inputPlayers;
+      String[] symbols = {". ", "X ", "O ", "V ", "T ", "Y ", "@ "}; // Symboles des joueurs (index 0 = personne)
 
-       // Afichage du menu
-       int[] parameters = new int[5];
-
-       parameters = menu.parametersMenu(numberPlayers, width, height, rounds, tokens);
-       numberPlayers = parameters[0];
-       width = parameters[1];
-       height = parameters[2];
-       rounds = parameters[3];
-       tokens = parameters[4];
       
+      String[] A = {"1","2","3","4","5","6","7","8","9"};
+      String[] AA = menu.getStringFromTo(A,2,5);
+      for (int i = 0; i<AA.length; i++)
+          System.out.print(AA[i]);
+      System.out.println("\n");
+
+      // Afichage du menu
+      int[] parameters = new int[5];
+      String[] parametersString = new String[parameters.length+symbols.length];
+
+      parametersString = menu.parametersMenu(numberPlayers, width, height, rounds, tokens, symbols);
+      parameters = menu.convertStringToInt(menu.getStringFromTo(parametersString,0,4));
+      numberPlayers = parameters[0];
+      width = parameters[1];
+      height = parameters[2];
+      rounds = parameters[3];
+      tokens = parameters[4];
+      symbols = menu.getStringFromTo(parametersString,5,parametersString.length-1);
+
+      // for (int i = 0; i<symbols.length; i++)
+      //     System.out.print(symbols[i]);
+      // System.out.println("FINI");
+
       score = new int[numberPlayers];
 
       // Choix du pseudo + type
@@ -38,7 +53,7 @@ public class Menu{
       }
 
       // Initialisation du jeu
-      Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds, tokens);
+      Game game = new Game(inputPlayers, numberPlayers, width, height, score, rounds, tokens, symbols);
       System.out.println("");
 
       // Début du jeu
@@ -51,6 +66,8 @@ public class Menu{
       System.out.println("Partie finie");
       write.writeBuffer("Partie finie");
     }
+
+
 
   // Création du fichier log.txt
   private static String[] selectPlayers(int numberPlayers){

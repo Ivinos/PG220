@@ -5,7 +5,7 @@ import gamePackage.Grid;
 
 public class Display {
 
-  private static final String[] symbols = {". ", "X ", "O ", "V ", "T ", "Y ", "@ "}; // Symboles des joeurs (index 0 = personne)
+  // private static final String[] symbols = {". ", "X ", "O ", "V ", "T ", "Y ", "@ "}; // Symboles des joeurs (index 0 = personne)
 
   // Affichage de la grille
   public static void displayGrid(Grid grid) {
@@ -21,7 +21,7 @@ public class Display {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++)
-        System.out.print(Color.setColor(symbols[grid.getValues()[i][j]], grid.getValues()[i][j], 0));
+        System.out.print(Color.setColor(grid.getSymbols(grid.getValues()[i][j]), grid.getValues()[i][j], 0));
       System.out.println("");
     }
     System.out.println("");
@@ -31,7 +31,7 @@ public class Display {
   public static void gameParameters(Game game) {
 
     System.out.println(Color.setColor("\n[JEU]", Color.getYellow(), Color.getTextBold()));
-    System.out.println("Victoire : Celui avec le plus de victoire sur les " + game.getRounds() + " manches");
+    System.out.println("Victoire : Celui avec le plus de victoires sur les " + game.getRounds() + " manches");
     System.out.println("Manche : " + game.getTokens() + " jetons à aligner pour remporter 1 manche");
     System.out.println(game.writeScore());
 
@@ -42,7 +42,7 @@ public class Display {
     System.out.println(Color.setColor("\n[JOUEURS]", Color.getYellow(), Color.getTextBold()));
     System.out.println("Nombre de joueurs : " + game.getNumberPlayers());
     for (int i = 1; i<=game.getNumberPlayers(); i++)
-      System.out.println("Joueur "+i+" est "+game.getPlayer(i).getName()+" de type "+game.getPlayer(i).getType()+" (symbole : "+Color.setColor(symbols[i],i,0)+")");
+      System.out.println("Joueur "+i+" est "+game.getPlayer(i).getName()+" de type "+game.getPlayer(i).getType()+" (symbole : "+Color.setColor(game.getGrid().getSymbols(i),i,0)+")");
     System.out.println("");
   }
 }

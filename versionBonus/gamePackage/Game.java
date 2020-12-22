@@ -23,7 +23,7 @@ public class Game{
     private final static CheckInput check = new CheckInput();
 
     // Constructeur
-    public Game(String[] inputPlayers, int numberPlayers, int width, int height, int[] score, int rounds, int tokens){
+    public Game(String[] inputPlayers, int numberPlayers, int width, int height, int[] score, int rounds, int tokens, String[] symbols){
       int name;
       int type;
       int numeroPlayer;
@@ -49,7 +49,7 @@ public class Game{
               this.players.add(new Ia(inputPlayers[name], numeroPlayer, inputPlayers[type]));
 
       }
-      this.grid = new Grid(width, height);
+      this.grid = new Grid(width, height, symbols);
       this.score = score;
       this.rounds = rounds;
       this.tokens = tokens;

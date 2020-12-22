@@ -8,12 +8,14 @@ public class Grid {
   private final int width;
   private final int height;
   private int[][] values;
+  private final String[] symbols;
 
-  // Constructeur
-  public Grid(int width, int height){
+  // Constructeurs
+  public Grid(int width, int height, String[] symbols){
     this.width = width;
     this.height = height;
     this.values = initializeValues(width, height);
+    this.symbols = symbols;
   }
 
   // Getters
@@ -28,6 +30,10 @@ public class Grid {
   public int[][] getValues(){
     return this.values;
   }
+
+  public String getSymbols(int i){
+    return this.symbols[i];
+}
 
   // Autres méthodes
 
@@ -64,7 +70,7 @@ public class Grid {
 
         this.values[height-1-k][position-1] = numeroPlayer;
 
-        System.out.println("Joueur "+numeroPlayer+" joue en position "+position);
+        System.out.println("Joueur "+numeroPlayer+" joue en position "+position+"\n"); // On peut le rajouter pour plus de style
         write.writeBuffer("Joueur "+numeroPlayer+" joue "+position);
 
         return position;

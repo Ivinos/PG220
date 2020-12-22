@@ -29,7 +29,7 @@ Dans la rubrique "Paramètres", un message de confirmation [Oui/Non] de modifica
       C - le nombre de manches (3 manches min)
       D - le nombre de jetons à aligner pour remporter 1 manche (4 jetons min avec comme condition : nombre de jetons <= nombre de lignes et de colonnes)
       E - les symboles des joueurs (sous réserve que le nouveau symbole ne soit utilisé par aucun autre joueur (quoiqu'il en soit, les couleurs des joueurs sont uniques donc ce n'est pas bien grave))
-      F - tous les paramètres mentionnés précédemment (modification possible d'un seul coup !)
+      F - tous les paramètres mentionnés précédemment (modifications possibles d'un seul coup !)
 Pour accéder à l'une de ces catégories, il suffit de taper la lettre correspondant à celle-ci.
 
 Par ailleurs, pour revenir au menu principal, il suffira à l'utilisateur de taper la commande 'menu' (un message s'affiche lorsque c'est le cas).

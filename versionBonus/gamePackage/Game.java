@@ -40,7 +40,9 @@ public class Game{
               this.players.add(new Monkey(inputPlayers[name], numeroPlayer, inputPlayers[type]));
           else if (inputPlayers[type].equals("ia:pro"))
               this.players.add(new Pro(inputPlayers[name], numeroPlayer, inputPlayers[type]));
-          else // ia normale
+          else if (inputPlayers[type].equals("ia:random"))
+              this.players.add(new Ia(inputPlayers[name], numeroPlayer, inputPlayers[type]));
+          else // ia normale (donc ia:random)
               this.players.add(new Ia(inputPlayers[name], numeroPlayer, inputPlayers[type]));
 
       }

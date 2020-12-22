@@ -33,6 +33,7 @@ Expliquer utilisation, les deux dossiers différents ect (notamment dire que le 
 - marquer les égalités dans le log.txt quand on compte le score
 - Gestion des erreurs
 - Fermer le scanner mais on a pas tout compris
+- Optimiser victory check en faisant full maths
 
 
 

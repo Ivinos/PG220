@@ -136,8 +136,7 @@ public class BonusMenu{
                         res[1] = buff[0];
                         res[2] = buff[1];
                         res[3] = changeNumberRounds();
-                        res[4] = changeNumberTokens(res[1], res[2]); 
-                        symb = changeTokensSymbols(symb, res[0]);
+                        res[4] = changeNumberTokens(res[1], res[2]);
                         modification = 1;
                     }
                     // Retour au Menu

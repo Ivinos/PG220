@@ -10,14 +10,14 @@ Dans le second dossier, nous avons essayé d'ajouter un maximum de fonctionnalit
 # Fonctionnalités supplémentaires
 
 1) Implémentation d'une interface Menu avec options
-Plusieurs rubriques sont proposées à l'utilisateur lors du lancement du jeu. Pour accéder à l'une de ces rubriques, il suffit de taper le numéro correspondant à celle-ci. Voici plus en détail, la description des rubriques : 
+Plusieurs rubriques sont proposées à l'utilisateur lors du lancement du jeu. Pour accéder à l'une de ces rubriques, il suffit de taper le numéro correspondant à celle-ci. Voici plus en détail, la description des rubriques :
 - 1 - Jouer (pour lancer le jeu)
 - 2 - Règles (pour afficher les règles du jeu)
 - 3 - Paramètres (pour modifier certains paramètres du jeu)
 - 4 - Informations (pour afficher les règles du jeu)
 - 5 - Statistiques (pour afficher les simulations réalisées entre les différents types de joueurs)
 
-Dans la rubrique "Paramètres", un message de confirmation [Oui/Non] de modification des paramètres est demandé. Dans le cas d'une validation, l'utilisateur peut 
+Dans la rubrique "Paramètres", un message de confirmation [Oui/Non] de modification des paramètres est demandé. Dans le cas d'une validation, l'utilisateur peut
 choisir de modifier :
 
 - A - le nombre de joueurs (2 joueurs min et 6 joueurs max car nous avons à disposition     uniquement 6 couleurs mais le code a été construit de manière à ce que si davantage de couleurs sont disponibles, alors le jeu pourra fonctionner avec +6 joueurs)
@@ -32,20 +32,20 @@ Par ailleurs, pour revenir au menu principal, il suffira à l'utilisateur de tap
 Dans le cas d'une modification d'un/des paramètre(s), un message en vert s'affiche pour confirmer la modification du/des paramètre(s).
 
 2) Création d'une commande 'parametres'
-Cette commande (utilisable uniquement pendant le jeu) permet de visualiser l'état de la partie (victoire/manches/score/paramètres de la grille/paramètres des joueurs). Il suffit à l'utilisateur de taper la commande 'parametres' dans le terminal. 
+Cette commande (utilisable uniquement pendant le jeu) permet de visualiser l'état de la partie (victoire/manches/score/paramètres de la grille/paramètres des joueurs). Il suffit à l'utilisateur de taper la commande 'parametres' dans le terminal.
 
 3) - 3 niveaux d'IA:
 - Random (il faut juste rentrer ia 'nom'): joue toujours aléatoirement, selon une loi uniforme (toutes les colonnes ont la même probabilité d'être jouées). Cette IA est la plus basique, et est donc la moins bonne.
 - Monkey (il faut rentrer ia:monkey 'nom'): cette IA a compris les règles du jeu, si elle voit trois jetons alignés de sa couleur ou de la couleur de son adversaire, elle mettra le quatrième jeton si le coup est jouable (pour gagner ou bloquer l'adversaire). Si elle ne trouve pas d'alignement de trois jetons, elle joue comme l'IA random, de manière uniforme
 - Pro (il faut rentrer ia:pro 'nom'): comme monkey, elle peut détecter les alignements de trois jetons et jouer le quatrième si possible. Cependant, si elle ne trouve pas d'alignement de trois jetons, elle jouera aléatoirement selon une loi gaussienne centrée au milieu du tableau, car les coups au milieu du tableau ont plus de chances de faire des alignements que les coups sur les côtés. Cette simple amélioration permet à l'IA Pro d'être meilleure que l'IA monkey comme le montrent les statistiques:
 
-  Random vs Monkey: 81%% pour Monkey
-  Random vs Pro:    90% pour Pro
+  Random vs Monkey: 81% pour Monkey -
+  Random vs Pro:    90% pour Pro - 
   Monkey vs Pro:    66% pour Pro
-  
+
  Par ailleurs, c'est très simple de rajouter une Ia, il suffit de faire une classe de la même forme que les autres Ia et de rajouter deux lignes dans Game.java. Ces deux lignes doivent malheureusement être ajoutés car on ne peut pas rendre cela dynamique puisqu'il faut instancier des classes dont on ne connaitrait pas le nom.
- 
- 
+
+
 # Points faibles
 
 1) La gestion d'erreurs et d'exceptions
@@ -72,7 +72,7 @@ Pour lire les inputs utilisateur, nous passons par la classe Scanner. Nous n'avo
 
 
 # Conclusion
-Nous sommes plutôt satisfaits de ce projet, nous avons réussi à implémenter toutes les tâches obligatoires. Des tâches facultatives ont été ajoutées également de manière à rendre l'interface du jeu plsu agréable pour le joueur.
+Nous sommes plutôt satisfaits de ce projet, nous avons réussi à implémenter toutes les tâches obligatoires. Des tâches facultatives ont été ajoutées également de manière à rendre l'interface du jeu plus agréable pour le joueur.
 
 
 COLLY Evan, BREJON Louis & LEPAJOLEC Théo

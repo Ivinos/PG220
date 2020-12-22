@@ -61,7 +61,7 @@ public class BonusMenu{
     }
 
     // Affichage des paramètres modifiables du jeu
-    public static int[] displayParameters(int numberPlayers, int width, int height, int rounds, int tokens){
+    public static String[] displayParameters(int numberPlayers, int width, int height, int rounds, int tokens, String[] symbols){
         Scanner scanner = new Scanner(System.in);
         String buf, buf2;
         int[] buff;
@@ -69,6 +69,12 @@ public class BonusMenu{
         int validAnswer2 = 0;
         int modification = 0;
         int[] res = {numberPlayers, width, height, rounds, tokens};
+        String[] symb = symbols; // Symboles des joueurs (index 0 = personne)
+
+        // String[] str1 = {"1","2","3","4"};
+        // String[] str2 = {"5","6","7","8"};
+        // for (int i = 0; i<str1.length+str2.length; i++)
+        //     System.out.print(concatString(str1,str2)[i]);
 
         System.out.println(Color.setColor("\n[Paramètres]", Color.getNone(),Color.getTextBold()));
         System.out.print("Modifier les paramètres ? [Oui/Non] : ");
@@ -86,6 +92,7 @@ public class BonusMenu{
                     System.out.println("B - Taille de la grille");
                     System.out.println("C - Nombre de manches");
                     System.out.println("D - Nombre de jetons");
+                    System.out.println("E - Symboles des joueurs");
                     System.out.println("Z - Tous les paramètres ");
                     System.out.print("\nPour revenir au Menu, taper 'menu'\n>> ");
                     buf2 = scanner.nextLine();
@@ -115,6 +122,12 @@ public class BonusMenu{
                         res[4] = changeNumberTokens(res[1], res[2]);
                         modification = 1;
                     } 
+
+                    // Choisir les symboles des joueurs
+                    else if (buf2.equals("E")){                        
+                        symb = changeTokensSymbols(symb, res[0]); // symbols
+                        modification = 1;
+                    } 
                         
                     // Modifier tous les paramètres
                     else if (buf2.equals("Z")){                        
@@ -124,6 +137,7 @@ public class BonusMenu{
                         res[2] = buff[1];
                         res[3] = changeNumberRounds();
                         res[4] = changeNumberTokens(res[1], res[2]); 
+                        symb = changeTokensSymbols(symb, res[0]);
                         modification = 1;
                     }
                     // Retour au Menu
@@ -146,7 +160,8 @@ public class BonusMenu{
                 buf = scanner.nextLine();
             }
         }
-        return res;  
+        String[] finalRes = concatString(convertIntToString(res), symb);
+        return finalRes;  
     }
 
     // Affichage des informations 
@@ -234,6 +249,9 @@ public class BonusMenu{
         }
         return width;
     }
+
+    
+
     // Modification de la hauteur de la grille
     public static int changeHeight(int tokens){
         Scanner scanner = new Scanner(System.in);
@@ -348,12 +366,117 @@ public class BonusMenu{
         return tokens;
     }
 
+    // Modification des symaboles des joueurs
+    public static String[] changeTokensSymbols(String[] symbols, int numberPlayers){
+        Scanner scanner = new Scanner(System.in);
+        int numeroPlayer;
+        int validAnswer = 0, validAnswer2 = 0;
+        int newSymbol = 1;
+        String buf, buf2;
+        System.out.print("Modifier le symbole du joueur : ");
 
-    public static int[] parametersMenu(int numberPlayers, int width, int height, int rounds, int tokens){
+        while(validAnswer == 0){
+            buf = scanner.nextLine();
+            // Quitte le programme si commande "sortir"
+            // quitMenu(buf);
+
+            try{
+                numeroPlayer = Integer.parseInt(buf);
+                if (numeroPlayer < 1 || numeroPlayer > numberPlayers)
+                    System.out.print("Erreur : joueur "+numeroPlayer+" introuvable. Modifier le symbole du joueur : ");
+                else{
+                    while (validAnswer2 == 0){
+                        System.out.print("Choix du nouveau symbole : ");
+                        buf2 = scanner.nextLine();
+
+                        if (buf2.length() == 1){
+                            if (buf2.equals(".") || buf2.equals(" ")){
+                                System.out.print("Erreur : symbole interdit ('.' ou ''). ");                               
+                            }
+                            else{
+                                try{
+                                    for (int k = 1; k<numberPlayers+1; k++){
+                                        if (buf2 == symbols[k]){
+                                            System.out.print("Erreur : symbole déjà utilisé. ");
+                                            newSymbol = 0;
+                                        }
+                                    }
+                                    if (newSymbol == 1){
+                                        symbols[numeroPlayer] = buf2.concat(" ");
+                                        return symbols;
+                                    }
+                                }
+                                catch(Exception e){
+                                    System.out.print("Erreur : saisie incorrecte. Choix du nouveau symbole : ");
+                                }
+                            }
+                        }
+                        else
+                            System.out.print("Erreur : le symbole ne peut contenir qu'une lettre. ");
+                    }
+                }
+            }
+
+            catch(Exception e){
+                System.out.print("Erreur : saisie incorrecte. Modifier le symbole du joueur : ");
+            }
+        }
+        return symbols;
+    }
+
+
+    public static String[] convertIntToString(int[] res){
+        int len = res.length;
+        String[] intToString = new String[len];
+
+        for (int l = 0; l<len; l++){
+            intToString[l] = Integer.toString(res[l]);
+        }
+
+        return intToString;
+    }
+
+    public static int[] convertStringToInt(String[] res){
+        int len = res.length;
+        int[] stringToInt = new int[len];
+
+        for (int m = 0; m<len; m++){
+            stringToInt[m] = Integer.parseInt(res[m]);
+        }
+
+        return stringToInt;
+    }
+
+    public static String[] concatString(String[] str1, String[] str2){
+        int len1 = str1.length;
+        int len2 = str2.length;
+        String[] res = new String[len1+len2];
+
+        for (int i = 0; i<len1+len2; i++){
+            if (i<len1)
+                res[i] = str1[i];
+            else
+                res[i] = str2[i-len1];
+        }
+        return res;
+    }
+
+    public static String[] getStringFromTo(String[] str, int start, int end){
+        String[] res = new String[end-start+1];
+        for (int i = 0; i<end-start+1; i++)
+            res[i] = str[start+i];
+        return res;
+    }
+
+
+    public static String[] parametersMenu(int numberPlayers, int width, int height, int rounds, int tokens, String[] symbols){
         Scanner scanner = new Scanner(System.in);
         int[] res = {numberPlayers, width, height, rounds, tokens};
+        String[] buffString;
+        String[] symb = symbols;
         String buffer;
         int[] buff;
+        
 
         System.out.println("Bienvenue au puissance 4 !");
 
@@ -372,12 +495,15 @@ public class BonusMenu{
 
             // Paramètres
             else if (buffer.equals("3")){
-                buff = displayParameters(numberPlayers, width, height, rounds, tokens);
+                buffString = displayParameters(numberPlayers, width, height, rounds, tokens, symbols);
+                buff = convertStringToInt(getStringFromTo(buffString,0,4));
                 res[0] = buff[0];
                 res[1] = buff[1];
                 res[2] = buff[2];
                 res[3] = buff[3];
                 res[4] = buff[4];
+                System.out.println("Taille de buffString.length : "+buffString.length);
+                symb = getStringFromTo(buffString,5,buffString.length-1);
             }
 
             // Informations
@@ -398,7 +524,9 @@ public class BonusMenu{
             buffer = scanner.nextLine();
         }
         System.out.println("\nC'est parti !\n");
-        return res;
+
+        String[] finalRes = concatString(convertIntToString(res), symb);
+        return finalRes;  
     }
 
 }
